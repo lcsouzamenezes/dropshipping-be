@@ -1,0 +1,11 @@
+import { ICreateAccountDTO } from '../dtos/ICreateAccountDTO';
+import { Account } from '../infra/typeorm/entities/Account';
+
+type ICreateData = Pick<ICreateAccountDTO, 'name' | 'type'>;
+
+interface IAccountsRepository {
+  create(data: ICreateData): Promise<Account>;
+  delete(id: string): Promise<void>;
+}
+
+export { IAccountsRepository };

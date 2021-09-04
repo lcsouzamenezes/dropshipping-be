@@ -1,0 +1,47 @@
+{
+  "name": "dropshipping",
+  "version": "1.0.0",
+  "description": "A dropshipping shared plataform",
+  "main": "src/shared/infra/http/server.ts",
+  "author": "Jonathan Bertoldi",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "typeorm": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
+    "dev": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --respawn ./src/shared/infra/http/server.ts",
+    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "handlebars": "^4.7.7",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.14.1",
+    "nodemailer": "^6.6.3",
+    "reflect-metadata": "^0.1.10",
+    "tsyringe": "^4.6.0",
+    "typeorm": "0.2.37",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/express": "^4.17.13",
+    "@types/jest": "^27.0.1",
+    "@types/node": "^8.0.29",
+    "@types/nodemailer": "^6.4.4",
+    "@types/supertest": "^2.0.11",
+    "@types/uuid": "^8.3.1",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.1.0",
+    "prettier": "^2.3.2",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.0.5",
+    "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^3.11.0",
+    "typescript": "^4.4.2"
+  }
+}

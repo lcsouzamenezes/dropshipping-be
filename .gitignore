@@ -1,6 +1,8 @@
 #docker
 mysqldata
 
+.vscode
+
 # Logs
 logs
 *.log

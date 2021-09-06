@@ -1,5 +1,6 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account';
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity';
+import { Exclude } from 'class-transformer';
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 @Entity('users')
@@ -7,6 +8,7 @@ class User extends BaseEntity {
   @Column()
   email: string;
 
+  @Exclude()
   @Column()
   password: string;
 

@@ -7,10 +7,9 @@ export default {
   database: process.env.DATABASE_NAME || 'test',
   synchronize: true,
   logging: false,
+  migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
   entities: ['./src/modules/**/infra/typeorm/entities/*.ts'],
-  migrations: ['./src/shared/infra/typeorm/migration/**/*.ts'],
   cli: {
-    entitiesDir: '<entities directory>',
-    migrationsDir: '<migrations directory>',
+    migrationsDir: './src/shared/infra/typeorm/migrations',
   },
 };

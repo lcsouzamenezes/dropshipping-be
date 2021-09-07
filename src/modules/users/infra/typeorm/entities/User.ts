@@ -22,10 +22,8 @@ class User extends BaseEntity {
   })
   master: boolean;
 
-  @Column({
-    default: true,
-  })
-  admin: boolean;
+  @Column()
+  account_id: string;
 
   @OneToOne(() => Account, (account) => account.user)
   @JoinColumn({ referencedColumnName: 'id', name: 'account_id' })

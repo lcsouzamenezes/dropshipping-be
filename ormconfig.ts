@@ -7,11 +7,9 @@ export default {
   database: 'dropshipping_db',
   synchronize: true,
   logging: false,
-  entities: ['src/entity/**/*.ts'],
-  migrations: ['src/migration/**/*.ts'],
-  subscribers: ['src/subscriber/**/*.ts'],
+  migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
+  entities: ['./src/modules/**/infra/typeorm/entities/*.ts'],
   cli: {
-    entitiesDir: '<entities directory>',
-    migrationsDir: '<migrations directory>',
+    migrationsDir: './src/shared/infra/typeorm/migrations',
   },
 };

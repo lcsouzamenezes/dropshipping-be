@@ -1,7 +1,7 @@
 import { ICreateAccountDTO } from '../dtos/ICreateAccountDTO';
 import { Account } from '../infra/typeorm/entities/Account';
 
-type ICreateData = Pick<ICreateAccountDTO, 'name' | 'type'>;
+type ICreateData = Pick<ICreateAccountDTO, 'name' | 'type' | 'active'>;
 
 interface IAccountsRepository {
   create(data: ICreateData): Promise<Account>;

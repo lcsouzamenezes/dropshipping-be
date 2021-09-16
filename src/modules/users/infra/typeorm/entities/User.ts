@@ -25,7 +25,10 @@ class User extends BaseEntity {
   @Column()
   account_id: string;
 
-  @OneToOne(() => Account, (account) => account.user)
+  @OneToOne(() => Account, (account) => account.user, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   @JoinColumn({ referencedColumnName: 'id', name: 'account_id' })
   account: Account;
 }

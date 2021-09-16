@@ -6,15 +6,15 @@ import { IMailProvider, IViewInterface } from '../IMailProvider';
 @injectable()
 class MailTrap implements IMailProvider {
   constructor(
-    @inject('MailProvider')
+    @inject('ViewProvider')
     private viewProvider: IViewProvider
   ) {
     this.client = nodemailer.createTransport({
-      host: 'stmp.mailtrap.io',
+      host: 'smtp.mailtrap.io',
       port: 2525,
       auth: {
-        user: process.env.MAILTRAIN_USER,
-        pass: process.env.MAILTRAIN_PASS,
+        user: process.env.MAILTRAP_USER,
+        pass: process.env.MAILTRAP_PASS,
       },
     });
   }
@@ -25,6 +25,7 @@ class MailTrap implements IMailProvider {
     const html = this.viewProvider.render(view.path, view.variables);
 
     this.client.sendMail({
+      from: process.env.MAIL_FROM,
       to,
       subject,
       html,

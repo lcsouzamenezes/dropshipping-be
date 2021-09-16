@@ -8,6 +8,7 @@ import createConnection from '@shared/infra/typeorm';
 import { routes } from './routes';
 
 import '@shared/container';
+import '../../events';
 import { ErrorHandler } from './middlewares/ErrorMiddleware';
 
 createConnection();

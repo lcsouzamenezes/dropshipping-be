@@ -9,7 +9,7 @@ interface MailInterface {
 }
 
 @injectable()
-class FakeMail implements IMailProvider {
+class FakeMailProvider implements IMailProvider {
   private mails: MailInterface[] = [];
 
   constructor(
@@ -28,4 +28,4 @@ class FakeMail implements IMailProvider {
   }
 }
 
-export { FakeMail };
+export { FakeMailProvider };

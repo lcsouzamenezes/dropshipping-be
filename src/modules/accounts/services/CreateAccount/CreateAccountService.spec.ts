@@ -4,7 +4,7 @@ import { CreateUserService } from '@modules/users/services/CreateUser/CreateUser
 import { CreateAccountService } from './CreateAccountService';
 
 let accountsRepository: AccountsRepository;
-let usersRepositoru: UsersRepository;
+let usersRepository: UsersRepository;
 let createUserService: CreateUserService;
 
 describe('CreateAccountService', () => {
@@ -13,8 +13,8 @@ describe('CreateAccountService', () => {
   });
 
   beforeEach(() => {
-    usersRepositoru = new UsersRepository();
-    createUserService = new CreateUserService(usersRepositoru);
+    usersRepository = new UsersRepository();
+    createUserService = new CreateUserService(usersRepository);
   });
 
   it('Should be able to create a new account', async () => {
@@ -29,6 +29,20 @@ describe('CreateAccountService', () => {
       type: 'client',
     });
     expect(account).toHaveProperty('id');
+  });
+
+  it('Should be active the new account when created', async () => {
+    const createAccountService = new CreateAccountService(
+      accountsRepository,
+      createUserService
+    );
+    const account = await createAccountService.execute({
+      name: 'Elnora Harmon',
+      email: 'uwoubik@susvacbo.mw',
+      password: 'XzC8Jemdjiwk',
+      type: 'client',
+    });
+    expect(account.active).toBeTruthy();
   });
 
   it('Should create a new account as a client by default', async () => {

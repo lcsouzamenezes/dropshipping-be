@@ -1,1 +1,2 @@
 import './MailProvider';
+import './ViewProvider';

@@ -19,11 +19,16 @@ class CreateAccountService {
 
   async execute({
     name,
-    type = 'client',
     email,
     password,
+    type = 'client',
+    active = true,
   }: ICreateAccountDTO): Promise<Account> {
-    const account = await this.accountsRepository.create({ name, type });
+    const account = await this.accountsRepository.create({
+      name,
+      type,
+      active,
+    });
 
     try {
       const user = await this.createUserService.execute({

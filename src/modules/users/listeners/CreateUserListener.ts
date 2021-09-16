@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 import { User } from '../infra/typeorm/entities/User';
-import { SendActivationMailService } from '../services/CreateUser/SendActivationMailService';
+import { SendActivationMailService } from '../services/SendActivationEmailAccount/SendActivationMailService';
 
 class CreateUserListener {
   async handle(user: User): Promise<void> {

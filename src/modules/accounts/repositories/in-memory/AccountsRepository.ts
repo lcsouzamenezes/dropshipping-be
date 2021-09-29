@@ -32,6 +32,10 @@ class AccountsRepository implements IAccountsRepository {
     const account = this.accounts.find((account) => account.id === id)
     return account
   }
+
+  async listAll(): Promise<Account[]> {
+    return this.accounts
+  }
 }
 
 export { AccountsRepository }

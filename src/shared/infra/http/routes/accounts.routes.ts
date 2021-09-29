@@ -1,10 +1,13 @@
-import { CreateAccountController } from '@modules/accounts/services/CreateAccount/CreateAccountController';
-import { Router } from 'express';
+import { CreateAccountController } from '@modules/accounts/services/CreateAccount/CreateAccountController'
+import { ListAccountsController } from '@modules/accounts/services/ListAccounts/ListAccountsController'
+import { Router } from 'express'
 
-const accountsRoutes = Router();
+const accountsRoutes = Router()
 
-const createAccountController = new CreateAccountController();
+const listAccountsController = new ListAccountsController()
+const createAccountController = new CreateAccountController()
 
-accountsRoutes.post('/', createAccountController.handle);
+accountsRoutes.get('/', listAccountsController.handle)
+accountsRoutes.post('/', createAccountController.handle)
 
-export { accountsRoutes };
+export { accountsRoutes }

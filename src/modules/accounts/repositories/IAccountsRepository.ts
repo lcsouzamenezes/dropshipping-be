@@ -7,6 +7,7 @@ interface IAccountsRepository {
   create(data: ICreateData): Promise<Account>
   delete(id: string): Promise<void>
   findById(id: string): Promise<Account>
+  listAll(): Promise<Account[]>
 }
 
 export { IAccountsRepository }

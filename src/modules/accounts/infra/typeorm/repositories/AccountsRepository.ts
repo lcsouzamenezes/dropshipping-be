@@ -26,6 +26,11 @@ class AccountsRepository implements IAccountsRepository {
     const account = await this.repostiory.findOne(id)
     return account
   }
+
+  async listAll(): Promise<Account[]> {
+    const accounts = await this.repostiory.find()
+    return accounts
+  }
 }
 
 export { AccountsRepository }

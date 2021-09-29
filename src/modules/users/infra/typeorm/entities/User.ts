@@ -1,39 +1,39 @@
-import { Account } from '@modules/accounts/infra/typeorm/entities/Account';
-import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity';
-import { Exclude } from 'class-transformer';
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm';
-import { UserToken } from './UserToken';
+import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
+import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
+import { Exclude } from 'class-transformer'
+import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
+import { UserToken } from './UserToken'
 
 @Entity('users')
 class User extends BaseEntity {
   @Column()
-  email: string;
+  email: string
 
   @Exclude()
   @Column()
-  password: string;
+  password: string
 
   @Column({
     default: false,
   })
-  active: boolean;
+  active: boolean
 
   @Column({
     default: false,
   })
-  master: boolean;
+  master: boolean
 
   @Column()
-  account_id: string;
+  account_id: string
 
   @OneToOne(() => Account, (account) => account.user, {
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE',
   })
-  @JoinColumn({ referencedColumnName: 'id', name: 'account_id' })
-  account: Account;
+  @JoinColumn({ name: 'account_id' })
+  account: Account
 
-  tokens: UserToken[];
+  tokens: UserToken[]
 }
 
-export { User };
+export { User }

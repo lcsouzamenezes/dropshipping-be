@@ -1,24 +1,31 @@
-import express from 'express';
-import 'express-async-errors';
+import express from 'express'
+import cors from 'cors'
+import 'express-async-errors'
 
-import dotenv from 'dotenv';
-dotenv.config();
+import dotenv from 'dotenv'
+dotenv.config()
 
-import createConnection from '@shared/infra/typeorm';
-import { routes } from './routes';
+import createConnection from '@shared/infra/typeorm'
+import { routes } from './routes'
 
-import '@shared/container';
-import '../../events';
-import { ErrorHandler } from './middlewares/ErrorMiddleware';
+import '@shared/container'
+import '../../events'
+import { ErrorHandler } from './middlewares/ErrorMiddleware'
 
-createConnection();
+createConnection()
 
-const app = express();
+const app = express()
 
-app.use(express.json());
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+  })
+)
 
-app.use('/api', routes);
+app.use(express.json())
 
-app.use(ErrorHandler);
+app.use(routes)
 
-export { app };
+app.use(ErrorHandler)
+
+export { app }

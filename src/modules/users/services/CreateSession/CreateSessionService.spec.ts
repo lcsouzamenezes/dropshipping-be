@@ -71,9 +71,7 @@ describe('CreateSessionService', () => {
       })
     }
 
-    expect(session).rejects.toThrowError(
-      new AppError('Invalid email or password')
-    )
+    expect(session).rejects.toThrowError('Invalid email or password')
   })
 
   it('should not be able to create a session with invalid password', async () => {
@@ -97,8 +95,6 @@ describe('CreateSessionService', () => {
       })
     }
 
-    expect(session).rejects.toThrowError(
-      new AppError('Invalid email or password')
-    )
+    expect(session).rejects.toThrowError('Invalid email or password')
   })
 })

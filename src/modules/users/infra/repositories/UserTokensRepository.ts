@@ -37,6 +37,14 @@ class UserTokensRepository implements IUserTokensRepository {
 
     await query.execute()
   }
+
+  async findByUserIdAndToken(
+    user_id: string,
+    token: string
+  ): Promise<UserToken> {
+    const tokenFound = await this.repository.findOne({ token, user_id })
+    return tokenFound
+  }
 }
 
 export { UserTokensRepository }

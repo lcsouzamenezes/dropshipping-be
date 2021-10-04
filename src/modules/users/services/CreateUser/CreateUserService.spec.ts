@@ -1,6 +1,5 @@
 import { AccountsRepository } from '@modules/accounts/repositories/in-memory/AccountsRepository'
 import { UsersRepository as UserRepositoryInMemory } from '@modules/users/repositories/in-memory/UsersRepository'
-import { AppError } from '@shared/errors/AppError'
 import { CreateUserService } from './CreateUserService'
 
 let accountsRepository: AccountsRepository
@@ -99,6 +98,6 @@ describe('CreateUserService', () => {
       })
     }
 
-    expect(tryAgain).rejects.toThrow(new AppError('E-mail already taken'))
+    expect(tryAgain).rejects.toThrow('E-mail already taken')
   })
 })

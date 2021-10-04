@@ -7,6 +7,7 @@ import { inject, injectable } from 'tsyringe'
 import authConfig from '@config/auth'
 import { IUserTokensRepository } from '@modules/users/repositories/IUserTokensRepository'
 import { IDateProvider } from '@shared/providers/DateProvider/IDateProvider'
+import { generateTokenAndRefreshToken } from '@modules/users/utils/generateTokenAndRefreshToken'
 
 interface IResponse {
   user: {}
@@ -29,42 +30,27 @@ class CreateSessionService {
     const user = await this.usersRepository.findByEmail(email)
 
     if (!user) {
-      throw new AppError('Invalid email or password')!
+      throw new AppError('Invalid email or password', 'invalid.credentials')
     }
 
     const passwordMatch = await compare(password, user.password)
 
     if (!passwordMatch) {
-      throw new AppError('Invalid email or password')!
+      throw new AppError('Invalid email or password', 'invalid.credentials')
     }
 
-    const token = sign({}, authConfig.token_secret, {
-      subject: user.id,
-      expiresIn: authConfig.token_expires_in,
-    })
+    const { token, refreshToken } = await generateTokenAndRefreshToken(user.id)
 
-    const refreshToken = sign({}, authConfig.refresh_token_secret, {
-      subject: user.id,
-      expiresIn: authConfig.refresh_token_expires_in,
-    })
+    const roles = [user.account.type]
 
-    const refreshTokenExpiresAt = this.dateProvider.addSeconds(
-      authConfig.refresh_token_expires_in
-    )
-
-    await this.userTokensRepository.deleteUserRefreshTokens(user.id)
-
-    await this.userTokensRepository.create({
-      token: refreshToken,
-      expires_at: refreshTokenExpiresAt,
-      type: 'refresh_token',
-      user_id: user.id,
-    })
+    if (user.master) {
+      roles.push('master')
+    }
 
     return {
       user: {
         email,
-        role: user.account.type,
+        roles,
       },
       token,
       refreshToken,

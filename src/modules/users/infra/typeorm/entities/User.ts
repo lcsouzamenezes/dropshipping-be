@@ -1,7 +1,7 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
 import { Exclude } from 'class-transformer'
-import { Column, Entity, JoinColumn, OneToMany, OneToOne } from 'typeorm'
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm'
 import { UserToken } from './UserToken'
 
 @Entity('users')
@@ -13,11 +13,13 @@ class User extends BaseEntity {
   @Column()
   password: string
 
+  @Exclude()
   @Column({
     default: false,
   })
   active: boolean
 
+  @Exclude()
   @Column({
     default: false,
   })

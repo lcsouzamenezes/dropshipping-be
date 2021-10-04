@@ -40,6 +40,17 @@ class UserTokensRepository implements IUserTokensRepository {
     })
     this.tokens = tokens
   }
+
+  async findByUserIdAndToken(
+    user_id: string,
+    token: string
+  ): Promise<UserToken> {
+    const findToken = this.tokens.find(
+      (lookupToken) =>
+        lookupToken.token === token && lookupToken.user_id === user_id
+    )
+    return findToken
+  }
 }
 
 export { UserTokensRepository }

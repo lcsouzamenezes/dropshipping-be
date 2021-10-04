@@ -27,5 +27,13 @@ class UsersRepository implements IUsersRepository {
     }
     return user
   }
+
+  async findById(id: string, options?: { relations: string[] }): Promise<User> {
+    const user = this.users.find((user) => user.id === id)
+    if (options?.relations[0] === 'account') {
+      user.account = await this.accountsRepository.findById(user.account_id)
+    }
+    return user
+  }
 }
 export { UsersRepository }

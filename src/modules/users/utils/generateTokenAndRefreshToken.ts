@@ -1,6 +1,6 @@
 import { sign } from 'jsonwebtoken'
 import authConfig from '@config/auth'
-import { container } from 'tsyringe'
+import { container, inject, injectable } from 'tsyringe'
 import { IUserTokensRepository } from '../repositories/IUserTokensRepository'
 import { IDateProvider } from '@shared/providers/DateProvider/IDateProvider'
 

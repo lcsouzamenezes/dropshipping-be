@@ -1,16 +1,16 @@
 import { AccountsRepository } from '@modules/accounts/repositories/in-memory/AccountsRepository'
 import { UsersRepository } from '@modules/users/repositories/in-memory/UsersRepository'
-import { GetSelfPermissions } from './GetSelfPermissions'
+import { GetSelfPermissionsService } from './GetSelfPermissionsService'
 
-describe('GetSelfPermissions', () => {
+describe('GetSelfPermissionsService', () => {
   let accountsRepository: AccountsRepository
   let usersRepository: UsersRepository
-  let getSelfPermissions: GetSelfPermissions
+  let getSelfPermissions: GetSelfPermissionsService
 
   beforeAll(() => {
     accountsRepository = new AccountsRepository()
     usersRepository = new UsersRepository(accountsRepository)
-    getSelfPermissions = new GetSelfPermissions(usersRepository)
+    getSelfPermissions = new GetSelfPermissionsService(usersRepository)
   })
 
   it('should be able to list all permissions of the user', async () => {

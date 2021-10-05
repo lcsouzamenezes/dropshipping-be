@@ -4,7 +4,7 @@ import bcryptjs from 'bcryptjs'
 import { AccountsRepository } from '@modules/accounts/repositories/in-memory/AccountsRepository'
 import { UserTokensRepository } from '@modules/users/repositories/in-memory/UserTokensRepository'
 import { FakeDateProvider } from '@shared/providers/DateProvider/fakes/FakeDateProvider'
-import { AppError } from '@shared/errors/AppError'
+import * as GenerateTokenAndRefreshToken from '@modules/users/utils/generateTokenAndRefreshToken'
 
 let accountsRepository: AccountsRepository
 let usersRepository: UsersRepository
@@ -40,6 +40,15 @@ describe('CreateSessionService', () => {
       ...accountData,
       account_id: account.id,
     })
+
+    jest
+      .spyOn(GenerateTokenAndRefreshToken, 'generateTokenAndRefreshToken')
+      .mockImplementation(async () => {
+        return {
+          refreshToken: '123',
+          token: '123',
+        }
+      })
 
     const session = await createSessionService.execute({
       email: 'wusofeceg@ku.pl',

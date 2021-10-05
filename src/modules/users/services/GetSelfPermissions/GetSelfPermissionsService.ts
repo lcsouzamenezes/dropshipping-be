@@ -3,7 +3,7 @@ import { AppError } from '@shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
-class GetSelfPermissions {
+class GetSelfPermissionsService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository
@@ -26,4 +26,4 @@ class GetSelfPermissions {
   }
 }
 
-export { GetSelfPermissions }
+export { GetSelfPermissionsService }

@@ -32,7 +32,7 @@ describe('GetSelfPermissionsService', () => {
 
     const permissions = await getSelfPermissions.execute(user.id)
 
-    expect(permissions).toHaveLength(1)
-    expect(permissions[0]).toBe('supplier')
+    expect(permissions.roles).toHaveLength(1)
+    expect(permissions.roles[0]).toBe('supplier')
   })
 })

@@ -13,7 +13,7 @@ class GetSelfPermissionsController {
       throw new AppError('Permissions not found', 'permissions.not_found')
     }
 
-    return response.json({ permissions })
+    return response.json(permissions)
   }
 }
 

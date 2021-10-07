@@ -7,6 +7,9 @@ import { UserToken } from './UserToken'
 @Entity('users')
 class User extends BaseEntity {
   @Column()
+  name: string
+
+  @Column()
   email: string
 
   @Exclude()

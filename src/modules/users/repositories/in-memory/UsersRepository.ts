@@ -35,5 +35,9 @@ class UsersRepository implements IUsersRepository {
     }
     return user
   }
+
+  async getAll(options?: { relations: string[] }): Promise<User[]> {
+    return this.users
+  }
 }
 export { UsersRepository }

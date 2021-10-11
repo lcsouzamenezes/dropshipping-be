@@ -10,7 +10,7 @@ class AccountsRepository implements IAccountsRepository {
     name,
     password,
     active = true,
-    type = 'client',
+    type = 'seller',
   }: ICreateAccountDTO): Promise<Account> {
     const account = new Account()
     Object.assign(account, {

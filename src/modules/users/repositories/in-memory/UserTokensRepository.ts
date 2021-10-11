@@ -51,6 +51,17 @@ class UserTokensRepository implements IUserTokensRepository {
     )
     return findToken
   }
+
+  async findByActivationToken(token: string): Promise<UserToken> {
+    return this.tokens.find(
+      (findToken) =>
+        findToken.token == token && findToken.type == 'activation_token'
+    )
+  }
+
+  async deleteById(id: string): Promise<void> {
+    this.tokens = this.tokens.filter((token) => token.id === id)
+  }
 }
 
 export { UserTokensRepository }

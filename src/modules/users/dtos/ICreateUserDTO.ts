@@ -1,7 +1,8 @@
 interface ICreateUserDTO {
-  email: string;
-  password: string;
-  account_id: string;
+  name: string
+  email: string
+  password: string
+  account_id: string
 }
 
-export { ICreateUserDTO };
+export { ICreateUserDTO }

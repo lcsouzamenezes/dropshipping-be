@@ -29,6 +29,7 @@ describe('CreateSessionService', () => {
 
   it('shoul be able to create a session', async () => {
     const accountData = {
+      company: 'Mayme Wallace',
       name: 'Virginia Moran',
       email: 'wusofeceg@ku.pl',
       password: 'CyhiN956tSc5',
@@ -61,6 +62,7 @@ describe('CreateSessionService', () => {
 
   it('should not be able to create a session with invalid email', async () => {
     const accountData = {
+      company: 'Dale Fields',
       name: 'Virginia Moran',
       email: 'wusofeceg@ku.pl',
       password: 'CyhiN956tSc5',
@@ -85,6 +87,7 @@ describe('CreateSessionService', () => {
 
   it('should not be able to create a session with invalid password', async () => {
     const accountData = {
+      company: 'Ann Taylor',
       name: 'Virginia Moran',
       email: 'wusofeceg@ku.pl',
       password: 'CyhiN956tSc5',

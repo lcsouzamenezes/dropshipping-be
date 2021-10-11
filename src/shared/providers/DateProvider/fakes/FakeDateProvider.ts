@@ -10,6 +10,15 @@ class FakeDateProvider implements IDateProvider {
     const now = new Date()
     return now
   }
+
+  isFuture(date: Date): boolean {
+    const today = new Date()
+    const validating = new Date(date)
+    if (today < validating) {
+      return true
+    }
+    return false
+  }
 }
 
 export { FakeDateProvider }

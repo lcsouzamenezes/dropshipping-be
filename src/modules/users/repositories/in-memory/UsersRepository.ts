@@ -13,9 +13,14 @@ class UsersRepository implements IUsersRepository {
 
   private users: User[] = []
 
-  async create({ email, password, account_id }: ICreateUserDTO): Promise<User> {
+  async create({
+    name,
+    email,
+    password,
+    account_id,
+  }: ICreateUserDTO): Promise<User> {
     const user = new User()
-    Object.assign(user, { email, password, account_id })
+    Object.assign(user, { name, email, password, account_id })
     this.users.push(user)
     return user
   }
@@ -38,6 +43,12 @@ class UsersRepository implements IUsersRepository {
 
   async getAll(options?: { relations: string[] }): Promise<User[]> {
     return this.users
+  }
+
+  async update(user: User): Promise<User> {
+    const index = this.users.findIndex((findUser) => findUser.id === user.id)
+    this.users[index] = user
+    return user
   }
 }
 export { UsersRepository }

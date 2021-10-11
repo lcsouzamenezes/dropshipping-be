@@ -1,3 +1,4 @@
+import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
 import { User } from '@modules/users/infra/typeorm/entities/User'
 import { UserTokensRepository } from '@modules/users/repositories/in-memory/UserTokensRepository'
 import { FakeDateProvider } from '@shared/providers/DateProvider/fakes/FakeDateProvider'
@@ -27,16 +28,21 @@ describe('SendActivationMailService', () => {
   it('should be able to send a email', async () => {
     const spyOnMailProviderSend = jest.spyOn(mailProvider, 'send')
 
+    const account = new Account()
     const user = new User()
 
     Object.assign(user, {
+      name: 'Cody Owen',
+      account_id: account.id,
       email: 'awipwe@tu.nu',
       password: '78GbS8r5CN3X',
       active: false,
       master: false,
     })
 
-    await sendActivationMailService.execute(user)
+    account.user = user
+
+    await sendActivationMailService.execute(account)
 
     expect(spyOnMailProviderSend).toBeCalledTimes(1)
   })

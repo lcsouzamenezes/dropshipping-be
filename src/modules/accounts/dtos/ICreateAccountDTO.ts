@@ -1,9 +1,11 @@
 interface ICreateAccountDTO {
-  name: string;
-  active?: boolean;
-  type?: 'client' | 'supplier';
-  email: string;
-  password: string;
+  company: string
+  name: string
+  active?: boolean
+  type?: 'seller' | 'supplier'
+  email: string
+  password: string
+  redirectUrl?: string
 }
 
-export { ICreateAccountDTO };
+export { ICreateAccountDTO }

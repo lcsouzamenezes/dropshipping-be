@@ -15,13 +15,12 @@ class CreateUserService {
     private usersRepository: IUsersRepository
   ) {}
   async execute({
+    name,
     email,
     password,
     account_id,
   }: ICreateUserDTO): Promise<User> {
     const hashedPassword = await hash(password, 8)
-    const events = container.resolve(EventProvider)
-
     const userExist = await this.usersRepository.findByEmail(email)
 
     if (userExist) {
@@ -29,13 +28,11 @@ class CreateUserService {
     }
 
     const user = await this.usersRepository.create({
+      name,
       email,
       password: hashedPassword,
       account_id,
     })
-
-    events.emit('user-created', user)
-
     return user
   }
 }

@@ -17,10 +17,11 @@ describe('CreateUserService', () => {
     const userData = {
       email: 'mizani@nog.sx',
       password: 'SSNLKg5aOm',
+      name: 'Cody Owen',
     }
 
     const account = await accountsRepository.create({
-      name: 'Cody Owen Comp.',
+      company: 'Cody Owen Comp.',
       ...userData,
     })
 
@@ -37,12 +38,13 @@ describe('CreateUserService', () => {
     const notHashedPassword = 'wbXbdlonb1lE'
 
     const userData = {
+      name: 'Cody Owen',
       email: 'ejeuctan@egzunadu.ht',
       password: notHashedPassword,
     }
 
     const account = await accountsRepository.create({
-      name: 'Cody Owen Comp.',
+      company: 'Cody Owen Comp.',
       ...userData,
     })
 
@@ -59,10 +61,11 @@ describe('CreateUserService', () => {
     const userData = {
       email: 'ba@ma.vi',
       password: 'KUMXW5hy8yNN',
+      name: 'Cody Owen',
     }
 
     const account = await accountsRepository.create({
-      name: 'Brent Hart Comp.',
+      company: 'Brent Hart Comp.',
       ...userData,
     })
 
@@ -79,10 +82,11 @@ describe('CreateUserService', () => {
     const userData = {
       email: 'ba@ma.vi',
       password: 'KUMXW5hy8yNN',
+      name: 'Cody Owen',
     }
 
     const account = await accountsRepository.create({
-      name: 'Brent Hart Comp.',
+      company: 'Brent Hart Comp.',
       ...userData,
     })
 

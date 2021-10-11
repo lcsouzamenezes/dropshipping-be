@@ -15,6 +15,7 @@ describe('GetSelfPermissionsService', () => {
 
   it('should be able to list all permissions of the user', async () => {
     const userData = {
+      name: 'Seth Garner',
       email: 'odada@igogeh.au',
       password: '21850298835774138354129182024017',
     }
@@ -24,6 +25,7 @@ describe('GetSelfPermissionsService', () => {
       name: 'Madge Warren',
       active: true,
       type: 'supplier',
+      company: 'Wayne Goodman',
     })
     const user = await usersRepository.create({
       ...userData,

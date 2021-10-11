@@ -6,7 +6,7 @@ export default [
     username: 'dropshipping',
     password: 'dropshipping',
     database: 'dropshipping_db',
-    synchronize: true,
+    synchronize: false,
     logging: false,
     migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
     entities: ['./src/modules/**/infra/typeorm/entities/*.ts'],
@@ -30,4 +30,4 @@ export default [
       migrationsDir: './src/shared/infra/typeorm/seeders',
     },
   },
-];
+]

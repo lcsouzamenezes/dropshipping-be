@@ -10,8 +10,13 @@ class UsersRepository implements IUsersRepository {
     this.repository = getRepository(User)
   }
 
-  async create({ email, password, account_id }: ICreateUserDTO): Promise<User> {
-    const user = this.repository.create({ email, password, account_id })
+  async create({
+    name,
+    email,
+    password,
+    account_id,
+  }: ICreateUserDTO): Promise<User> {
+    const user = this.repository.create({ name, email, password, account_id })
     return await this.repository.save(user)
   }
   async findByEmail(email: string): Promise<User> {
@@ -30,6 +35,11 @@ class UsersRepository implements IUsersRepository {
   async getAll(options?: { relations: string[] }): Promise<any> {
     const users = await this.repository.createQueryBuilder('user').paginate()
     return users
+  }
+
+  async update(user: User): Promise<User> {
+    const updatedUser = await this.repository.save(user)
+    return updatedUser
   }
 }
 

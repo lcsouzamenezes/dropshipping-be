@@ -1,3 +1,4 @@
+import { type } from 'os'
 import {
   Column,
   CreateDateColumn,
@@ -30,7 +31,9 @@ class UserToken {
   @JoinColumn({ name: 'user_id' })
   user: User
 
-  @Column()
+  @Column({
+    type: 'timestamp',
+  })
   expires_at: Date
 
   @CreateDateColumn({

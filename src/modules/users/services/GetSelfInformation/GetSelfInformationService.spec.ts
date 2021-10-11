@@ -18,6 +18,7 @@ describe('GetSelfInformationService', () => {
 
   it('should be able to return user info', async () => {
     const user = await usersRepository.create({
+      name: 'Clarence Delgado',
       email: 'agwi@docuduam.lv',
       password: 'ELCBFPvZ5tDl',
       account_id: 'pU61qZNzNdNGFSr1fN8eaS4lubWy5ejD',

@@ -7,7 +7,7 @@
   "extends": [
     "airbnb-base",
     "plugin:prettier/recommended",
-    "prettier/@typescript-esling",
+    "prettier/@typescript-eslint",
     "plugin:@typescript-eslint/recommended"
   ],
   "parser": "@typescript-eslint/parser",

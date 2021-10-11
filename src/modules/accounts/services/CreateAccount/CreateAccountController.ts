@@ -1,7 +1,7 @@
-import { classToClass } from 'class-transformer';
-import { NextFunction, Request, Response } from 'express';
-import { container } from 'tsyringe';
-import { CreateAccountService } from './CreateAccountService';
+import { classToClass } from 'class-transformer'
+import { NextFunction, Request, Response } from 'express'
+import { container } from 'tsyringe'
+import { CreateAccountService } from './CreateAccountService'
 
 class CreateAccountController {
   async handle(
@@ -9,17 +9,18 @@ class CreateAccountController {
     response: Response,
     next: NextFunction
   ): Promise<Response> {
-    const { name, type, email, password } = request.body;
-    const createAccountService = container.resolve(CreateAccountService);
+    const { company, name, type, email, password } = request.body
+    const createAccountService = container.resolve(CreateAccountService)
 
     const account = await createAccountService.execute({
+      company,
       name,
       type,
       email,
       password,
-    });
-    return response.status(201).json(classToClass(account));
+    })
+    return response.status(201).json(classToClass(account))
   }
 }
 
-export { CreateAccountController };
+export { CreateAccountController }

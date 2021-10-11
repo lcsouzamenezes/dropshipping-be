@@ -13,6 +13,7 @@ describe('ListUsersService', () => {
   it('should be able to list users', async () => {
     for (let i = 0; i < 3; i++) {
       await usersRepository.create({
+        name: 'Cody Owen',
         email: 'test@example.com' + i,
         account_id: '12345-' + i,
         password: '12345',

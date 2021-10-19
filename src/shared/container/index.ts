@@ -1,4 +1,5 @@
-import './accounts';
-import './users';
+import './accounts'
+import './users'
+import './integrations'
 
-import '@shared/providers';
+import '@shared/providers'

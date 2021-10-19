@@ -1,6 +1,10 @@
 import { IDateProvider } from '../IDateProvider'
 
 class FakeDateProvider implements IDateProvider {
+  addMiliseconds(miliseconds: number): Date {
+    const now = new Date()
+    return now
+  }
   addSeconds(seconds: number): Date {
     const now = new Date()
     return now

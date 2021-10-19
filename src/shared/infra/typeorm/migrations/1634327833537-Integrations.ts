@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class Users1630977255727 implements MigrationInterface {
+export class Integrations1634327833537 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'users',
+        name: 'integrations',
         columns: [
           {
             name: 'id',
@@ -13,26 +13,35 @@ export class Users1630977255727 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
-            name: 'email',
+            name: 'description',
             type: 'varchar',
-          },
-          {
-            name: 'password',
-            type: 'varchar',
-          },
-          {
-            name: 'active',
-            type: 'boolean',
-            default: false,
-          },
-          {
-            name: 'master',
-            type: 'boolean',
-            default: false,
           },
           {
             name: 'account_id',
             type: 'varchar',
+          },
+          {
+            name: 'provider',
+            type: 'varchar',
+          },
+          {
+            name: 'access_token',
+            type: 'varchar',
+          },
+          {
+            name: 'refresh_token',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'user_id',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'expires_at',
+            type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'created_at',
@@ -48,12 +57,12 @@ export class Users1630977255727 implements MigrationInterface {
         ],
         foreignKeys: [
           {
-            name: 'users_account_id',
-            referencedTableName: 'accounts',
+            name: 'integrations_account_id',
             columnNames: ['account_id'],
             referencedColumnNames: ['id'],
-            onDelete: 'CASCADE',
+            referencedTableName: 'accounts',
             onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         ],
       })
@@ -61,6 +70,6 @@ export class Users1630977255727 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users')
+    await queryRunner.dropTable('integrations')
   }
 }

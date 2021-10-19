@@ -31,6 +31,7 @@ async function EnsureAuthenticated(
 
     request.user = {
       id: user.id,
+      account_id: user.account_id,
     }
 
     return next()

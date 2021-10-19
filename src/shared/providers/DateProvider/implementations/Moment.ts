@@ -2,12 +2,15 @@ import moment from 'moment'
 import { IDateProvider } from '../IDateProvider'
 
 class Moment implements IDateProvider {
+  addMiliseconds(miliseconds: number): Date {
+    return moment().add(miliseconds, 'millisecond').toDate()
+  }
   addSeconds(seconds: number): Date {
-    return moment().add(seconds, 's').toDate()
+    return moment().add(seconds, 'seconds').toDate()
   }
 
   addMinutes(minutes: number): Date {
-    return moment().add(minutes, 'm').toDate()
+    return moment().add(minutes, 'minutes').toDate()
   }
 
   isFuture(date: Date): boolean {

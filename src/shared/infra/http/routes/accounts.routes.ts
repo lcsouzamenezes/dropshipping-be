@@ -1,7 +1,7 @@
 import { CreateAccountController } from '@modules/accounts/services/CreateAccount/CreateAccountController'
 import { ListAccountsController } from '@modules/accounts/services/ListAccounts/ListAccountsController'
 import { Router } from 'express'
-import { createAccountValidation } from '../middlewares/validations/createAccountValidation'
+import { createAccountValidation } from '@modules/accounts/validations/createAccountValidation'
 
 const accountsRoutes = Router()
 

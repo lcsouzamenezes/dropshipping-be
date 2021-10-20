@@ -5,9 +5,11 @@ import { ListIntegrationsService } from './ListIntegrationsService'
 class ListIntegrationsController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { account_id } = request.user
-    console.log(account_id)
+
+    const type = request.query.type as string
+
     const listIntegrationsService = container.resolve(ListIntegrationsService)
-    const integrations = await listIntegrationsService.execute(account_id)
+    const integrations = await listIntegrationsService.execute(account_id, type)
 
     return response.send(integrations)
   }

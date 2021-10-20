@@ -44,7 +44,9 @@ class CreateIntegrationService {
       {
         description,
         access_token,
-        expires_at: this.dateProvider.addSeconds(expires_at),
+        expires_at: expires_at
+          ? this.dateProvider.addSeconds(expires_at)
+          : undefined,
         user_id,
         refresh_token,
         provider,

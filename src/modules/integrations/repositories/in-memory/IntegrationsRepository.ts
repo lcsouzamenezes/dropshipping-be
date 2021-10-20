@@ -26,10 +26,19 @@ class IntegrationsRepository implements IIntegrationsRepository {
     this.integrations.filter((integration) => integration.id !== id)
   }
 
-  async findByAccountId(account_id: string): Promise<Integration[]> {
-    const integrations = this.integrations.filter(
-      (integration) => integration.account_id === account_id
-    )
+  async findByAccountId(
+    account_id: string,
+    provider?: string
+  ): Promise<Integration[]> {
+    const integrations = this.integrations.filter((integration) => {
+      if (integration.account_id === account_id) {
+        if (provider && integration.provider !== provider) {
+          return false
+        }
+        return true
+      }
+      return false
+    })
     return integrations
   }
 }

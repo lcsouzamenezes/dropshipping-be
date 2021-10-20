@@ -11,9 +11,13 @@ class ListIntegrationsService {
     private integrationsRepository: IIntegrationsRepository
   ) {}
 
-  async execute(account_id: string): Promise<IntegrationDTO[]> {
+  async execute(
+    account_id: string,
+    provider?: string
+  ): Promise<IntegrationDTO[]> {
     const integrations = await this.integrationsRepository.findByAccountId(
-      account_id
+      account_id,
+      provider
     )
 
     return integrations.map((integration) =>

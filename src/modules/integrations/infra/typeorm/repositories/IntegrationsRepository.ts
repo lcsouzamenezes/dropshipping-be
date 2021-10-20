@@ -38,12 +38,19 @@ class IntegrationsRepository implements IIntegrationsRepository {
     await this.repository.delete(id)
   }
 
-  async findByAccountId(account_id: string): Promise<Integration[]> {
-    const integrations = await this.repository.find({
-      where: {
-        account_id,
-      },
-    })
+  async findByAccountId(
+    account_id: string,
+    provider?: string
+  ): Promise<Integration[]> {
+    const integrationsQuery = this.repository
+      .createQueryBuilder()
+      .where('account_id = :account_id', { account_id })
+
+    if (provider) {
+      integrationsQuery.where('provider = :provider', { provider })
+    }
+
+    const integrations = await integrationsQuery.getMany()
 
     return integrations
   }

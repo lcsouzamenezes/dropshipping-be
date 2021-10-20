@@ -13,7 +13,7 @@ interface IIntegrationsRepository {
   create(data: ICreate, account_id: string): Promise<Integration>
   findByUserId(user_id: string, account_id: string): Promise<Integration>
   deleteById(id: string): Promise<void>
-  findByAccountId(account_id: string): Promise<Integration[]>
+  findByAccountId(account_id: string, provider?: string): Promise<Integration[]>
 }
 
 export { IIntegrationsRepository }

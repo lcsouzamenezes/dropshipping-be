@@ -26,6 +26,7 @@ export const createIntegration = [
   check('expires_at')
     .trim()
     .escape()
+    .optional()
     .isInt()
     .withMessage('expires_at must be integer'),
   check('user_id').trim().escape(),

@@ -15,6 +15,7 @@ services:
       - db:database
     depends_on:
       - db
+      - redis
   db:
     image: mysql:5.7.35
     container_name: dropshipping_database
@@ -27,5 +28,11 @@ services:
       MYSQL_PASSWORD: dropshipping
     volumes:
       - db_data:/var/lib/mysql
+  redis:
+    image: redis:alpine
+    container_name: dropshipping_redis
+    ports:
+      - '6379:6379'
+    command: redis-server --requirepass Clubgroup69*
 volumes:
   db_data: {}

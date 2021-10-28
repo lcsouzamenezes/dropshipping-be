@@ -1,8 +1,15 @@
-import { app } from './app';
-import config from '@config/app';
+import http from 'http'
+import { app } from './app'
+import { connectSocketIo } from './socket'
 
-const { port } = config;
+import config from '@config/app'
 
-app.listen(port, () => {
-  console.log(`🚀 server running on port: ${port}`);
-});
+const { port } = config
+
+const server = http.createServer(app)
+
+connectSocketIo(server)
+
+server.listen(port, () => {
+  console.log(`🚀 server running on port: ${port}`)
+})

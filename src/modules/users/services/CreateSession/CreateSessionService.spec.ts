@@ -37,10 +37,14 @@ describe('CreateSessionService', () => {
 
     const account = await accountsRepository.create(accountData)
 
-    await usersRepository.create({
+    const user = await usersRepository.create({
       ...accountData,
       account_id: account.id,
     })
+
+    user.active = true
+
+    await usersRepository.update(user)
 
     jest
       .spyOn(GenerateTokenAndRefreshToken, 'generateTokenAndRefreshToken')
@@ -82,7 +86,7 @@ describe('CreateSessionService', () => {
       })
     }
 
-    expect(session).rejects.toThrowError('Invalid email or password')
+    await expect(session).rejects.toThrowError('Invalid email or password')
   })
 
   it('should not be able to create a session with invalid password', async () => {
@@ -107,6 +111,6 @@ describe('CreateSessionService', () => {
       })
     }
 
-    expect(session).rejects.toThrowError('Invalid email or password')
+    await expect(session).rejects.toThrowError('Invalid email or password')
   })
 })

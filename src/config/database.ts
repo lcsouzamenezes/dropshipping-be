@@ -5,7 +5,7 @@ export default {
   username: process.env.DATABASE_USER || 'root',
   password: process.env.DATABASE_PASSWORD || 'admin',
   database: process.env.DATABASE_NAME || 'test',
-  synchronize: true,
+  synchronize: false,
   logging: false,
   migrations: ['./src/shared/infra/typeorm/migrations/*.ts'],
   entities: ['./src/modules/**/infra/typeorm/entities/*.ts'],

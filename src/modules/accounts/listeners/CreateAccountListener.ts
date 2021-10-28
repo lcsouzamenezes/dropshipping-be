@@ -1,6 +1,7 @@
 import { container } from 'tsyringe'
 import { Account } from '../infra/typeorm/entities/Account'
 import { SendActivationMailService } from '../services/SendActivationEmailAccount/SendActivationMailService'
+import Queue from '@libs/Queue'
 
 interface CreateAccountListenerData {
   account: Account
@@ -12,8 +13,12 @@ class CreateAccountListener {
     account,
     redirectUrl,
   }: CreateAccountListenerData): Promise<void> {
-    const sendActivationEmail = container.resolve(SendActivationMailService)
-    await sendActivationEmail.execute(account, redirectUrl)
+    // const sendActivationEmail = container.resolve(SendActivationMailService)
+    // await sendActivationEmail.execute(account, redirectUrl)
+    Queue.add('SendAccountActivationEmail', {
+      account,
+      redirectUrl,
+    })
   }
 }
 

@@ -14,6 +14,7 @@ interface IIntegrationsRepository {
   findByUserId(user_id: string, account_id: string): Promise<Integration>
   deleteById(id: string): Promise<void>
   findByAccountId(account_id: string, provider?: string): Promise<Integration[]>
+  findById(id: string, account_id: string): Promise<Integration>
 }
 
 export { IIntegrationsRepository }

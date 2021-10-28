@@ -18,8 +18,8 @@ class IntegrationMapper {
       access_token,
       account_id,
       expires_at,
-      user_id,
-      refresh_token,
+      user_id: user_id ? user_id : null,
+      refresh_token: refresh_token ? refresh_token : null,
       provider,
     }
   }

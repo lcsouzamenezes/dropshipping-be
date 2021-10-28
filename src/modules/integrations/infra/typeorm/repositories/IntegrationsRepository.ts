@@ -54,6 +54,17 @@ class IntegrationsRepository implements IIntegrationsRepository {
 
     return integrations
   }
+
+  async findById(id: string, account_id: string): Promise<Integration> {
+    const integration = await this.repository.findOne({
+      where: {
+        id,
+        account_id,
+      },
+    })
+
+    return integration
+  }
 }
 
 export { IntegrationsRepository }

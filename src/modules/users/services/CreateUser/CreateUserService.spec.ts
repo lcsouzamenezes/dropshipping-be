@@ -102,6 +102,6 @@ describe('CreateUserService', () => {
       })
     }
 
-    expect(tryAgain).rejects.toThrow('E-mail already taken')
+    await expect(tryAgain).rejects.toThrow('E-mail already taken')
   })
 })

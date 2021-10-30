@@ -4,6 +4,7 @@ import { Column, Entity, OneToMany, OneToOne } from 'typeorm'
 import { Exclude } from 'class-transformer'
 import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
+import { Notification } from '@modules/notifications/infra/typeorm/entities/Notification'
 
 @Entity('accounts')
 class Account extends BaseEntity {
@@ -23,6 +24,9 @@ class Account extends BaseEntity {
 
   @OneToMany(() => Integration, (integration) => integration.account)
   integrations: Integration[]
+
+  @OneToMany(() => Notification, (notification) => notification.account)
+  notifications: Notification[]
 
   @OneToMany(() => Product, (product) => product.account)
   products: Product[]

@@ -5,6 +5,7 @@ import { sessionsRoutes } from './sessions.routes'
 import { integrationsRoutes } from './integrations.routes'
 import { EnsureAuthenticated } from '../middlewares/EnsureAuthenticated'
 import { productsRoutes } from './products.routes'
+import { notificationsRoutes } from './notifications.routes'
 
 const routes = Router()
 
@@ -13,5 +14,6 @@ routes.use('/accounts', accountsRoutes)
 routes.use('/users', usersRoutes)
 routes.use('/integrations', EnsureAuthenticated, integrationsRoutes)
 routes.use('/products', EnsureAuthenticated, productsRoutes)
+routes.use('/notifications', EnsureAuthenticated, notificationsRoutes)
 
 export { routes }

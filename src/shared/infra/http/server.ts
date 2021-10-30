@@ -8,7 +8,9 @@ const { port } = config
 
 const server = http.createServer(app)
 
-connectSocketIo(server)
+const io = connectSocketIo(server)
+
+app.set('io', io)
 
 server.listen(port, () => {
   console.log(`🚀 server running on port: ${port}`)

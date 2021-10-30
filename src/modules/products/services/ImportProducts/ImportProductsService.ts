@@ -1,18 +1,8 @@
-import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { IIntegrationsRepository } from '@modules/integrations/repositories/IIntegrationsRepository'
-import { Product } from '@modules/products/infra/typeorm/entities/Product'
-import { IProductsRepository } from '@modules/products/repositories/IProductsRepository'
+import { HandleData } from '@modules/products/jobs/BlingProductImportationJobs'
 import { AppError } from '@shared/errors/AppError'
-import { Bling } from '@shared/libs/Bling'
-import { Readable, Writable } from 'stream'
+import Queue from '@shared/libs/Queue'
 import { inject, injectable } from 'tsyringe'
-import {
-  EntityManager,
-  Repository,
-  Transaction,
-  TransactionManager,
-  TransactionRepository,
-} from 'typeorm'
 
 interface ImportProductsData {
   source: 'bling'
@@ -27,9 +17,7 @@ interface ImportProductsData {
 class ImportProductsService {
   constructor(
     @inject('IntegrationsRepository')
-    private integrationsRepository: IIntegrationsRepository,
-    @inject('ProductsRepository')
-    private productsRepository: IProductsRepository
+    private integrationsRepository: IIntegrationsRepository
   ) {}
 
   async execute({
@@ -60,7 +48,10 @@ class ImportProductsService {
 
     switch (source) {
       case 'bling':
-        //add job registration
+        Queue.add<HandleData>('BlingProductImportation', {
+          integration: existIntegration,
+          update,
+        })
         break
       default:
         throw new AppError(

@@ -21,6 +21,9 @@ class Product extends BaseEntity {
   })
   stock: number
 
+  @Column({ nullable: true })
+  ean?: string
+
   @OneToMany(() => ProductImage, (image) => image.product)
   images: ProductImage[]
 

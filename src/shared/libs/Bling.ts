@@ -10,8 +10,8 @@ interface GetProductsFilter {
   situacao?: 'A' | 'I'
 }
 
-interface GetProductsResponse {
-  produtos: Array<{
+export interface GetProductsResponse {
+  produtos?: Array<{
     produto: {
       codigo: string
       descricao: string
@@ -21,8 +21,17 @@ interface GetProductsResponse {
         tipoArmazenamento: 'interno' | 'externo'
       }>
       estoqueAtual: number
+      gtin: string
     }
   }>
+  erros?: [
+    {
+      erro: {
+        cod: number
+        msg: string
+      }
+    }
+  ]
 }
 
 class Bling {
@@ -50,24 +59,62 @@ class Bling {
     const { data } = await this.get<{ retorno: GetProductsResponse }>(
       'produtos',
       {
-        page,
         estoque,
         loja,
         imagem,
         // filters,
-      }
+      },
+      page
     )
 
     return data.retorno
   }
 
-  private get<T = any>(url: string, params?: object): AxiosPromise<T> {
-    return this.api(`${url}/${this.responseFormat}`, {
-      params: {
-        ...this.api.defaults.params,
-        ...params,
-      },
-    })
+  async getAllProducts(
+    cb: (response: GetProductsResponse) => any,
+    page = 1,
+    sleep = 500
+  ) {
+    const response = await this.getProducts(page)
+    if (response.erros?.[0].erro.cod == 14) {
+      // console.log('no more results, done.')
+    } else {
+      await cb(response)
+      page++
+      return await new Promise(async (resolve) => {
+        // console.log(`Fetching page ${page}...`)
+        setTimeout(async () => {
+          resolve(await this.getAllProducts(cb, page))
+        }, sleep)
+      })
+    }
+  }
+
+  private get<T = any>(
+    url: string,
+    params?: object,
+    page?: number
+  ): AxiosPromise<T> {
+    return this.api(
+      this.applyResponseFormatToUrl(this.applyPageToUrl(url, page)),
+      {
+        params: {
+          ...this.api.defaults.params,
+          ...params,
+        },
+      }
+    )
+  }
+
+  private applyPageToUrl(url: string, page?: number): string {
+    if (page) {
+      return `${url}/page=${page}`
+    }
+    return `${url}`
+  }
+
+  private applyResponseFormatToUrl(url: string): string {
+    return `${url}/${this.responseFormat}`
   }
 }
 

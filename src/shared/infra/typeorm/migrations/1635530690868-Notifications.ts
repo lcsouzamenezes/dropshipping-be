@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class Products1635364939739 implements MigrationInterface {
+export class Notifications1635530690868 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.createTable(
+    queryRunner.createTable(
       new Table({
-        name: 'products',
+        name: 'notifications',
         columns: [
           {
             name: 'id',
@@ -13,26 +13,32 @@ export class Products1635364939739 implements MigrationInterface {
             generationStrategy: 'uuid',
           },
           {
+            name: 'title',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'data',
+            type: 'text',
+          },
+          {
             name: 'account_id',
             type: 'varchar',
           },
           {
-            name: 'name',
+            name: 'user_id',
             type: 'varchar',
+            isNullable: true,
           },
           {
-            name: 'sku',
+            name: 'type',
             type: 'varchar',
+            default: '"normal"',
           },
           {
-            name: 'price',
-            type: 'integer',
-            default: 0,
-          },
-          {
-            name: 'stock',
-            type: 'decimal(10,2)',
-            default: 0,
+            name: 'read_at',
+            type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'created_at',
@@ -43,7 +49,6 @@ export class Products1635364939739 implements MigrationInterface {
             name: 'updated_at',
             type: 'timestamp',
             default: 'NOW()',
-            onUpdate: 'NOW()',
           },
         ],
         foreignKeys: [
@@ -51,21 +56,15 @@ export class Products1635364939739 implements MigrationInterface {
             columnNames: ['account_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'accounts',
-            name: 'products_account_id',
+            name: 'notifications_account_id',
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           },
         ],
-        uniques: [
-          {
-            name: 'sku_account_id_unique',
-            columnNames: ['sku', 'account_id'],
-          },
-        ],
         indices: [
           {
-            name: 'products_sku',
-            columnNames: ['sku'],
+            name: 'user_id',
+            columnNames: ['user_id'],
           },
         ],
       })
@@ -73,6 +72,6 @@ export class Products1635364939739 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('products')
+    await queryRunner.dropTable('notifications')
   }
 }

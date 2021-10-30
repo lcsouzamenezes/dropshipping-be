@@ -3,16 +3,14 @@ import { container } from 'tsyringe'
 import { Account } from '../infra/typeorm/entities/Account'
 import { SendActivationMailService } from '../services/SendActivationEmailAccount/SendActivationMailService'
 
-interface SendAccountActivationEmailData {
-  data: {
-    account: Account
-    redirectUrl?: string
-  }
+export interface HandleData {
+  account: Account
+  redirectUrl?: string
 }
 
 export default {
   name: 'SendAccountActivationEmail',
-  async handle({ data }: SendAccountActivationEmailData) {
+  async handle({ data }: { data: HandleData }) {
     const sendAccountActivationEmail = container.resolve(
       SendActivationMailService
     )

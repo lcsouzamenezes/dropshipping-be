@@ -1,10 +1,10 @@
 import 'dotenv/config'
 import '@shared/container'
+import '@shared/events'
 
 import createConnection from '../typeorm'
-
-createConnection()
-
 import Queue from '@libs/Queue'
 
-Queue.process()
+createConnection().then(() => {
+  Queue.process()
+})

@@ -22,7 +22,7 @@ class ImportBlingProductsService {
   ) {}
 
   async execute(integration: Integration, update?: boolean) {
-    const { access_token, account_id } = integration
+    const { id: integration_id, access_token, account_id } = integration
     const blingApi = new Bling(access_token)
     const event = container.resolve(EventProvider)
 
@@ -39,12 +39,13 @@ class ImportBlingProductsService {
         const mappedProducts = products.map(({ produto: item }) => {
           const mappedProduct = new Product()
           Object.assign(mappedProduct, {
-            name: encodeURIComponent(item.descricao),
+            name: item.descricao,
             sku: item.codigo,
             price: Math.trunc(item.preco * 100) ?? 0,
             stock: item.estoqueAtual ?? 0,
             ean: item.gtin,
             account_id,
+            integration_id,
           } as Product)
           return mappedProduct
         })

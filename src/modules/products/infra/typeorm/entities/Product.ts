@@ -1,4 +1,5 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
+import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 import { ProductImage } from './ProductImage'
@@ -25,17 +26,24 @@ class Product extends BaseEntity {
   ean?: string
 
   @OneToMany(() => ProductImage, (image) => image.product)
-  images: ProductImage[]
+  images?: ProductImage[]
 
   @Column()
   account_id: string
+
+  @Column()
+  integration_id: string
+
+  @ManyToOne(() => Integration, (integration) => integration.products)
+  @JoinColumn({ name: 'integration_id' })
+  integration?: Integration
 
   @ManyToOne(() => Account, (account) => account.products, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'account_id' })
-  account: Account
+  account?: Account
 }
 
 export { Product }

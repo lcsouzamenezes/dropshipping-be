@@ -1,8 +1,9 @@
+import 'reflect-metadata'
 import 'dotenv/config'
+
 import express from 'express'
 import cors from 'cors'
 import 'express-async-errors'
-import 'reflect-metadata'
 
 import { createBullBoard } from '@bull-board/api'
 import { BullAdapter } from '@bull-board/api/bullAdapter'

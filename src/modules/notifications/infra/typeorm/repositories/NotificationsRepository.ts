@@ -30,8 +30,25 @@ class NotificationsRepository implements INotificationsRepository {
       )
     }
 
+    query.orderBy('created_at', 'DESC')
+
     const notifications = await query.getMany()
     return notifications
+  }
+
+  async findById(id: string, account_id: string): Promise<Notification> {
+    const notification = await this.repository.findOne({
+      where: {
+        id,
+        account_id,
+      },
+    })
+    return notification
+  }
+
+  async update(notification: Notification): Promise<Notification> {
+    const savedNotifications = await this.repository.save(notification)
+    return savedNotifications
   }
 }
 

@@ -1,5 +1,5 @@
-import { pathsToModuleNameMapper } from 'ts-jest/utils';
-import { compilerOptions } from './tsconfig.json';
+import { pathsToModuleNameMapper } from 'ts-jest/utils'
+import { compilerOptions } from './tsconfig.json'
 
 export default {
   // All imported modules in your tests should be mocked automatically
@@ -125,7 +125,7 @@ export default {
   // runner: "jest-runner",
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
-  setupFiles: ['./test.config.ts'],
+  setupFiles: ['./jest.setup.ts'],
 
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
   // setupFilesAfterEnv: [],
@@ -188,4 +188,4 @@ export default {
 
   // Whether to use watchman for file crawling
   // watchman: true,
-};
+}

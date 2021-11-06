@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { validationResult, param, check } from 'express-validator'
 
-export const importProducts = [
+export const importProductsValidation = [
   param('source')
     .trim()
     .escape()

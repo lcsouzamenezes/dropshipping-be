@@ -1,3 +1,4 @@
+import { ICreateProductDTO } from '@modules/products/dtos/ICreateProductDTO'
 import {
   IProductsRepository,
   SaveManyResponse,
@@ -10,6 +11,14 @@ class ProductsRepository implements IProductsRepository {
 
   constructor() {
     this.repository = getRepository(Product)
+  }
+
+  async save({ images, ...data }: ICreateProductDTO): Promise<Product> {
+    const product = this.repository.create()
+
+    await this.repository.save(data)
+
+    return product
   }
 
   async saveMany(
@@ -56,6 +65,17 @@ class ProductsRepository implements IProductsRepository {
     })
 
     return { products: savedProducts, errors }
+  }
+
+  async getAll(
+    account_id: string,
+    options?: { relations?: [] }
+  ): Promise<Product[]> {
+    const products = await this.repository
+      .createQueryBuilder('products')
+      .where('account_id = :account_id', { account_id })
+      .paginate()
+    return products
   }
 }
 

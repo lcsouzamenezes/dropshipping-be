@@ -1,4 +1,4 @@
-import { NotificationMapper } from '@modules/mappers/NotificationMapper'
+import { NotificationMapper } from '@modules/notifications/mappers/NotificationMapper'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { ListNotificationService } from './ListNotificationService'

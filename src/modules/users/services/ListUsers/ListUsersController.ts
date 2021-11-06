@@ -7,8 +7,6 @@ class ListUsersController {
     const listUsersService = container.resolve(ListUsersService)
     const users = await listUsersService.execute()
 
-    const totalCount = users.length
-
     return response.json({ users })
   }
 }

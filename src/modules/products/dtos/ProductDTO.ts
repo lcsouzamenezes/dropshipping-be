@@ -1,0 +1,3 @@
+interface productDTO {}
+
+export { productDTO }

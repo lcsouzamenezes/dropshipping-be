@@ -3,7 +3,7 @@ import { SelectQueryBuilder } from 'typeorm'
 
 declare module 'typeorm' {
   interface SelectQueryBuilder<Entity> {
-    paginate: <Entity>() => Promise<Entity[]>
+    paginate: () => Promise<Entity[]>
   }
 }
 

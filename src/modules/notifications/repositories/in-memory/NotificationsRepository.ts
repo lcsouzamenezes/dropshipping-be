@@ -25,6 +25,30 @@ class NotificationsRepository implements INotificationsRepository {
     )
     return notifications
   }
+
+  async findById(id: string, account_id: string): Promise<Notification> {
+    const notification = this.notifications.find(
+      (notification) =>
+        notification.id === id && notification.account_id === account_id
+    )
+    return notification
+  }
+
+  async update(notification: Notification): Promise<Notification> {
+    let notificationIndex = undefined
+
+    this.notifications.map((repositoryNotification, index) => {
+      if (repositoryNotification.id === notification.id) {
+        notificationIndex = index
+        return {
+          ...notification,
+        }
+      }
+      return repositoryNotification
+    })
+
+    return this.notifications[notificationIndex]
+  }
 }
 
 export { NotificationsRepository }

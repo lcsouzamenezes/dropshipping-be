@@ -19,7 +19,7 @@ export class ProductImages1635365797291 implements MigrationInterface {
           {
             name: 'is_external',
             type: 'boolean',
-            default: 'false',
+            default: 'true',
           },
           {
             name: 'product_id',

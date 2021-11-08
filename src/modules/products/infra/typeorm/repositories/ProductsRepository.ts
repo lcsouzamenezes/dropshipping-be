@@ -1,5 +1,6 @@
 import { ICreateProductDTO } from '@modules/products/dtos/ICreateProductDTO'
 import {
+  findBySkuData,
   IProductsRepository,
   SaveManyResponse,
 } from '@modules/products/repositories/IProductsRepository'
@@ -13,10 +14,24 @@ class ProductsRepository implements IProductsRepository {
     this.repository = getRepository(Product)
   }
 
-  async save({ images, ...data }: ICreateProductDTO): Promise<Product> {
-    const product = this.repository.create()
+  async findBySku({
+    sku,
+    account_id,
+    integration_id,
+  }: findBySkuData): Promise<Product> {
+    const query = this.repository.createQueryBuilder()
+    query.where('sku = :sku AND account_id = :account_id', { sku, account_id })
+    if (integration_id) {
+      query.andWhere('integration_id = :integration_id', { integration_id })
+    }
+    const product = await query.getOne()
+    return product
+  }
 
-    await this.repository.save(data)
+  async save({ images, ...data }: ICreateProductDTO): Promise<Product> {
+    const product = this.repository.create({ ...data })
+
+    await this.repository.save(product)
 
     return product
   }

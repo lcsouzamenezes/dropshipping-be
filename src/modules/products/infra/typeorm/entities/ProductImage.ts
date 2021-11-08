@@ -8,9 +8,9 @@ class ProductImage extends BaseEntity {
   url: string
 
   @Column({
-    default: false,
+    default: true,
   })
-  external: boolean
+  is_external: boolean
 
   @Column()
   product_id: string

@@ -7,14 +7,18 @@ import { Paginate } from '../middlewares/PaginateMiddleware'
 
 import { createProductValidation } from '@modules/products/validations/createProductValidation'
 import { importProductsValidation } from '@modules/products/validations/importProductsValidation'
+import { GetProductController } from '@modules/products/services/GetProduct/GetProductController'
 
 const productsRoutes = Router()
 
+const getProductController = new GetProductController()
 const listUsersController = new ListProductsController()
 const importProductsController = new ImportProductsController()
 const createProductController = new CreateProductsController()
 
 productsRoutes.get('/', Paginate(100), listUsersController.handle)
+
+productsRoutes.get('/:id', getProductController.handle)
 
 productsRoutes.post(
   '/',

@@ -15,11 +15,18 @@ export interface findBySkuData {
   integration_id?: string
 }
 
+export interface findByIdData {
+  id: string
+  account_id: string
+  options?: any
+}
+
 interface IProductsRepository {
   save(data: ICreateProductDTO): Promise<Product>
   saveMany(products: Product[], update?: boolean): Promise<SaveManyResponse>
   getAll(account_id: string, options?: { relations?: [] }): Promise<Product[]>
   findBySku(data: findBySkuData): Promise<Product>
+  findById(data: findByIdData): Promise<Product>
 }
 
 export { IProductsRepository }

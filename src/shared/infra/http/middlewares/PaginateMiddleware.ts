@@ -1,3 +1,4 @@
+import { AppError } from '@shared/errors/AppError'
 import { Request, Response, NextFunction } from 'express'
 import { SelectQueryBuilder } from 'typeorm'
 
@@ -35,6 +36,10 @@ function Paginate(perPage: number = 100) {
         .skip((page - 1) * perPage)
         .take(perPage)
         .getMany()
+
+      if (total > 0 && data.length == 0) {
+        throw new AppError('No results found', 'pagination:not_results', 404)
+      }
 
       return data
     }

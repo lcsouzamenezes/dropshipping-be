@@ -1,6 +1,7 @@
 import { ICreateProductDTO } from '@modules/products/dtos/ICreateProductDTO'
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
 import {
+  findByIdData,
   findBySkuData,
   IProductsRepository,
   SaveManyResponse,
@@ -41,6 +42,8 @@ class ProductsRepository implements IProductsRepository {
       ...data,
     })
 
+    this.products.push(product)
+
     return product
   }
 
@@ -65,6 +68,14 @@ class ProductsRepository implements IProductsRepository {
     )
 
     return products
+  }
+
+  async findById(data: findByIdData): Promise<Product> {
+    const product = this.products.find(
+      (product) =>
+        product.id == data.id && product.account_id == data.account_id
+    )
+    return product
   }
 }
 

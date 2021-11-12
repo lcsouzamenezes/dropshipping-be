@@ -19,6 +19,14 @@ class ProductImagesRepository implements IProducImageRepository {
     this.images.push(image)
     return image
   }
+
+  async deleteById(id: string): Promise<void> {
+    this.images = this.images.filter((image) => image.id === id)
+  }
+
+  async deleteAllByProductId(id: string): Promise<void> {
+    this.images = this.images.filter((image) => image.product_id === id)
+  }
 }
 
 export { ProductImagesRepository }

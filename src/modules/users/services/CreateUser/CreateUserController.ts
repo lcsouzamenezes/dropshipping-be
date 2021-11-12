@@ -1,6 +1,4 @@
-import { AppError } from '@shared/errors/AppError'
 import { classToClass } from 'class-transformer'
-import { create } from 'domain'
 import { NextFunction, Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { CreateUserService } from './CreateUserService'
@@ -9,23 +7,23 @@ interface IRequest {
   name: string
   email: string
   password: string
-  account_id: string
+  active?: boolean
 }
 
 class CreateUserController {
-  async handle(
-    request: Request,
-    response: Response,
-    next: NextFunction
-  ): Promise<Response> {
+  async handle(request: Request, response: Response): Promise<Response> {
     const createUserService = container.resolve(CreateUserService)
-    const { name, email, password, account_id } = request.body as IRequest
+
+    const { account_id } = request.user
+
+    const { name, email, password, active = false } = request.body as IRequest
 
     const user = await createUserService.execute({
       name,
       email,
       password,
       account_id,
+      active,
     })
     return response.json(classToClass(user))
   }

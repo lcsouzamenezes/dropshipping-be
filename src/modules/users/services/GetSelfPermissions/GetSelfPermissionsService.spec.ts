@@ -29,6 +29,7 @@ describe('GetSelfPermissionsService', () => {
     })
     const user = await usersRepository.create({
       ...userData,
+      active: true,
       account_id: account.id,
     })
 

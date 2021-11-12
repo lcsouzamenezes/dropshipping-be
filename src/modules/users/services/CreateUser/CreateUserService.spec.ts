@@ -18,6 +18,7 @@ describe('CreateUserService', () => {
       email: 'mizani@nog.sx',
       password: 'SSNLKg5aOm',
       name: 'Cody Owen',
+      active: true,
     }
 
     const account = await accountsRepository.create({
@@ -41,6 +42,7 @@ describe('CreateUserService', () => {
       name: 'Cody Owen',
       email: 'ejeuctan@egzunadu.ht',
       password: notHashedPassword,
+      active: true,
     }
 
     const account = await accountsRepository.create({
@@ -62,6 +64,7 @@ describe('CreateUserService', () => {
       email: 'ba@ma.vi',
       password: 'KUMXW5hy8yNN',
       name: 'Cody Owen',
+      active: false,
     }
 
     const account = await accountsRepository.create({
@@ -83,6 +86,7 @@ describe('CreateUserService', () => {
       email: 'ba@ma.vi',
       password: 'KUMXW5hy8yNN',
       name: 'Cody Owen',
+      active: true,
     }
 
     const account = await accountsRepository.create({

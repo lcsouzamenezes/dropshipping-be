@@ -19,6 +19,7 @@ class CreateUserService {
     email,
     password,
     account_id,
+    active,
   }: ICreateUserDTO): Promise<User> {
     const hashedPassword = await hash(password, 8)
     const userExist = await this.usersRepository.findByEmail(email)
@@ -32,6 +33,7 @@ class CreateUserService {
       email,
       password: hashedPassword,
       account_id,
+      active,
     })
     return user
   }

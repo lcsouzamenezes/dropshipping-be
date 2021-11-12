@@ -40,6 +40,7 @@ describe('ActivateUserService', () => {
 
     const user = await usersRepository.create({
       account_id: account.id,
+      active: false,
       ...userData,
     })
 

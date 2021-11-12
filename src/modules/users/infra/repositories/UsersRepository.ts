@@ -15,8 +15,15 @@ class UsersRepository implements IUsersRepository {
     email,
     password,
     account_id,
+    active = false,
   }: ICreateUserDTO): Promise<User> {
-    const user = this.repository.create({ name, email, password, account_id })
+    const user = this.repository.create({
+      name,
+      email,
+      password,
+      account_id,
+      active,
+    })
     return await this.repository.save(user)
   }
   async findByEmail(email: string): Promise<User> {

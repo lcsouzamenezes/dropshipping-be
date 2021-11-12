@@ -33,6 +33,7 @@ describe('CreateSessionService', () => {
       name: 'Virginia Moran',
       email: 'wusofeceg@ku.pl',
       password: 'CyhiN956tSc5',
+      active: true,
     }
 
     const account = await accountsRepository.create(accountData)
@@ -70,6 +71,7 @@ describe('CreateSessionService', () => {
       name: 'Virginia Moran',
       email: 'wusofeceg@ku.pl',
       password: 'CyhiN956tSc5',
+      active: true,
     }
 
     const account = await accountsRepository.create(accountData)
@@ -102,6 +104,7 @@ describe('CreateSessionService', () => {
     await usersRepository.create({
       ...accountData,
       account_id: account.id,
+      active: true,
     })
 
     const session = async () => {

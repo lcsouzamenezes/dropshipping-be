@@ -17,6 +17,7 @@ describe('ListUsersService', () => {
         email: 'test@example.com' + i,
         account_id: '12345-' + i,
         password: '12345',
+        active: true,
       })
     }
 

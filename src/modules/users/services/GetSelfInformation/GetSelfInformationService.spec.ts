@@ -22,6 +22,7 @@ describe('GetSelfInformationService', () => {
       email: 'agwi@docuduam.lv',
       password: 'ELCBFPvZ5tDl',
       account_id: 'pU61qZNzNdNGFSr1fN8eaS4lubWy5ejD',
+      active: true,
     })
 
     const userInfo = await getSelfInformationService.execute(user.id)

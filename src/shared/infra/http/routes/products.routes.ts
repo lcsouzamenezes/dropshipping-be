@@ -8,10 +8,12 @@ import { Paginate } from '../middlewares/PaginateMiddleware'
 import { createProductValidation } from '@modules/products/validations/createProductValidation'
 import { importProductsValidation } from '@modules/products/validations/importProductsValidation'
 import { GetProductController } from '@modules/products/services/GetProduct/GetProductController'
+import { UpdateProductController } from '@modules/products/services/UpdateProductService/UpdateProductController'
 
 const productsRoutes = Router()
 
 const getProductController = new GetProductController()
+const updateProductController = new UpdateProductController()
 const listUsersController = new ListProductsController()
 const importProductsController = new ImportProductsController()
 const createProductController = new CreateProductsController()
@@ -19,6 +21,7 @@ const createProductController = new CreateProductsController()
 productsRoutes.get('/', Paginate(100), listUsersController.handle)
 
 productsRoutes.get('/:id', getProductController.handle)
+productsRoutes.put('/:id', updateProductController.handle)
 
 productsRoutes.post(
   '/',

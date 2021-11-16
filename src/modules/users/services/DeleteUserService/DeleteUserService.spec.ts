@@ -57,4 +57,22 @@ describe('DeleteUserService', () => {
       .execute(user.id, anotherAccount)
       .catch((e) => expect(e.message).toBe('User not found'))
   })
+
+  it('should not be able to delete a master user', async () => {
+    const user = await usersRepository.create({
+      account_id: '72828317040911107874340360252421',
+      active: true,
+      email: 'hatcapus@ro.su',
+      name: 'Jon Morris',
+      password: '60768277',
+    })
+
+    Object.assign(user, { master: true })
+
+    await usersRepository.update(user)
+
+    await deleteUserService
+      .execute(user.id, '72828317040911107874340360252421')
+      .catch((e) => expect(e.message).toBe('Cannot delete Master Users'))
+  })
 })

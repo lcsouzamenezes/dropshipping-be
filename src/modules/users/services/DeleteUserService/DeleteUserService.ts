@@ -16,6 +16,14 @@ class DeleteUserService {
       throw new AppError('User not found', 'delete_user:not_found', 404)
     }
 
+    if (user.master) {
+      throw new AppError(
+        'Cannot delete Master Users',
+        'delete_user:delete_not_allowed',
+        401
+      )
+    }
+
     await this.usersRepository.delete(user_id)
   }
 }

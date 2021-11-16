@@ -20,7 +20,7 @@ class DeleteUserService {
       throw new AppError(
         'Cannot delete Master Users',
         'delete_user:delete_not_allowed',
-        401
+        403
       )
     }
 

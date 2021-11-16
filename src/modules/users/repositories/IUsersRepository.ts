@@ -11,7 +11,7 @@ interface IUsersRepository {
   }: ICreateUserDTO): Promise<User>
   findByEmail(email: string): Promise<User>
   findById(id: string, options?: { relations: string[] }): Promise<User>
-  getAll(options?: { relations: string[] }): Promise<User[]>
+  getAll(account_id: string, options?: { relations: string[] }): Promise<User[]>
   update(user: User): Promise<User>
 }
 

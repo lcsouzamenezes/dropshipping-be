@@ -9,8 +9,9 @@ class ListUsersService {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute(page = 1): Promise<User[]> {
-    const users = await this.usersRepository.getAll()
+  async execute(account_id: string, page = 1): Promise<User[]> {
+    const users = await this.usersRepository.getAll(account_id)
+
     return users
   }
 }

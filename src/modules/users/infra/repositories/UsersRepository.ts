@@ -39,8 +39,14 @@ class UsersRepository implements IUsersRepository {
     return user
   }
 
-  async getAll(options?: { relations: string[] }): Promise<any> {
-    const users = await this.repository.createQueryBuilder('user').paginate()
+  async getAll(
+    account_id: string,
+    options?: { relations: string[] }
+  ): Promise<any> {
+    const users = await this.repository
+      .createQueryBuilder('user')
+      .where('account_id = :account_id', { account_id })
+      .paginate()
     return users
   }
 

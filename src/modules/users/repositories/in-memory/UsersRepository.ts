@@ -42,8 +42,11 @@ class UsersRepository implements IUsersRepository {
     return user
   }
 
-  async getAll(options?: { relations: string[] }): Promise<User[]> {
-    return this.users
+  async getAll(
+    account_id: string,
+    options?: { relations: string[] }
+  ): Promise<User[]> {
+    return this.users.filter((account) => account.account_id === account_id)
   }
 
   async update(user: User): Promise<User> {

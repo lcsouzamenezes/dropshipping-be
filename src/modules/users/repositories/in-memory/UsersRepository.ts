@@ -54,5 +54,9 @@ class UsersRepository implements IUsersRepository {
     this.users[index] = user
     return user
   }
+
+  async delete(user_id: string): Promise<void> {
+    this.users = this.users.filter((user) => user.id !== user_id)
+  }
 }
 export { UsersRepository }

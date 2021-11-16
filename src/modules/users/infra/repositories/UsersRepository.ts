@@ -54,6 +54,10 @@ class UsersRepository implements IUsersRepository {
     const updatedUser = await this.repository.save(user)
     return updatedUser
   }
+
+  async delete(user_id: string): Promise<void> {
+    await this.repository.delete(user_id)
+  }
 }
 
 export { UsersRepository }

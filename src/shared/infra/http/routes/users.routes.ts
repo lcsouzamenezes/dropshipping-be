@@ -12,6 +12,7 @@ import createUserValidation from '@modules/users/validations/createUserValidatio
 import getUserValidation from '@modules/users/validations/getUserValidation'
 import updateUserValidation from '@modules/users/validations/updateUserValidation'
 import { UpdateUserController } from '@modules/users/services/UpdateUserService/UpdateUserController'
+import { DeleteUserController } from '@modules/users/services/DeleteUserService/DeleteUserController'
 
 const usersRoutes = Router()
 
@@ -22,6 +23,7 @@ const listUsersController = new ListUsersController()
 const getSelfInformationController = new GetSelfInformationController()
 const getSelfPermissionsController = new GetSelfPermissionsController()
 const getUserController = new GetUserController()
+const deleteUserController = new DeleteUserController()
 
 usersRoutes.get(
   '/',
@@ -37,6 +39,8 @@ usersRoutes.get(
   getUserValidation,
   getUserController.handle
 )
+
+usersRoutes.delete('/:id', EnsureAuthenticated, deleteUserController.handle)
 
 usersRoutes.put(
   '/:id',

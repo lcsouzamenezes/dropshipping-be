@@ -33,7 +33,6 @@ app.use('/admin/queues', serverAdapter.getRouter())
 
 app.use(
   cors({
-    origin: 'http://localhost:3000',
     exposedHeaders: ['X-Total-Count'],
   })
 )

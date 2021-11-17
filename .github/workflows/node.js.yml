@@ -45,9 +45,8 @@ jobs:
           script: |
             cd ~/api
             npm install
-            npm run build
             touch ./tmp/restart.txt
-            pm2 restart all --update-env
+            pm2 restart outter-queue --update-env
 
       - name: Run migrations and seeders
         uses: appleboy/ssh-action@master

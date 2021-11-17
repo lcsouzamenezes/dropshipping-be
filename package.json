@@ -15,7 +15,7 @@
     "dev": "npm-run-all -p dev:*",
     "dev:server": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --respawn ./src/shared/infra/http/server.ts",
     "dev:queue": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --transpile-only --respawn ./src/shared/infra/http/queue.ts",
-    "test": "NODE_ENV=test jest --runInBand --detectOpenHandles"
+    "test": "NODE_ENV=test jest --detectOpenHandles"
   },
   "dependencies": {
     "@bull-board/express": "^3.6.0",

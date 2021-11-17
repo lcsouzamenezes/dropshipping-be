@@ -1,5 +1,5 @@
 .vscode
-.ormconfig.js
+ormconfig.js
 
 # Logs
 logs

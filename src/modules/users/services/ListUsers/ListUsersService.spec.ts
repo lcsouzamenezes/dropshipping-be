@@ -15,13 +15,13 @@ describe('ListUsersService', () => {
       await usersRepository.create({
         name: 'Cody Owen',
         email: 'test@example.com' + i,
-        account_id: '12345-' + i,
+        account_id: '12345',
         password: '12345',
         active: true,
       })
     }
 
-    const users = await listUsersService.execute()
+    const users = await listUsersService.execute('12345')
 
     expect(users).toHaveLength(3)
   })

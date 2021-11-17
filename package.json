@@ -7,6 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
     "typeorm": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
     "seed:generate": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli migration:create -c seed -n",
     "seed:revert": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli migration:revert -c seed",
@@ -35,6 +36,7 @@
     "mysql": "^2.14.1",
     "node-cache": "^5.1.2",
     "nodemailer": "^6.6.3",
+    "pm2": "^5.1.2",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^4.3.1",
     "tsyringe": "^4.6.0",
@@ -42,6 +44,13 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.16.0",
+    "@babel/core": "^7.16.0",
+    "@babel/node": "^7.16.0",
+    "@babel/plugin-proposal-class-properties": "^7.16.0",
+    "@babel/plugin-proposal-decorators": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-typescript": "^7.16.0",
     "@types/bcryptjs": "^2.4.2",
     "@types/bull": "^3.15.5",
     "@types/cors": "^2.8.12",
@@ -54,6 +63,8 @@
     "@types/supertest": "^2.0.11",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.3.0",

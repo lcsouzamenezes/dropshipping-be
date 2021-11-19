@@ -40,7 +40,7 @@ class CreateAccountService {
         name,
         email,
         password,
-        active: false,
+        active: true,
       })
       account.user = classToClass(user)
 

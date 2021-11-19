@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 import 'dotenv/config'
 
-import express from 'express'
+import express, { Request, Response, NextFunction } from 'express'
 import cors from 'cors'
 import 'express-async-errors'
 
@@ -29,7 +29,24 @@ createBullBoard({
 })
 
 serverAdapter.setBasePath('/admin/queues')
-app.use('/admin/queues', serverAdapter.getRouter())
+app.use(
+  '/admin/queues',
+  (request: Request, response: Response, next: NextFunction): void => {
+    const reject = () => {
+      response.setHeader('www-authenticate', 'Basic')
+      response.sendStatus(401)
+    }
+
+    const authorization = request.headers.authorization
+
+    if (!authorization) {
+      return reject()
+    }
+
+    return next()
+  },
+  serverAdapter.getRouter()
+)
 
 app.use(
   cors({

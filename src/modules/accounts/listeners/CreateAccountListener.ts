@@ -15,10 +15,16 @@ class CreateAccountListener {
   }: CreateAccountListenerData): Promise<void> {
     // const sendActivationEmail = container.resolve(SendActivationMailService)
     // await sendActivationEmail.execute(account, redirectUrl)
-    Queue.add('SendAccountActivationEmail', {
-      account,
-      redirectUrl,
-    })
+    Queue.add(
+      'SendAccountActivationEmail',
+      {
+        account,
+        redirectUrl,
+      },
+      {
+        attempts: 10,
+      }
+    )
   }
 }
 

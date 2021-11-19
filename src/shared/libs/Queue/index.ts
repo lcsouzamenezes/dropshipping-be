@@ -5,7 +5,6 @@ import * as jobs from './jobs'
 export interface Job {
   name: string
   handle: ({ data: any }) => Promise<void>
-  options?: Bull.QueueOptions
   onFailed: Bull.FailedEventCallback
 }
 
@@ -15,7 +14,6 @@ const queues = Object.values(jobs).map((job) => ({
     redis,
   }),
   handle: job.handle,
-  options: job.options,
   onFailed: job.onFailed,
 }))
 
@@ -28,9 +26,9 @@ export default {
     }
     return queue.bull.add(data, opts)
   },
-  process: () => {
-    queues.forEach((queue) => {
-      queue.bull.process(queue.handle)
+  process: async () => {
+    queues.forEach(async (queue) => {
+      await queue.bull.process(queue.handle)
       if (!queue.onFailed) {
         queue.bull.on('failed', (job, err) => {
           console.log('Job Failed:', queue.name, job.data)

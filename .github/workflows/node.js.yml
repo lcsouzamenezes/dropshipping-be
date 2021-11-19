@@ -46,7 +46,7 @@ jobs:
             cd ~/api
             npm install
             touch ./tmp/restart.txt
-            pm2 restart outter-queue --update-env
+            pm2 reload outter-queue --update-env
 
       - name: Run migrations and seeders
         uses: appleboy/ssh-action@master

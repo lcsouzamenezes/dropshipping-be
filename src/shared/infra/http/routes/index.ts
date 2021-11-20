@@ -7,6 +7,7 @@ import { EnsureAuthenticated } from '../middlewares/EnsureAuthenticated'
 import { productsRoutes } from './products.routes'
 import { notificationsRoutes } from './notifications.routes'
 import { bullDashboardRoutes } from './bulldashboard.routes'
+import { catalogRoutes } from './catalog.routes'
 
 const routes = Router()
 
@@ -15,6 +16,7 @@ routes.use('/accounts', accountsRoutes)
 routes.use('/users', usersRoutes)
 routes.use('/integrations', EnsureAuthenticated, integrationsRoutes)
 routes.use('/products', EnsureAuthenticated, productsRoutes)
+routes.use('/catalog', EnsureAuthenticated, catalogRoutes)
 routes.use('/notifications', EnsureAuthenticated, notificationsRoutes)
 
 routes.use(bullDashboardRoutes)

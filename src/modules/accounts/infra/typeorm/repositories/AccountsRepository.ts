@@ -1,6 +1,6 @@
 import { ICreateAccountDTO } from '@modules/accounts/dtos/ICreateAccountDTO'
 import { IAccountsRepository } from '@modules/accounts/repositories/IAccountsRepository'
-import { getRepository, Repository } from 'typeorm'
+import { FindManyOptions, getRepository, Not, Repository } from 'typeorm'
 import { Account } from '../entities/Account'
 
 class AccountsRepository implements IAccountsRepository {
@@ -27,8 +27,21 @@ class AccountsRepository implements IAccountsRepository {
     return account
   }
 
-  async listAll(): Promise<Account[]> {
+  async listAll(options?: FindManyOptions): Promise<Account[]> {
     const accounts = await this.repostiory.find()
+    return accounts
+  }
+
+  async listAvailableSuppliersByAccountId(
+    account_id: string
+  ): Promise<Account[]> {
+    const accounts = await this.repostiory.find({
+      where: {
+        id: Not(account_id),
+        type: 'supplier',
+        active: true,
+      },
+    })
     return accounts
   }
 }

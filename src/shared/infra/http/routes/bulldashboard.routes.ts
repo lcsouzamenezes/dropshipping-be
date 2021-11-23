@@ -13,9 +13,9 @@ createBullBoard({
   serverAdapter,
 })
 
-serverAdapter.setBasePath('/admin/queuess')
+serverAdapter.setBasePath('/admin/queues')
 bullDashboardRoutes.use(
-  '/admin/queuess',
+  '/admin/queues',
   (request: Request, response: Response, next: NextFunction): void => {
     const reject = () => {
       response.setHeader(

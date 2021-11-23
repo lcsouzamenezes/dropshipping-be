@@ -5,7 +5,7 @@ import {
   IProductsRepository,
   SaveManyResponse,
 } from '@modules/products/repositories/IProductsRepository'
-import { getRepository, Repository } from 'typeorm'
+import { Brackets, getRepository, Repository } from 'typeorm'
 import { Product } from '../entities/Product'
 
 class ProductsRepository implements IProductsRepository {
@@ -105,13 +105,17 @@ class ProductsRepository implements IProductsRepository {
     return product
   }
 
-  async getAllFromSuppliers(where?: string, images = true): Promise<Product[]> {
+  async getAllFromSuppliers({
+    search,
+    supplier,
+    images = true,
+  }): Promise<Product[]> {
     const query = this.repository.createQueryBuilder('products')
 
     query.innerJoinAndSelect(
       'products.account',
-      'account',
-      'account.type = :type AND active = true',
+      'accounts',
+      'accounts.type = :type AND active = true',
       { type: 'supplier' }
     )
 
@@ -119,8 +123,16 @@ class ProductsRepository implements IProductsRepository {
       query.leftJoinAndSelect('products.images', 'images')
     }
 
-    if (where) {
-      query.where(where)
+    if (search) {
+      query.where(
+        new Brackets((qb) => {
+          qb.where('products.name LIKE :search', { search: `%${search}%` })
+        })
+      )
+    }
+
+    if (supplier) {
+      query.where('accounts.id = :supplier', { supplier })
     }
 
     query.orderBy('products.created_at', 'DESC')

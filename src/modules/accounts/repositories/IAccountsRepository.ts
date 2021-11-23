@@ -8,6 +8,7 @@ interface IAccountsRepository {
   delete(id: string): Promise<void>
   findById(id: string): Promise<Account>
   listAll(): Promise<Account[]>
+  listAvailableSuppliersByAccountId(account_id: string): Promise<Account[]>
 }
 
 export { IAccountsRepository }

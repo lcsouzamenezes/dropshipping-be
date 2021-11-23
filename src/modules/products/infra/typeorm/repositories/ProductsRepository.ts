@@ -5,7 +5,7 @@ import {
   IProductsRepository,
   SaveManyResponse,
 } from '@modules/products/repositories/IProductsRepository'
-import { getConnection, getRepository, Repository } from 'typeorm'
+import { getRepository, Repository } from 'typeorm'
 import { Product } from '../entities/Product'
 
 class ProductsRepository implements IProductsRepository {
@@ -91,6 +91,7 @@ class ProductsRepository implements IProductsRepository {
       .createQueryBuilder('products')
       .where('account_id = :account_id', { account_id })
       .orderBy('created_at', 'DESC')
+      .orderBy('name', 'ASC')
       .paginate()
     return products
   }
@@ -102,6 +103,31 @@ class ProductsRepository implements IProductsRepository {
     })
 
     return product
+  }
+
+  async getAllFromSuppliers(where?: string, images = true): Promise<Product[]> {
+    const query = this.repository.createQueryBuilder('products')
+
+    query.innerJoinAndSelect(
+      'products.account',
+      'account',
+      'account.type = :type AND active = true',
+      { type: 'supplier' }
+    )
+
+    if (images) {
+      query.leftJoinAndSelect('products.images', 'images')
+    }
+
+    if (where) {
+      query.where(where)
+    }
+
+    query.orderBy('products.created_at', 'DESC')
+    query.orderBy('products.name', 'ASC')
+
+    const products = await query.paginate()
+    return products
   }
 }
 

@@ -27,6 +27,7 @@ interface IProductsRepository {
   getAll(account_id: string, options?: { relations?: [] }): Promise<Product[]>
   findBySku(data: findBySkuData): Promise<Product>
   findById(data: findByIdData): Promise<Product>
+  getAllFromSuppliers(where?: string): Promise<Product[]>
 }
 
 export { IProductsRepository }

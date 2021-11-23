@@ -77,6 +77,14 @@ class ProductsRepository implements IProductsRepository {
     )
     return product
   }
+
+  async getAllFromSuppliers(): Promise<Product[]> {
+    const products = this.products.filter(
+      (product) =>
+        product.account?.type === 'supplier' && product.account?.active
+    )
+    return products
+  }
 }
 
 export { ProductsRepository }

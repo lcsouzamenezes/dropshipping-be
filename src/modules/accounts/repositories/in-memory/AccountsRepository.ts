@@ -36,6 +36,19 @@ class AccountsRepository implements IAccountsRepository {
   async listAll(): Promise<Account[]> {
     return this.accounts
   }
+
+  async listAvailableSuppliersByAccountId(
+    account_id: string
+  ): Promise<Account[]> {
+    const accounts = this.accounts.filter(
+      (account) =>
+        account.id !== account_id &&
+        account.active &&
+        account.type === 'supplier'
+    )
+
+    return accounts
+  }
 }
 
 export { AccountsRepository }

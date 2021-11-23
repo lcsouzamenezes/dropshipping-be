@@ -25,7 +25,10 @@ class Product extends BaseEntity {
   @Column({ nullable: true })
   ean?: string
 
-  @OneToMany(() => ProductImage, (image) => image.product)
+  @OneToMany(() => ProductImage, (image) => image.product, {
+    cascade: true,
+  })
+  @JoinColumn({ name: 'product_id' })
   images?: ProductImage[]
 
   @Column()

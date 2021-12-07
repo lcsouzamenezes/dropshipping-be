@@ -9,6 +9,7 @@ import { notificationsRoutes } from './notifications.routes'
 import { bullDashboardRoutes } from './bulldashboard.routes'
 import { catalogRoutes } from './catalog.routes'
 import { suppliersRoutes } from './suppliers.routes'
+import { listingsRoutes } from './listings.routes'
 
 const routes = Router()
 
@@ -20,6 +21,7 @@ routes.use('/products', EnsureAuthenticated, productsRoutes)
 routes.use('/catalog', EnsureAuthenticated, catalogRoutes)
 routes.use('/notifications', EnsureAuthenticated, notificationsRoutes)
 routes.use('/suppliers', EnsureAuthenticated, suppliersRoutes)
+routes.use('/listings', EnsureAuthenticated, listingsRoutes)
 
 routes.use(bullDashboardRoutes)
 

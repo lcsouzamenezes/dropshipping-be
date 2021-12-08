@@ -1,3 +1,4 @@
+import { ListingsMapper } from '@modules/listings/mappers/ListingsMapper'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { ListListingsService } from './ListListingsService'
@@ -10,7 +11,9 @@ class ListListingsController {
 
     const listings = await listListingsService.execute(account_id)
 
-    return response.json(listings)
+    const listingsDTO = listings.map((listing) => ListingsMapper.toDTO(listing))
+
+    return response.json(listingsDTO)
   }
 }
 

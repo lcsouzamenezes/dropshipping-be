@@ -18,6 +18,7 @@ class CreateListingService {
     integration_id,
     account_id,
     code,
+    product_id,
     active = true,
   }: ICreateLisgingDTO): Promise<Listing> {
     const integration = await this.integrationsRepository.findById(
@@ -37,6 +38,7 @@ class CreateListingService {
       account_id,
       code,
       integration_id,
+      product_id,
       active,
     })
 

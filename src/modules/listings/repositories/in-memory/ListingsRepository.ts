@@ -16,11 +16,20 @@ class ListingsRepository implements IListingsRepository {
     integration_id: string
     active: boolean
     account_id: string
+    product_id: string
   }): Promise<Listing> {
     const listing = new Listing()
     Object.assign(listing, { ...data })
     this.listings.push(listing)
     return listing
+  }
+
+  async delete(account_id: string, id: string): Promise<void> {
+    const listings = this.listings.filter(
+      (listing) => !(listing.id === id && listing.account_id === account_id)
+    )
+
+    this.listings = listings
   }
 }
 

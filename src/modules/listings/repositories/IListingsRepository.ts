@@ -8,7 +8,10 @@ interface IListingsRepository {
     integration_id: string
     active: boolean
     account_id: string
+    product_id: string
   }): Promise<Listing>
+
+  delete(account_id: string, id: string): Promise<void>
 }
 
 export { IListingsRepository }

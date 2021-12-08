@@ -35,6 +35,10 @@ export class CreateListings1638823109499 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'product_id',
+            type: 'varchar',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'NOW()',
@@ -59,6 +63,14 @@ export class CreateListings1638823109499 implements MigrationInterface {
             columnNames: ['account_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'accounts',
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
+          }),
+          new TableForeignKey({
+            name: 'product_id_listings',
+            columnNames: ['product_id'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'products',
             onUpdate: 'CASCADE',
             onDelete: 'CASCADE',
           }),

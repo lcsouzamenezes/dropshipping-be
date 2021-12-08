@@ -18,6 +18,7 @@ describe('ListListings', () => {
         account_id,
         active: true,
         code: 'SC1Hymk5lVOM' + i,
+        product_id: 'Xgudv7zZvCLai1p57wapScApyiFLrL3X' + i,
         integration_id: 'zkHTHWYbsLJ0YJCbEpSprgvg2P0fWSn5',
       })
     }

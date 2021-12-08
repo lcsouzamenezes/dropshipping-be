@@ -1,5 +1,6 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
 import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
+import { Listing } from '@modules/listings/infra/typeorm/entities/Listing'
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 import { ProductImage } from './ProductImage'
@@ -47,6 +48,9 @@ class Product extends BaseEntity {
   })
   @JoinColumn({ name: 'account_id' })
   account?: Account
+
+  @OneToMany(() => Listing, (listing) => listing.product)
+  listings: Listing[]
 }
 
 export { Product }

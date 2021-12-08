@@ -14,6 +14,12 @@ export const createListingValidation = [
     .optional()
     .isBoolean()
     .withMessage('Active must be boolean'),
+  check('product_id')
+    .trim()
+    .escape()
+    .not()
+    .isEmpty()
+    .withMessage('Product ID is required'),
   check('integration_id')
     .trim()
     .escape()

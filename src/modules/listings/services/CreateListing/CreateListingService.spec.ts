@@ -32,6 +32,7 @@ describe('CreateListingService', () => {
       code: 'rOrZCv2H9eh8',
       account_id,
       integration_id: integration.id,
+      product_id: 'iOpq3Rkojv0w3InQvOMfhv9O0c5z6gKh',
     })
 
     expect(listing).toHaveProperty('id')
@@ -45,6 +46,7 @@ describe('CreateListingService', () => {
         code: 'rOrZCv2H9eh8',
         account_id,
         integration_id: 'non-existing-integration-id',
+        product_id: 'QYMt1HOXoJC3xAEdOZu4lzprEQ3izctK',
       })
       .catch((e) => expect(e.message).toBe('Integration not found'))
   })

@@ -35,6 +35,11 @@ class Product extends BaseEntity {
   @Column()
   account_id: string
 
+  @Column({
+    unique: true,
+  })
+  integration_product_code: string
+
   @Column()
   integration_id: string
 

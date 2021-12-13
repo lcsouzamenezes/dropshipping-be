@@ -28,7 +28,7 @@ class RefreshTokenService {
       ) as ITokenPayload
 
       const validRefreshToken =
-        await this.userTokensRepository.findByUserIdAndToken(
+        await this.userTokensRepository.findByUserIdAndAccountIdAndToken(
           userId,
           refreshToken
         )

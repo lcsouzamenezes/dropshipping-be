@@ -9,11 +9,13 @@ import { createProductValidation } from '@modules/products/validations/createPro
 import { importProductsValidation } from '@modules/products/validations/importProductsValidation'
 import { GetProductController } from '@modules/products/services/GetProduct/GetProductController'
 import { UpdateProductController } from '@modules/products/services/UpdateProductService/UpdateProductController'
+import { UpdateStockController } from '@modules/products/services/UpdateStockService/UpdateStockController'
 
 const productsRoutes = Router()
 
 const getProductController = new GetProductController()
 const updateProductController = new UpdateProductController()
+const updateStockController = new UpdateStockController()
 const listUsersController = new ListProductsController()
 const importProductsController = new ImportProductsController()
 const createProductController = new CreateProductsController()
@@ -22,6 +24,8 @@ productsRoutes.get('/', Paginate(100), listUsersController.handle)
 
 productsRoutes.get('/:id', getProductController.handle)
 productsRoutes.put('/:id', updateProductController.handle)
+
+productsRoutes.patch('/:code/stock', updateStockController.handle)
 
 productsRoutes.post(
   '/',

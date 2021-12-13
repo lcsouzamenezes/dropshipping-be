@@ -15,6 +15,11 @@ export interface findBySkuData {
   integration_id?: string
 }
 
+export interface findByIntegrationProductCodeData {
+  code: string
+  account_id: string
+}
+
 export interface findByIdData {
   id: string
   account_id: string
@@ -26,6 +31,9 @@ interface IProductsRepository {
   saveMany(products: Product[], update?: boolean): Promise<SaveManyResponse>
   getAll(account_id: string, options?: { relations?: [] }): Promise<Product[]>
   findBySku(data: findBySkuData): Promise<Product>
+  findByIntegrationProductCode(
+    data: findByIntegrationProductCodeData
+  ): Promise<Product>
   findById(data: findByIdData): Promise<Product>
   getAllFromSuppliers(data: {
     search?: string

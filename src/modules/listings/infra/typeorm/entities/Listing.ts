@@ -1,8 +1,16 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
 import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
+import { Sell } from '@modules/sales/infra/typeorm/entities/Sell'
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from 'typeorm'
 
 @Entity('listings')
 class Listing extends BaseEntity {
@@ -35,6 +43,9 @@ class Listing extends BaseEntity {
   @ManyToOne(() => Product, (product) => product.listings)
   @JoinColumn({ name: 'product_id' })
   product: Product
+
+  @OneToMany(() => Sell, (sell) => sell.listing)
+  sales: Sell[]
 }
 
 export { Listing }

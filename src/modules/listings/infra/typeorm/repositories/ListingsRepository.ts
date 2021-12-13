@@ -1,5 +1,5 @@
 import { IListingsRepository } from '@modules/listings/repositories/IListingsRepository'
-import { DeleteResult, getRepository, Repository } from 'typeorm'
+import { getRepository, Repository } from 'typeorm'
 import { Listing } from '../entities/Listing'
 
 class ListingsRepository implements IListingsRepository {
@@ -45,6 +45,15 @@ class ListingsRepository implements IListingsRepository {
 
   async delete(account_id: string, id: string): Promise<void> {
     await this.repository.delete({ id, account_id })
+  }
+
+  async findByCode(code: string): Promise<Listing> {
+    const listing = await this.repository.findOne({
+      where: {
+        code,
+      },
+    })
+    return listing
   }
 }
 

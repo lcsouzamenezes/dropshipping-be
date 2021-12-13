@@ -12,6 +12,8 @@ interface IListingsRepository {
   }): Promise<Listing>
 
   delete(account_id: string, id: string): Promise<void>
+
+  findByCode(code: string): Promise<Listing>
 }
 
 export { IListingsRepository }

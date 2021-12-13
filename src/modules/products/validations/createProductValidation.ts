@@ -22,6 +22,12 @@ export const createProductValidation = [
     .withMessage('Integrations ID is required'),
   check('ean').trim().escape().not(),
   check('sku').trim().escape().not().isEmpty().withMessage('SKU is required'),
+  check('integration_product_code')
+    .trim()
+    .escape()
+    .not()
+    .isEmpty()
+    .withMessage('Integration Product Code is required'),
   check('stock')
     .trim()
     .escape()

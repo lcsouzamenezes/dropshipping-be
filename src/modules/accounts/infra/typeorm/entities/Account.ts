@@ -6,6 +6,7 @@ import { Integration } from '@modules/integrations/infra/typeorm/entities/Integr
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
 import { Notification } from '@modules/notifications/infra/typeorm/entities/Notification'
 import { Listing } from '@modules/listings/infra/typeorm/entities/Listing'
+import { Sell } from '@modules/sales/infra/typeorm/entities/Sell'
 
 @Entity('accounts')
 class Account extends BaseEntity {
@@ -34,6 +35,9 @@ class Account extends BaseEntity {
 
   @OneToMany(() => Product, (product) => product.account)
   listings: Listing[]
+
+  @OneToMany(() => Sell, (sell) => sell.account)
+  sales: Sell[]
 }
 
 export { Account }

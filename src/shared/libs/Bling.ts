@@ -13,6 +13,7 @@ interface GetProductsFilter {
 export interface GetProductsResponse {
   produtos?: Array<{
     produto: {
+      id: string
       codigo: string
       descricao: string
       preco: number

@@ -50,6 +50,7 @@ class ImportBlingProductsService {
           })
 
           Object.assign(mappedProduct, {
+            integration_product_code: item.id,
             name: item.descricao,
             sku: item.codigo,
             price: Math.trunc(item.preco * 100) ?? 0,

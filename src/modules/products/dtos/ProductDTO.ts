@@ -8,6 +8,7 @@ interface productDTO {
   price: number
   stock: number
   integration_id?: string
+  integration_product_code: string
   images?: Array<{
     id: string
     url: string

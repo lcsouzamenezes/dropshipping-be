@@ -1,6 +1,7 @@
 import { ICreateProductDTO } from '@modules/products/dtos/ICreateProductDTO'
 import {
   findByIdData,
+  findByIntegrationProductCodeData,
   findBySkuData,
   IProductsRepository,
   SaveManyResponse,
@@ -140,6 +141,19 @@ class ProductsRepository implements IProductsRepository {
 
     const products = await query.paginate()
     return products
+  }
+
+  async findByIntegrationProductCode({
+    account_id,
+    code,
+  }: findByIntegrationProductCodeData): Promise<Product> {
+    const product = await this.repository.findOne({
+      where: {
+        account_id,
+        integration_product_code: code,
+      },
+    })
+    return product
   }
 }
 

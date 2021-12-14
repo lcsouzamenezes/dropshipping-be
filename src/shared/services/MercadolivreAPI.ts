@@ -6,6 +6,7 @@ import mercadolivre from '@config/mercadolivre'
 import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { container } from 'tsyringe'
 import { IIntegrationsRepository } from '@modules/integrations/repositories/IIntegrationsRepository'
+import { AppError } from '@shared/errors/AppError'
 
 interface RefreshTokenResponse {
   access_token: string
@@ -26,17 +27,27 @@ async function updateRefreshToken(integration: Integration): Promise<string> {
     'IntegrationsRepository'
   )
 
-  const { data } = await axios.post<RefreshTokenResponse>(
-    `${mercadolivre.baseURL}/oauth/token?grant_type=refresh_token&client_id=${process.env.ML_APP_ID}&client_secret=${process.env.ML_APP_SECRET}&refresh_token=${integration.refresh_token}`
-  )
-  Object.assign(integration, {
-    expires_at: dateProvider.addSeconds(data.expires_in),
-    refresh_token: data.refresh_token,
-    access_token: data.access_token,
-  } as Integration)
-  await integrationsRepository.update(integration)
+  try {
+    const { data } = await axios.post<RefreshTokenResponse>(
+      `${mercadolivre.baseURL}/oauth/token`,
+      {
+        grant_type: 'refresh_token',
+        client_id: process.env.ML_APP_ID,
+        client_secret: process.env.ML_APP_SECRET,
+        refresh_token: integration.refresh_token,
+      }
+    )
+    Object.assign(integration, {
+      expires_at: dateProvider.addSeconds(data.expires_in),
+      refresh_token: data.refresh_token,
+      access_token: data.access_token,
+    } as Integration)
+    await integrationsRepository.update(integration)
 
-  return data.access_token
+    return data.access_token
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 export async function MercadolivreAPI(integration: Integration) {

@@ -1,5 +1,8 @@
+import { UpdateStockController } from '@modules/products/services/UpdateStockService/UpdateStockController'
 import Queue from '@shared/libs/Queue'
 import { Router, Request, Response } from 'express'
+
+const updateStockController = new UpdateStockController()
 
 const callbacksRoutes = Router()
 
@@ -39,6 +42,11 @@ callbacksRoutes.post(
 
     return response.send()
   }
+)
+
+callbacksRoutes.patch(
+  '/bling/stock/:integration_id',
+  updateStockController.handle
 )
 
 export { callbacksRoutes }

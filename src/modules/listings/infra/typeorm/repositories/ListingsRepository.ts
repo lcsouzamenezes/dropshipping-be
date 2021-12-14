@@ -55,6 +55,17 @@ class ListingsRepository implements IListingsRepository {
     })
     return listing
   }
+
+  async getByProductId(id: string, account_id: string): Promise<Listing[]> {
+    const listings = await this.repository.find({
+      where: {
+        product_id: id,
+        account_id,
+      },
+    })
+
+    return listings
+  }
 }
 
 export { ListingsRepository }

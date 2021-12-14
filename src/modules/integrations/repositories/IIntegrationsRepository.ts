@@ -27,7 +27,7 @@ interface IIntegrationsRepository {
   ): Promise<Integration>
   deleteById(id: string): Promise<void>
   findByAccountId(account_id: string, provider?: string): Promise<Integration[]>
-  findById(id: string, account_id: string): Promise<Integration>
+  findById(id: string, account_id?: string): Promise<Integration>
   update(integration: Integration): Promise<Integration>
 }
 

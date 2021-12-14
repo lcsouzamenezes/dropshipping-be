@@ -6,15 +6,14 @@ import { UpdateStockService } from './UpdateStockService'
 
 export class UpdateStockController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { account_id } = request.user
-    const { code } = request.params
-    const { stock } = request.body as IUpdateProductStockDTO
+    const { integration_id } = request.params
+    const { code, stock } = request.body as IUpdateProductStockDTO
 
     const updateProductService = container.resolve(UpdateStockService)
 
     const product = await updateProductService.execute({
       code,
-      account_id,
+      integration_id,
       stock,
     })
 

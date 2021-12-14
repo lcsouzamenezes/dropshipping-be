@@ -49,11 +49,20 @@ class IntegrationsRepository implements IIntegrationsRepository {
     return integrations
   }
 
-  async findById(id: string, account_id: string): Promise<Integration> {
+  async findById(id: string, account_id?: string): Promise<Integration> {
     const integration = this.integrations.find(
       (integration) =>
-        integration.id === id && integration.account_id === account_id
+        integration.id === id &&
+        (!account_id || integration.account_id === account_id)
     )
+    return integration
+  }
+
+  async update(integration: Integration): Promise<Integration> {
+    const integrationIndex = this.integrations.findIndex(
+      (findIndexIntegration) => integration.id === findIndexIntegration.id
+    )
+    Object.assign(this.integrations[integrationIndex], integration)
     return integration
   }
 }

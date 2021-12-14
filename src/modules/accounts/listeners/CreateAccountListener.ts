@@ -1,6 +1,4 @@
-import { container } from 'tsyringe'
 import { Account } from '../infra/typeorm/entities/Account'
-import { SendActivationMailService } from '../services/SendActivationEmailAccount/SendActivationMailService'
 import Queue from '@libs/Queue'
 
 interface CreateAccountListenerData {

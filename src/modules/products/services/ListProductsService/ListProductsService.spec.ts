@@ -24,6 +24,7 @@ describe('ListProductsService', () => {
         ean: '3281271275774',
         account_id,
         integration_id,
+        integration_product_code: 'MTngs2cTucCA',
       },
       {
         id: '73858204060742418183920576949873',
@@ -34,6 +35,7 @@ describe('ListProductsService', () => {
         ean: '6218666022074',
         account_id,
         integration_id,
+        integration_product_code: 'MTngs2cTucCA',
       },
     ])
 

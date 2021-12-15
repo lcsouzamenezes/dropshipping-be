@@ -1,5 +1,7 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
+import { Listing } from '@modules/listings/infra/typeorm/entities/Listing'
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
+import { Sell } from '@modules/sales/infra/typeorm/entities/Sell'
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 
@@ -33,7 +35,16 @@ class Integration extends BaseEntity {
   @JoinColumn({ name: 'account_id' })
   account: Account
 
-  @OneToMany(() => Product, (product) => product.integration)
+  @OneToMany(() => Listing, (listing) => listing.integration, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  listings: Listing[]
+
+  @OneToMany(() => Product, (product) => product.integration, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
   products: Product[]
 }
 

@@ -41,7 +41,7 @@ class UserTokensRepository implements IUserTokensRepository {
     this.tokens = tokens
   }
 
-  async findByUserIdAndToken(
+  async findByUserIdAndAccountIdAndToken(
     user_id: string,
     token: string
   ): Promise<UserToken> {

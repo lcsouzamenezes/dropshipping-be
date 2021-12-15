@@ -8,8 +8,16 @@ class UpdateProductController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { account_id } = request.user
     const { id } = request.params
-    const { name, ean, integration_id, price, sku, stock, images } =
-      request.body as IUpdateProductDTO
+    const {
+      name,
+      ean,
+      integration_id,
+      price,
+      sku,
+      stock,
+      images,
+      integration_product_code,
+    } = request.body as IUpdateProductDTO
 
     const updateProductService = container.resolve(UpdateProductService)
 
@@ -18,6 +26,7 @@ class UpdateProductController {
       account_id,
       name,
       ean,
+      integration_product_code,
       integration_id,
       price,
       sku,

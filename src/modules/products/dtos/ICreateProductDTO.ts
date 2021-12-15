@@ -4,6 +4,7 @@ export interface ICreateProductDTO {
   price: number
   stock: number
   ean?: string
+  integration_product_code: string
   images?: Array<{
     url: string
     is_external?: boolean

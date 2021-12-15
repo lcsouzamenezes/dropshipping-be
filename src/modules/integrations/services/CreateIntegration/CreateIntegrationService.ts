@@ -31,10 +31,11 @@ class CreateIntegrationService {
     refresh_token,
     provider,
   }: ICreateIntegration): Promise<Integration> {
-    const integrationExists = await this.integrationsRepository.findByUserId(
-      user_id,
-      account_id
-    )
+    const integrationExists =
+      await this.integrationsRepository.findByUserIdAndAccountId(
+        user_id,
+        account_id
+      )
 
     if (integrationExists) {
       await this.integrationsRepository.deleteById(integrationExists.id)

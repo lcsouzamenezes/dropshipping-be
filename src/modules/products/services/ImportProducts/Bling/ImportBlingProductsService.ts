@@ -5,6 +5,7 @@ import { Bling } from '@shared/libs/Bling'
 import { EventProvider } from '@shared/providers/EventProvider/EventProvider'
 import { container, inject, injectable } from 'tsyringe'
 import { BlingProductsImportationEndedData } from '@modules/products/listeners/BlingProductsImportationEnded'
+import { ProductImage } from '@modules/products/infra/typeorm/entities/ProductImage'
 
 export interface Statistics {
   newUpdates: number
@@ -38,7 +39,18 @@ class ImportBlingProductsService {
         const products = response.produtos
         const mappedProducts = products.map(({ produto: item }) => {
           const mappedProduct = new Product()
+
+          const images = item.imagem?.map((imagem) => {
+            const image = new ProductImage()
+            Object.assign(image, {
+              url: imagem.link,
+              is_external: true,
+            } as ProductImage)
+            return image
+          })
+
           Object.assign(mappedProduct, {
+            integration_product_code: item.id,
             name: item.descricao,
             sku: item.codigo,
             price: Math.trunc(item.preco * 100) ?? 0,
@@ -46,9 +58,11 @@ class ImportBlingProductsService {
             ean: item.gtin,
             account_id,
             integration_id,
+            images,
           } as Product)
           return mappedProduct
         })
+
         const { products: newProducts, errors } =
           await this.productsRepository.saveMany(mappedProducts, update)
         statistics.errors.concat(errors)

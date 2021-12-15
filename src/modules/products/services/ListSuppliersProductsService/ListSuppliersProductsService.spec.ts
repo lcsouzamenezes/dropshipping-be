@@ -34,7 +34,9 @@ describe('ListSuppliersProductsService', () => {
 
     productsRepository.save(product)
 
-    const products = await listSuppliersProductsService.execute(account.id)
+    const products = await listSuppliersProductsService.execute({
+      account_id: account.id,
+    })
 
     expect(products).toHaveLength(1)
   })
@@ -59,7 +61,9 @@ describe('ListSuppliersProductsService', () => {
 
     productsRepository.save(product)
 
-    const products = await listSuppliersProductsService.execute(account.id)
+    const products = await listSuppliersProductsService.execute({
+      account_id: account.id,
+    })
 
     expect(products).toHaveLength(0)
   })

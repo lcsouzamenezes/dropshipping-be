@@ -1,6 +1,7 @@
 import {
   ICreate,
   IIntegrationsRepository,
+  IUpdate,
 } from '@modules/integrations/repositories/IIntegrationsRepository'
 import { getRepository, Repository } from 'typeorm'
 import { Integration } from '../entities/Integration'
@@ -20,7 +21,17 @@ class IntegrationsRepository implements IIntegrationsRepository {
     return integration
   }
 
-  async findByUserId(
+  async findByUserId(user_id: string): Promise<Integration> {
+    const integration = await this.repository.findOne({
+      where: {
+        user_id,
+      },
+    })
+
+    return integration
+  }
+
+  async findByUserIdAndAccountId(
     user_id: string,
     account_id: string
   ): Promise<Integration> {
@@ -55,14 +66,22 @@ class IntegrationsRepository implements IIntegrationsRepository {
     return integrations
   }
 
-  async findById(id: string, account_id: string): Promise<Integration> {
-    const integration = await this.repository.findOne({
-      where: {
-        id,
-        account_id,
-      },
-    })
+  async findById(id: string, account_id?: string): Promise<Integration> {
+    const query = this.repository.createQueryBuilder('integrations')
 
+    query.where('integrations.id = :id', { id })
+
+    if (account_id) {
+      query.andWhere('integrations.account_id = :account_id', { account_id })
+    }
+
+    const integration = await query.getOne()
+
+    return integration
+  }
+
+  async update(integration: Integration): Promise<Integration> {
+    await this.repository.save(integration)
     return integration
   }
 }

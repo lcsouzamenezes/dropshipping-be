@@ -38,7 +38,7 @@ class UserTokensRepository implements IUserTokensRepository {
     await query.execute()
   }
 
-  async findByUserIdAndToken(
+  async findByUserIdAndAccountIdAndToken(
     user_id: string,
     token: string
   ): Promise<UserToken> {

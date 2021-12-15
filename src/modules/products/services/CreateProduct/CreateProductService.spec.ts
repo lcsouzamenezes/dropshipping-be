@@ -16,6 +16,7 @@ describe('CreateProductService', () => {
       sku: '870699270023',
       price: 100,
       stock: 2,
+      integration_product_code: 'ybY82Jchsl7I',
       account_id: '71050571508081459235326796190700',
       integration_id: '44288068044211383452069278293706',
     })

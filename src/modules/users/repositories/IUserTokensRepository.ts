@@ -11,7 +11,10 @@ interface IUserTokensRepository {
   create(data: ICreateUserToken): Promise<UserToken>
   deleteUserRefreshTokens(user_id: string): Promise<void>
   deleteExpiredTokens(type?: Pick<ICreateUserToken, 'type'>): Promise<void>
-  findByUserIdAndToken(user_id: string, token: string): Promise<UserToken>
+  findByUserIdAndAccountIdAndToken(
+    user_id: string,
+    token: string
+  ): Promise<UserToken>
   findByActivationToken(token: string): Promise<UserToken>
   deleteById(id: string): Promise<void>
 }

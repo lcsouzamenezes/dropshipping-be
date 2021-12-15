@@ -9,7 +9,6 @@ class DeleteListingService {
   ) {}
 
   async execute(id: string, account_id: string): Promise<void> {
-    console.log(id, account_id)
     await this.listingsRepository.delete(account_id, id)
   }
 }

@@ -55,7 +55,7 @@ class Product extends BaseEntity {
   account?: Account
 
   @OneToMany(() => Listing, (listing) => listing.product)
-  listings: Listing[]
+  listings?: Listing[]
 }
 
 export { Product }

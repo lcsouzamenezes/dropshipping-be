@@ -20,6 +20,7 @@ describe('GetProductService', () => {
       price: 100,
       sku: '282587348462',
       stock: 1,
+      integration_product_code: 'pWc2jBNisg4R',
     })
 
     const getProduct = await getProductService.execute({

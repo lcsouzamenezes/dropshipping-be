@@ -1,15 +1,15 @@
 import { SalesRepository } from '@modules/sales/repositories/in-memory/SalesRepository'
 import { EventProvider } from '@shared/providers/EventProvider/EventProvider'
 import { container } from 'tsyringe'
-import { CreateSellService } from './CreateSalesService'
+import { CreateSaleService } from './CreateSalesService'
 
 let salesRepository: SalesRepository
-let createSellService: CreateSellService
+let createSellService: CreateSaleService
 
 describe('CreateSellSpec', () => {
   beforeEach(() => {
     salesRepository = new SalesRepository()
-    createSellService = new CreateSellService(salesRepository)
+    createSellService = new CreateSaleService(salesRepository)
   })
 
   it('should be able to create a sell', async () => {

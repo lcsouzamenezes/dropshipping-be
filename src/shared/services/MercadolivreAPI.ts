@@ -6,7 +6,6 @@ import mercadolivre from '@config/mercadolivre'
 import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { container } from 'tsyringe'
 import { IIntegrationsRepository } from '@modules/integrations/repositories/IIntegrationsRepository'
-import { AppError } from '@shared/errors/AppError'
 
 interface RefreshTokenResponse {
   access_token: string

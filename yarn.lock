@@ -7043,6 +7043,11 @@ xml2js@^0.4.23:
     sax ">=0.6.0"
     xmlbuilder "~11.0.0"
 
+xmlbuilder@^15.1.1:
+  version "15.1.1"
+  resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-15.1.1.tgz#9dcdce49eea66d8d10b42cae94a79c3c8d0c2ec5"
+  integrity sha512-yMqGBqtXyeN1e3TGYvgNgDVZ3j84W4cwkOXQswghol6APgZWaff9lnbvN7MHYJOiXsvGPXtjTYJEiC9J2wv9Eg==
+
 xmlbuilder@~11.0.0:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/xmlbuilder/-/xmlbuilder-11.0.1.tgz#be9bae1c8a046e76b31127726347d0ad7002beb3"

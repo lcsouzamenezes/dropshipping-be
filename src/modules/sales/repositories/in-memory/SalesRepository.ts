@@ -20,4 +20,8 @@ export class SalesRepository implements ISalesRepository {
   async getByIntegrationOrderId(id: string): Promise<Sell> {
     return this.sales.find((sell) => sell.integration_order_id === id)
   }
+
+  async delete(id: string): Promise<void> {
+    this.sales = this.sales.filter((sell) => sell.id !== id)
+  }
 }

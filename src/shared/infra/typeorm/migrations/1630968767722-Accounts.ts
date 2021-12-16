@@ -19,7 +19,7 @@ export class Accounts1630968767722 implements MigrationInterface {
           {
             name: 'active',
             type: 'boolean',
-            default: false,
+            default: true,
           },
           {
             name: 'type',

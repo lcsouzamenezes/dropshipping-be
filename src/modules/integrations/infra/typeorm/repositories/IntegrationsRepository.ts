@@ -58,7 +58,7 @@ class IntegrationsRepository implements IIntegrationsRepository {
       .where('account_id = :account_id', { account_id })
 
     if (provider) {
-      integrationsQuery.where('provider = :provider', { provider })
+      integrationsQuery.andWhere('provider = :provider', { provider })
     }
 
     const integrations = await integrationsQuery.getMany()

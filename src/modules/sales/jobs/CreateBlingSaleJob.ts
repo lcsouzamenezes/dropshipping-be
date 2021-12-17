@@ -53,11 +53,11 @@ export default {
     const xml = xmlbuilder.create(xmlObject).end({ pretty: true })
 
     //Create oononmiomndsoi
-    // await bling.post('pedido', qs.stringify({ xml }), {
-    //   headers: {
-    //     'Content-Type': 'application/x-www-form-urlencoded',
-    //   },
-    // })
+    await bling.post('pedido', qs.stringify({ xml }), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
 
     //delete temporaly
     // await salesRepository.delete(sell.id)

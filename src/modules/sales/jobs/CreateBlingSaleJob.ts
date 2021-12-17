@@ -52,13 +52,14 @@ export default {
 
     const xml = xmlbuilder.create(xmlObject).end({ pretty: true })
 
-    await bling.post('pedido', qs.stringify({ xml }), {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
+    //Create oononmiomndsoi
+    // await bling.post('pedido', qs.stringify({ xml }), {
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded',
+    //   },
+    // })
 
     //delete temporaly
-    await salesRepository.delete(sell.id)
+    // await salesRepository.delete(sell.id)
   },
 } as Job

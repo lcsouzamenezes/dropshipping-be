@@ -30,6 +30,10 @@ interface IProductsRepository {
   save(data: ICreateProductDTO): Promise<Product>
   saveMany(products: Product[], update?: boolean): Promise<SaveManyResponse>
   getAll(account_id: string, options?: { relations?: [] }): Promise<Product[]>
+  search(
+    data: { account_id: string; search: string },
+    options?: { relations?: [] }
+  ): Promise<Product[]>
   findBySku(data: findBySkuData): Promise<Product>
   findByIntegrationProductCode(
     data: findByIntegrationProductCodeData

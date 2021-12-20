@@ -1,19 +1,13 @@
 import { Request, Response, NextFunction } from 'express'
 import { validationResult, query } from 'express-validator'
 
-export const listSupplierProductsValidation = [
+export const listProductsValidation = [
   query('search')
     .trim()
     .escape()
     .optional()
     .isString()
     .withMessage('Search must be a string'),
-  query('supplier')
-    .trim()
-    .escape()
-    .optional()
-    .isString()
-    .withMessage('Supplier must be a string'),
   (request: Request, response: Response, next: NextFunction) => {
     const errors = validationResult(request)
 
@@ -21,7 +15,7 @@ export const listSupplierProductsValidation = [
       return response.status(422).json({
         error: true,
         errors: errors.array(),
-        code: 'list_supplier_products:invalid_data',
+        code: 'list_products:invalid_data',
       })
     }
 

@@ -9,6 +9,7 @@ import { createProductValidation } from '@modules/products/validations/createPro
 import { importProductsValidation } from '@modules/products/validations/importProductsValidation'
 import { GetProductController } from '@modules/products/services/GetProduct/GetProductController'
 import { UpdateProductController } from '@modules/products/services/UpdateProductService/UpdateProductController'
+import { listProductsValidation } from '@modules/products/validations/listProductsValidation'
 
 const productsRoutes = Router()
 
@@ -18,7 +19,12 @@ const listUsersController = new ListProductsController()
 const importProductsController = new ImportProductsController()
 const createProductController = new CreateProductsController()
 
-productsRoutes.get('/', Paginate(100), listUsersController.handle)
+productsRoutes.get(
+  '/',
+  listProductsValidation,
+  Paginate(100),
+  listUsersController.handle
+)
 
 productsRoutes.get('/:id', getProductController.handle)
 productsRoutes.put('/:id', updateProductController.handle)

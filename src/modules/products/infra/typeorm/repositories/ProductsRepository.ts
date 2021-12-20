@@ -96,6 +96,24 @@ class ProductsRepository implements IProductsRepository {
       .paginate()
     return products
   }
+  async search(
+    { search, account_id }: { search: string; account_id: string },
+    options?: { relations?: [] }
+  ): Promise<Product[]> {
+    const query = this.repository
+      .createQueryBuilder('products')
+      .where('account_id = :account_id', { account_id })
+      .where((qb) => {
+        qb.where('name LIKE :search', { search: `%${search}%` })
+        qb.orWhere('sku LIKE :search', { search: `%${search}%` })
+        qb.orWhere('ean LIKE :search', { search: `%${search}%` })
+      })
+      .orderBy('created_at', 'DESC')
+      .orderBy('name', 'ASC')
+
+    const products = await query.paginate()
+    return products
+  }
 
   async findById({ account_id, id, options }: findByIdData): Promise<Product> {
     const product = await this.repository.findOne({

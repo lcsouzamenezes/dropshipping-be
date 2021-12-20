@@ -97,6 +97,24 @@ class ProductsRepository implements IProductsRepository {
     )
     return product
   }
+
+  async search(
+    data: { account_id: string; search: string },
+    options?: { relations?: [] }
+  ): Promise<Product[]> {
+    const products = this.products.filter((product) => {
+      if (
+        product.account_id === data.account_id &&
+        product.name.search(data.search) !== -1
+      ) {
+        return true
+      }
+
+      return false
+    })
+
+    return products
+  }
 }
 
 export { ProductsRepository }

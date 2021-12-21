@@ -7,6 +7,8 @@ import { Product } from '@modules/products/infra/typeorm/entities/Product'
 import { Notification } from '@modules/notifications/infra/typeorm/entities/Notification'
 import { Listing } from '@modules/listings/infra/typeorm/entities/Listing'
 import { Sell } from '@modules/sales/infra/typeorm/entities/Sell'
+import { Profile } from '@modules/profiles/infra/typeorm/entities/Profile'
+import { Address } from '@modules/addresses/infra/typeorm/entities/Address'
 
 @Entity('accounts')
 class Account extends BaseEntity {
@@ -38,6 +40,12 @@ class Account extends BaseEntity {
 
   @OneToMany(() => Sell, (sell) => sell.account)
   sales: Sell[]
+
+  @OneToMany(() => Profile, (profile) => profile.account)
+  profiles: Profile[]
+
+  @OneToMany(() => Address, (address) => address.account)
+  addresses?: Address[]
 }
 
 export { Account }

@@ -1,18 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import { check, validationResult } from 'express-validator'
 
-// name: string
-//   sku: string
-//   price: number
-//   stock: number
-//   ean?: string
-//   images?: Array<{
-//     url: string
-//     is_external?: boolean
-//   }>
-//   account_id: string
-//   integration_id: string
-
 export const createProductValidation = [
   check('integration_id')
     .trim()

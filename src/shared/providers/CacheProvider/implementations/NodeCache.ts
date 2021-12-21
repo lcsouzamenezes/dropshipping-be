@@ -16,6 +16,11 @@ class NodeCache implements ICacheProvider {
   async get<T = unknown>(key: string): Promise<T> {
     return await this.cache.get(key)
   }
+  async unset(key: string): Promise<void> {
+    await this.cache.del(key)
+    return
+  }
+
   async flush(): Promise<void> {
     this.cache.flushAll()
   }

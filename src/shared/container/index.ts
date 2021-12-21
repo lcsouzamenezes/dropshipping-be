@@ -5,5 +5,7 @@ import './products'
 import './notifications'
 import './listings'
 import './sales'
+import './profiles'
+import './addresses'
 
 import '@shared/providers'

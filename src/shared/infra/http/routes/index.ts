@@ -12,6 +12,7 @@ import { suppliersRoutes } from './suppliers.routes'
 import { listingsRoutes } from './listings.routes'
 import { callbacksRoutes } from './callbacks.routes'
 import { salesRoutes } from './sales.routes'
+import { profilesRoutes } from './profiles.routes'
 
 const routes = Router()
 
@@ -25,6 +26,7 @@ routes.use('/notifications', EnsureAuthenticated, notificationsRoutes)
 routes.use('/suppliers', EnsureAuthenticated, suppliersRoutes)
 routes.use('/listings', EnsureAuthenticated, listingsRoutes)
 routes.use('/sales', EnsureAuthenticated, salesRoutes)
+routes.use('/profiles', EnsureAuthenticated, profilesRoutes)
 
 routes.use('/callbacks', callbacksRoutes)
 

@@ -60,7 +60,7 @@ class Product extends BaseEntity {
   @Column({
     default: true,
   })
-  active: boolean
+  active?: boolean
 }
 
 export { Product }

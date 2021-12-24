@@ -56,6 +56,11 @@ class Product extends BaseEntity {
 
   @OneToMany(() => Listing, (listing) => listing.product)
   listings?: Listing[]
+
+  @Column({
+    default: true,
+  })
+  active: boolean
 }
 
 export { Product }

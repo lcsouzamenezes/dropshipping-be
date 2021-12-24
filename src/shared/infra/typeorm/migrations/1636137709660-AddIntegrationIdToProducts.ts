@@ -23,6 +23,8 @@ export class AddIntegrationIdToProducts1636137709660
         columnNames: ['integration_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'integrations',
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
       })
     )
   }

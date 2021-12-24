@@ -17,6 +17,7 @@ class UpdateProductController {
       stock,
       images,
       integration_product_code,
+      active,
     } = request.body as IUpdateProductDTO
 
     const updateProductService = container.resolve(UpdateProductService)
@@ -31,6 +32,7 @@ class UpdateProductController {
       price,
       sku,
       stock,
+      active,
       images,
     })
 

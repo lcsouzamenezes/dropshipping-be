@@ -6,7 +6,7 @@ import {
   IProductsRepository,
   SaveManyResponse,
 } from '@modules/products/repositories/IProductsRepository'
-import { Brackets, getRepository, Repository } from 'typeorm'
+import { Brackets, getRepository, QueryResult, Repository } from 'typeorm'
 import { Product } from '../entities/Product'
 
 class ProductsRepository implements IProductsRepository {
@@ -88,12 +88,15 @@ class ProductsRepository implements IProductsRepository {
     account_id: string,
     options?: { relations?: [] }
   ): Promise<Product[]> {
-    const products = await this.repository
-      .createQueryBuilder('products')
+    const query = this.repository.createQueryBuilder('products')
+
+    query
       .where('account_id = :account_id', { account_id })
       .orderBy('created_at', 'DESC')
       .orderBy('name', 'ASC')
-      .paginate()
+      .orderBy('CASE WHEN stock > 0 THEN 1 ELSE 2 END', 'ASC')
+
+    const products = await query.paginate()
     return products
   }
   async search(
@@ -110,6 +113,7 @@ class ProductsRepository implements IProductsRepository {
       })
       .orderBy('created_at', 'DESC')
       .orderBy('name', 'ASC')
+      .orderBy('CASE WHEN stock > 0 THEN 1 ELSE 2 END', 'ASC')
 
     const products = await query.paginate()
     return products
@@ -143,15 +147,16 @@ class ProductsRepository implements IProductsRepository {
     }
 
     if (search) {
-      query.where(
-        new Brackets((qb) => {
-          qb.where('products.name LIKE :search', { search: `%${search}%` })
-        })
-      )
+      const searchQuery = search.split(' ').join('%')
+      query.andWhere((qb) => {
+        qb.where('products.name LIKE :search', { search: `%${searchQuery}%` })
+        qb.orWhere('products.sku = :sku', { sku: search })
+        qb.orWhere('products.ean = :ean', { ean: search })
+      })
     }
 
     if (supplier) {
-      query.where('accounts.id = :supplier', { supplier })
+      query.andWhere('accounts.id = :supplier', { supplier })
     }
 
     query.orderBy('products.created_at', 'DESC')

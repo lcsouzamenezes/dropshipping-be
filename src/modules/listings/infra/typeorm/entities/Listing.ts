@@ -46,6 +46,12 @@ class Listing extends BaseEntity {
 
   @OneToMany(() => Sell, (sell) => sell.listing)
   sales: Sell[]
+
+  @Column({
+    default: 'NULL',
+    nullable: true,
+  })
+  parent_code?: string
 }
 
 export { Listing }

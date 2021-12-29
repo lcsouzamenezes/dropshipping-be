@@ -15,6 +15,7 @@ class ListingsMapper {
       id: rest.id,
       code: rest.code,
       active: rest.active,
+      parent_code: rest.parent_code ?? null,
       created_at: rest.created_at,
       updated_at: rest.updated_at,
     } as ListingDTO

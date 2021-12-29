@@ -138,7 +138,7 @@ class ProductsRepository implements IProductsRepository {
     query.innerJoinAndSelect(
       'products.account',
       'accounts',
-      'accounts.type = :type AND active = true',
+      'accounts.type = :type AND accounts.active = true',
       { type: 'supplier' }
     )
 

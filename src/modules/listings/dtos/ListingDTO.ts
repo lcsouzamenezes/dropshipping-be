@@ -6,6 +6,7 @@ interface ListingDTO {
   id: string
   code: string
   active: boolean
+  parent_code: string | null
 
   integration: {
     id: string

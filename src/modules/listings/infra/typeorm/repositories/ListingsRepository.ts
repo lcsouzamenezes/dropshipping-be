@@ -33,6 +33,7 @@ class ListingsRepository implements IListingsRepository {
     active: boolean
     account_id: string
     product_id: string
+    parent_code?: string
   }): Promise<Listing> {
     const listing = this.repository.create()
 

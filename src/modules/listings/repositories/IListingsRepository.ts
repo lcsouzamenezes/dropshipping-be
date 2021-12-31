@@ -16,6 +16,11 @@ interface IListingsRepository {
 
   findByCode(code: string): Promise<Listing>
 
+  findByParentCode(
+    parent_code: string,
+    options?: { relations: string[] }
+  ): Promise<Listing[]>
+
   getByProductId(id: string, account_id: string): Promise<Listing[]>
 }
 

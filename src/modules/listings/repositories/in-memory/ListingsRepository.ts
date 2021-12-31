@@ -36,6 +36,12 @@ class ListingsRepository implements IListingsRepository {
     return this.listings.find((listing) => listing.code === code)
   }
 
+  async findByParentCode(parent_code: string): Promise<Listing[]> {
+    return this.listings.filter(
+      (listing) => listing.parent_code === parent_code
+    )
+  }
+
   async getByProductId(id: string, account_id: string): Promise<Listing[]> {
     return this.listings.filter((listing) => listing.product_id == id)
   }

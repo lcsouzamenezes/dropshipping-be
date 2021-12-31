@@ -57,6 +57,19 @@ class ListingsRepository implements IListingsRepository {
     return listing
   }
 
+  async findByParentCode(
+    parent_code: string,
+    options?: { relations: string[] }
+  ): Promise<Listing[]> {
+    const listings = await this.repository.find({
+      where: {
+        parent_code,
+      },
+      relations: options.relations,
+    })
+    return listings
+  }
+
   async getByProductId(id: string, account_id: string): Promise<Listing[]> {
     const listings = await this.repository.find({
       where: {

@@ -1,3 +1,4 @@
+import { Listing } from '@modules/listings/infra/typeorm/entities/Listing'
 import { IListingsRepository } from '@modules/listings/repositories/IListingsRepository'
 import { ISalesRepository } from '@modules/sales/repositories/ISalesRepository'
 import { CreateSaleService } from '@modules/sales/services/CreateSalesService/CreateSalesService'
@@ -16,6 +17,7 @@ interface OrderResource {
   order_items: Array<{
     item: {
       id: string
+      variation_id?: string
     }
     quantity: number
   }>
@@ -48,7 +50,14 @@ export default {
           for (const { item, quantity } of data.order_items) {
             const orderId = notification.resource.replace(/\D+/g, '')
 
-            const listing = await listingsRepository.findByCode(item.id)
+            let listing: Listing | undefined
+            if (item.variation_id) {
+              listing = await listingsRepository.findByCode(
+                `MLB${item.variation_id}`
+              )
+            } else {
+              listing = await listingsRepository.findByCode(item.id)
+            }
 
             const sell = await salesRepository.getByIntegrationOrderId(orderId)
 

@@ -12,6 +12,7 @@ import '../../events'
 
 import { routes } from './routes'
 import { ErrorHandler } from './middlewares/ErrorMiddleware'
+import upload from '@config/upload'
 
 const app = express()
 
@@ -24,6 +25,8 @@ app.use(
 )
 
 app.use(express.json())
+
+app.use(express.static(upload.diskStorageFolder))
 
 app.use(routes)
 

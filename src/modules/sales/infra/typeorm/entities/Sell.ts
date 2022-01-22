@@ -28,4 +28,19 @@ export class Sell extends BaseEntity {
   })
   @JoinColumn({ name: 'account_id' })
   account: Account
+
+  @Column({
+    nullable: true,
+  })
+  receipt?: string
+
+  @Column({
+    nullable: true,
+  })
+  invoice?: string
+
+  @Column({
+    nullable: true,
+  })
+  label?: string
 }

@@ -1,6 +1,7 @@
 import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
-import { CreateSellDTO } from '@modules/sales/dtos/CreateSellDTO'
+import { ICreateSellDTO } from '@modules/sales/dtos/ICreateSellDTO'
+import { IUpdateSellDTO } from '@modules/sales/dtos/IUpdateSellDTO'
 import { ISalesRepository } from '@modules/sales/repositories/ISalesRepository'
 import { getRepository, Repository } from 'typeorm'
 import { Sell } from '../entities/Sell'
@@ -11,11 +12,17 @@ export class SalesRepository implements ISalesRepository {
   constructor() {
     this.repository = getRepository(Sell)
   }
-  getSellProducts(id: string): Promise<Product[]> {
+
+  async getById(id: string): Promise<Sell> {
+    const sell = this.repository.findOne(id)
+    return sell
+  }
+
+  async getSellProducts(id: string): Promise<Product[]> {
     throw new Error('Method not implemented.')
   }
 
-  async create(data: CreateSellDTO): Promise<Sell> {
+  async create(data: ICreateSellDTO): Promise<Sell> {
     const sell = this.repository.create()
     Object.assign(sell, { ...data } as Sell)
     await this.repository.save(sell)
@@ -77,5 +84,14 @@ export class SalesRepository implements ISalesRepository {
 
     const sell = await query.getOne()
     return sell.listing.product
+  }
+
+  async update(data: IUpdateSellDTO): Promise<Sell> {
+    const sale = await this.repository.findOne({ id: data.id })
+    Object.assign(sale, data)
+
+    await this.repository.save(sale)
+
+    return sale
   }
 }

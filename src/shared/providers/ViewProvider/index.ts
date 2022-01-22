@@ -1,5 +1,5 @@
-import { container } from 'tsyringe';
-import { Handlebars } from './implementations/Handlebars';
-import { IViewProvider } from './IViewProvider';
+import { container } from 'tsyringe'
+import { Handlebars } from './implementations/Handlebars'
+import { IViewProvider } from './IViewProvider'
 
-container.registerSingleton<IViewProvider>('ViewProvider', Handlebars);
+container.registerSingleton<IViewProvider>('ViewProvider', Handlebars)

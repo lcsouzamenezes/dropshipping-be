@@ -11,6 +11,9 @@ export class SalesMapper {
       quantity: sell.quantity,
       created_at: sell.created_at,
       updated_at: sell.updated_at,
+      invoice: sell.invoice,
+      label: sell.label,
+      receipt: sell.receipt,
       ...(sell.account && { account: AccountsMapper.toDTO(sell.account) }),
       ...(sell.listing && { listing: ListingsMapper.toDTO(sell.listing) }),
     } as SellDTO

@@ -1,3 +1,4 @@
+import { SalesMapper } from '@modules/sales/mappers/SalesMapper'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { UploadFilesService } from './UploadFilesService'
@@ -20,8 +21,9 @@ export class UploadFilesController {
 
     const uploadFilesService = container.resolve(UploadFilesService)
 
-    await uploadFilesService.execute({ id, files })
+    const sale = await uploadFilesService.execute({ id, files })
+    const saleDTO = SalesMapper.toDTO(sale)
 
-    return response.send()
+    return response.send(saleDTO)
   }
 }

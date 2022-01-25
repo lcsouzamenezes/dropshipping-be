@@ -11,12 +11,15 @@ export class S3StorageProvider implements IStorageProvider {
   constructor() {
     this.client = new S3({
       region: process.env.AWS_REGION,
-      endpoint: `https://${process.env.AWS_BUCKET}.${process.env.AWS_REGION}.amazonaws.com`,
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
     })
   }
 
   async save(file: string, destination: string): Promise<string> {
-    const originalName = resolve(uploadConfig.diskStorageFolder, file)
+    const originalName = resolve(uploadConfig.tempFolder, file)
     const fileContent = fs.readFileSync(originalName)
     const contentType = mime.getType(originalName)
     await this.client

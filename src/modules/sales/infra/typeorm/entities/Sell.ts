@@ -45,6 +45,8 @@ export class Sell extends BaseEntity {
     switch (process.env.STORAGE) {
       case 'local':
         return `${process.env.APP_HOST}/storage/${this.STORAGE_PATH}/${this.receipt}`
+      case 's3':
+        return `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${this.STORAGE_PATH}/${this.receipt}`
       default:
         return null
     }

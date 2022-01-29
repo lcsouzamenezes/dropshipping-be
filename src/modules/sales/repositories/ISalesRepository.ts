@@ -1,10 +1,13 @@
 import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
-import { CreateSellDTO } from '../dtos/CreateSellDTO'
+import { ICreateSellDTO } from '../dtos/ICreateSellDTO'
+import { IUpdateSellDTO } from '../dtos/IUpdateSellDTO'
 import { Sell } from '../infra/typeorm/entities/Sell'
 
 export interface ISalesRepository {
-  create(data: CreateSellDTO): Promise<Sell>
+  create(data: ICreateSellDTO): Promise<Sell>
+
+  getById(id: string): Promise<Sell>
 
   getByAccountId(account_id: string): Promise<Sell[]>
 
@@ -15,4 +18,6 @@ export interface ISalesRepository {
   getSupplierIntegration(id: string): Promise<Integration>
 
   getSellProduct(id: string): Promise<Product>
+
+  update(data: IUpdateSellDTO): Promise<Sell>
 }

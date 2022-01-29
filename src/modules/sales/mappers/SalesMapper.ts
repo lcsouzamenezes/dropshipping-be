@@ -11,6 +11,12 @@ export class SalesMapper {
       quantity: sell.quantity,
       created_at: sell.created_at,
       updated_at: sell.updated_at,
+      invoice: sell.invoice,
+      invoice_url: sell.invoice_url(),
+      label: sell.label,
+      label_url: sell.label_url(),
+      receipt: sell.receipt,
+      receipt_url: sell.receipt_url(),
       ...(sell.account && { account: AccountsMapper.toDTO(sell.account) }),
       ...(sell.listing && { listing: ListingsMapper.toDTO(sell.listing) }),
     } as SellDTO

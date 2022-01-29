@@ -9,4 +9,7 @@ export interface SellDTO {
   updated_at: Date
   account: AccountDTO
   listing: ListingDTO
+  invoice?: string
+  label?: string
+  receipt?: string
 }

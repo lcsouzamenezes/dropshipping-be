@@ -1,4 +1,4 @@
-import { CreateSellDTO } from '@modules/sales/dtos/CreateSellDTO'
+import { ICreateSellDTO } from '@modules/sales/dtos/ICreateSellDTO'
 import { ISalesRepository } from '@modules/sales/repositories/ISalesRepository'
 import { EventProvider } from '@shared/providers/EventProvider/EventProvider'
 import { container, inject, injectable } from 'tsyringe'
@@ -10,7 +10,7 @@ export class CreateSaleService {
     private salesRepository: ISalesRepository
   ) {}
 
-  async execute(data: CreateSellDTO) {
+  async execute(data: ICreateSellDTO) {
     const events = container.resolve(EventProvider)
 
     const sell = await this.salesRepository.create(data)

@@ -5,7 +5,6 @@ import express from 'express'
 import cors from 'cors'
 import 'express-async-errors'
 
-import uploadConfig from '@config/upload'
 import createConnection from '../typeorm'
 
 import '@shared/container'
@@ -22,6 +21,7 @@ createConnection()
 app.use(
   cors({
     exposedHeaders: ['X-Total-Count'],
+    origin: '*',
   })
 )
 

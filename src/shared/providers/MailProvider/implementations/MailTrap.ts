@@ -1,7 +1,7 @@
-import { IViewProvider } from '@shared/providers/ViewProvider/IViewProvider';
-import nodemailer, { Transporter } from 'nodemailer';
-import { inject, injectable } from 'tsyringe';
-import { IMailProvider, IViewInterface } from '../IMailProvider';
+import { IViewProvider } from '@shared/providers/ViewProvider/IViewProvider'
+import nodemailer, { Transporter } from 'nodemailer'
+import { inject, injectable } from 'tsyringe'
+import { IMailProvider, IViewInterface } from '../IMailProvider'
 
 @injectable()
 class MailTrap implements IMailProvider {
@@ -16,21 +16,21 @@ class MailTrap implements IMailProvider {
         user: process.env.MAILTRAP_USER,
         pass: process.env.MAILTRAP_PASS,
       },
-    });
+    })
   }
 
-  private client: Transporter;
+  private client: Transporter
 
   async send(to: string, subject: string, view: IViewInterface) {
-    const html = this.viewProvider.render(view.path, view.variables);
+    const html = this.viewProvider.render(view.path, view.variables)
 
-    this.client.sendMail({
+    await this.client.sendMail({
       from: process.env.MAIL_FROM,
       to,
       subject,
       html,
-    });
+    })
   }
 }
 
-export { MailTrap };
+export { MailTrap }

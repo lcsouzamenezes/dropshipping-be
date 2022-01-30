@@ -1,4 +1,4 @@
-name: CI WHM
+name: CI AWS
 
 on:
   push:
@@ -26,26 +26,24 @@ jobs:
       - name: SSH Copy files
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          port: ${{ secrets.SSH_PORT }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          host: ${{ secrets.AWS_SSH_HOST }}
+          username: ${{ secrets.AWS_SSH_USERNAME }}
+          port: ${{ secrets.AWS_SSH_PORT }}
+          key: ${{ secrets.AWS_SSH_KEY }}
           source: '., !node_modules'
-          target: '~/api'
+          target: '~/outter'
 
       - name: Install Dependencies and Restart Server
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          port: ${{ secrets.SSH_PORT }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          host: ${{ secrets.AWS_SSH_HOST }}
+          username: ${{ secrets.AWS_SSH_USERNAME }}
+          port: ${{ secrets.AWS_SSH_PORT }}
+          key: ${{ secrets.AWS_SSH_KEY }}
           script: |
-            cd ~/api
-            npm install
-            touch ./tmp/restart.txt
+            cd ~/outter
+            yarn
+            pm2 restart all
 
       - name: Run migrations and seeders
         uses: appleboy/ssh-action@master
@@ -56,6 +54,6 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            cd ~/api
+            cd ~/outter
             ./node_modules/.bin/typeorm migrations:run
             ./node_modules/.bin/typeorm migrations:run -c seed

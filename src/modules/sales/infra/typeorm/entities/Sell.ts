@@ -4,14 +4,6 @@ import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
 import { Expose } from 'class-transformer'
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 
-export type ISaleStatus =
-  | 'pending'
-  | 'wating_approval'
-  | 'waiting_shippingh'
-  | 'shipped'
-  | 'done'
-  | 'canceled'
-
 @Entity('sales')
 export class Sell extends BaseEntity {
   STORAGE_PATH = 'sales'
@@ -29,7 +21,7 @@ export class Sell extends BaseEntity {
   quantity: number
 
   @Column()
-  status: ISaleStatus
+  status: string
 
   @ManyToOne(() => Listing, (listing) => listing.sales, {
     cascade: true,

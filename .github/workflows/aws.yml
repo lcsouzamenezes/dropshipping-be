@@ -48,11 +48,10 @@ jobs:
       - name: Run migrations and seeders
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          port: ${{ secrets.SSH_PORT }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          host: ${{ secrets.AWS_SSH_HOST }}
+          username: ${{ secrets.AWS_SSH_USERNAME }}
+          port: ${{ secrets.AWS_SSH_PORT }}
+          key: ${{ secrets.AWS_SSH_KEY }}
           script: |
             cd ~/outter
             ./node_modules/.bin/typeorm migrations:run

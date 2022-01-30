@@ -42,6 +42,7 @@ export class SalesRepository implements ISalesRepository {
     query.leftJoinAndSelect('sales.listing', 'listings')
     query.leftJoinAndSelect('listings.integration', 'integration')
     query.leftJoinAndSelect('listings.product', 'product')
+    query.leftJoinAndSelect('product.account', 'account')
 
     query.orderBy('sales.created_at', 'DESC')
 
@@ -57,6 +58,7 @@ export class SalesRepository implements ISalesRepository {
     query.leftJoinAndSelect('sales.listing', 'listings')
     query.leftJoinAndSelect('listings.integration', 'integration')
     query.leftJoinAndSelect('listings.product', 'product')
+    query.leftJoinAndSelect('product.account', 'account')
 
     query.orderBy('sales.created_at', 'DESC')
 

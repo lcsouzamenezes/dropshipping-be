@@ -11,6 +11,8 @@ export interface ISalesRepository {
 
   getByAccountId(account_id: string): Promise<Sell[]>
 
+  getBySupplierId(account_id: string): Promise<Sell[]>
+
   getByIntegrationOrderId(id: string): Promise<Sell>
 
   delete(id: string): Promise<void>

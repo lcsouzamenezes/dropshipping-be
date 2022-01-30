@@ -9,6 +9,7 @@ export class SalesMapper {
       id: sell.id,
       integration_order_id: sell.integration_order_id,
       quantity: sell.quantity,
+      status: sell.status,
       created_at: sell.created_at,
       updated_at: sell.updated_at,
       invoice: sell.invoice,

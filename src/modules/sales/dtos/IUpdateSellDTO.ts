@@ -1,3 +1,5 @@
+import { ISaleStatus } from '../infra/typeorm/entities/Sell'
+
 export interface IUpdateSellDTO {
   id: string
   integration_order_id: string
@@ -7,4 +9,5 @@ export interface IUpdateSellDTO {
   invoice?: string
   label?: string
   receipt?: string
+  status?: ISaleStatus
 }

@@ -24,6 +24,13 @@ export class SalesRepository implements ISalesRepository {
     return sales
   }
 
+  async getBySupplierId(account_id: string): Promise<Sell[]> {
+    const sales = this.sales.filter(
+      (sell) => sell.listing?.product?.account_id === account_id
+    )
+    return sales
+  }
+
   async getByIntegrationOrderId(id: string): Promise<Sell> {
     return this.sales.find((sell) => sell.integration_order_id === id)
   }

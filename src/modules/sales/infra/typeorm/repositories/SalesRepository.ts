@@ -50,6 +50,23 @@ export class SalesRepository implements ISalesRepository {
     return sales
   }
 
+  async getBySupplierId(account_id: string): Promise<Sell[]> {
+    const query = this.repository.createQueryBuilder('sales')
+
+    query.leftJoinAndSelect('sales.account', 'accounts')
+    query.leftJoinAndSelect('sales.listing', 'listings')
+    query.leftJoinAndSelect('listings.integration', 'integration')
+    query.leftJoinAndSelect('listings.product', 'product')
+
+    query.orderBy('sales.created_at', 'DESC')
+
+    query.where('product.account_id = :account_id', { account_id })
+
+    const sales = await query.paginate()
+
+    return sales
+  }
+
   async getByIntegrationOrderId(id: string): Promise<Sell> {
     const sell = await this.repository.findOne({
       where: {

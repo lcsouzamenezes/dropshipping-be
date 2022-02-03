@@ -6,19 +6,18 @@ import { GetProductService } from './GetProductService'
 
 class GetProductController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { account_id } = request.user
-
     const { id } = request.params
 
     const getProductService = container.resolve(GetProductService)
 
     const product = await getProductService.execute({
       product_id: id,
-      account_id,
       options: {
         relations: ['images'],
       },
     })
+
+    console.log(product)
 
     if (!product) {
       throw new AppError('Product not found', 'get_product:not_found', 404)

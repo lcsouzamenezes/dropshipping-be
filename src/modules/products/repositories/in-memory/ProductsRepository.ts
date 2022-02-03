@@ -72,10 +72,7 @@ class ProductsRepository implements IProductsRepository {
   }
 
   async findById(data: findByIdData): Promise<Product> {
-    const product = this.products.find(
-      (product) =>
-        product.id == data.id && product.account_id == data.account_id
-    )
+    const product = this.products.find((product) => product.id == data.id)
     return product
   }
 

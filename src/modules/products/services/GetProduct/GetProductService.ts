@@ -11,16 +11,13 @@ class GetProductService {
 
   async execute({
     product_id,
-    account_id,
     options,
   }: {
     product_id: string
-    account_id: string
     options?: any
   }): Promise<Product> {
     const product = await this.productsRepository.findById({
       id: product_id,
-      account_id,
       options,
     })
 

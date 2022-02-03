@@ -24,7 +24,6 @@ describe('GetProductService', () => {
     })
 
     const getProduct = await getProductService.execute({
-      account_id,
       product_id: product.id,
     })
 

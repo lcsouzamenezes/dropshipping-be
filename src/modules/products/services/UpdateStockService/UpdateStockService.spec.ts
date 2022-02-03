@@ -47,7 +47,6 @@ describe('UpdateStockService', () => {
 
     const updatedProduct = await productsRepository.findById({
       id: product.id,
-      account_id,
     })
 
     expect(updatedProduct.stock).toBe(2)

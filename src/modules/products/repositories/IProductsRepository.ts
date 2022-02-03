@@ -22,7 +22,6 @@ export interface findByIntegrationProductCodeData {
 
 export interface findByIdData {
   id: string
-  account_id: string
   options?: any
 }
 

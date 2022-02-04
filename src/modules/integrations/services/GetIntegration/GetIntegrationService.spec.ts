@@ -1,5 +1,4 @@
 import { IntegrationsRepository } from '@modules/integrations/repositories/in-memory/IntegrationsRepository'
-import { AppError } from '@shared/errors/AppError'
 import { GetIntegrationService } from './GetIntegrationService'
 
 let integrationsRepository: IntegrationsRepository

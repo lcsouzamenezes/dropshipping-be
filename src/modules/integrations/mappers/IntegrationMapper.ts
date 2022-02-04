@@ -11,6 +11,7 @@ class IntegrationMapper {
     expires_at,
     user_id,
     provider,
+    settings,
   }: Integration): IntegrationDTO {
     return {
       id,
@@ -21,6 +22,7 @@ class IntegrationMapper {
       user_id: user_id ? user_id : null,
       refresh_token: refresh_token ? refresh_token : null,
       provider,
+      settings: JSON.parse(settings),
     }
   }
 }

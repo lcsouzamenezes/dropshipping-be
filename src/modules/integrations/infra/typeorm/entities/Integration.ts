@@ -1,7 +1,6 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
 import { Listing } from '@modules/listings/infra/typeorm/entities/Listing'
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
-import { Sell } from '@modules/sales/infra/typeorm/entities/Sell'
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
 
@@ -46,6 +45,9 @@ class Integration extends BaseEntity {
     onUpdate: 'CASCADE',
   })
   products: Product[]
+
+  @Column()
+  settings: string
 }
 
 export { Integration }

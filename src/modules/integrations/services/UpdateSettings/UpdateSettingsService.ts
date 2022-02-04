@@ -4,7 +4,7 @@ import { AppError } from '@shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
 
 interface ISetting {
-  store_code: string
+  store_id: string
 }
 
 @injectable()
@@ -44,7 +44,4 @@ export class UpdateSettingsService {
 
     return updatedIntegration
   }
-}
-function Inject(arg0: string) {
-  throw new Error('Function not implemented.')
 }

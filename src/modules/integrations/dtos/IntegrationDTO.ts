@@ -7,6 +7,7 @@ interface IntegrationDTO {
   user_id: string | null
   expires_at: Date
   provider: string
+  settings: string
 }
 
 export { IntegrationDTO }

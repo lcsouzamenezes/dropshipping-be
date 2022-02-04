@@ -25,10 +25,10 @@ describe('UpdateSettings', () => {
       account_id,
       integration_id: integration.id,
       settings: {
-        store_code: '123456',
+        store_id: '123456',
       },
     })
 
-    expect(JSON.parse(updatedIntegration.settings)).toHaveProperty('store_code')
+    expect(JSON.parse(updatedIntegration.settings)).toHaveProperty('store_id')
   })
 })

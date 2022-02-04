@@ -17,6 +17,8 @@ class GetProductController {
       },
     })
 
+    console.log(product)
+
     if (!product) {
       throw new AppError('Product not found', 'get_product:not_found', 404)
     }

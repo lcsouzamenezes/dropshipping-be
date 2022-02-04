@@ -119,9 +119,9 @@ class ProductsRepository implements IProductsRepository {
     return products
   }
 
-  async findById({ id, options }: findByIdData): Promise<Product> {
+  async findById({ account_id, id, options }: findByIdData): Promise<Product> {
     const product = await this.repository.findOne({
-      where: [{ id }],
+      where: [{ account_id, id }],
       ...options,
     })
 

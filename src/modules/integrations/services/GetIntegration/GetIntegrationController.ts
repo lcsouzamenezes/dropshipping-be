@@ -5,9 +5,7 @@ import { GetIntegrationService } from './GetIntegrationService'
 class GetIntegrationController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.params
-    const { token } = request.headers
-    const account_id = token as string
-
+    const { account_id } = request.user
     const getIntegrationService = container.resolve(GetIntegrationService)
 
     const integration = await getIntegrationService.execute(id, account_id)

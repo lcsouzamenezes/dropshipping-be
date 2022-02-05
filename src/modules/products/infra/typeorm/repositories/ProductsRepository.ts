@@ -63,11 +63,10 @@ class ProductsRepository implements IProductsRepository {
               account_id: product.account_id,
               sku: product.sku,
             },
+            relations: ['images'],
           })
           if (productExist) {
-            if (update) {
-              product.id = productExist.id
-            } else {
+            if (!update) {
               errors.push({
                 message: `Product with SKU "${product.sku}" already exists`,
                 code: 'sku_already_exists',
@@ -75,7 +74,22 @@ class ProductsRepository implements IProductsRepository {
               return
             }
           }
-          await entityManager.save(product)
+          try {
+            if (update) {
+              Object.assign(product, {
+                id: productExist.id,
+              })
+              await entityManager.query(
+                `DELETE FROM product_images WHERE product_id = "${productExist.id}"`
+              )
+            }
+            await entityManager.save(product)
+          } catch (err) {
+            errors.push({
+              message: `Product ${product.name} importation failed`,
+              code: 'failed_to_import',
+            })
+          }
           savedProducts++
         })
       )

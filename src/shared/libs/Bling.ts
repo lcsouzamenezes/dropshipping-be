@@ -1,5 +1,4 @@
-import axios, { AxiosInstance, AxiosPromise, AxiosResponse } from 'axios'
-import { Readable, Stream } from 'stream'
+import axios, { AxiosInstance, AxiosPromise } from 'axios'
 
 interface GetProductsFilter {
   dataInclusao?: string //date (dd/mm/YYYY) ou datetime (dd/mm/YYYY H:i:s)
@@ -23,6 +22,13 @@ export interface GetProductsResponse {
       }>
       estoqueAtual: number
       gtin: string
+      produtoLoja?: {
+        idProdutoLoja: string
+        preco: {
+          preco: number
+          precoPromocional: number
+        }
+      }
     }
   }>
   erros?: [
@@ -74,9 +80,10 @@ class Bling {
   async getAllProducts(
     cb: (response: GetProductsResponse) => any,
     page = 1,
-    sleep = 500
+    sleep = 500,
+    loja?: string
   ) {
-    const response = await this.getProducts(page)
+    const response = await this.getProducts(page, 'S', loja)
     if (response.erros?.[0].erro.cod == 14) {
       // console.log('no more results, done.')
     } else {

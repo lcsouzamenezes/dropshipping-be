@@ -23,7 +23,12 @@ class ImportBlingProductsService {
   ) {}
 
   async execute(integration: Integration, update?: boolean) {
-    const { id: integration_id, access_token, account_id } = integration
+    const {
+      id: integration_id,
+      access_token,
+      account_id,
+      settings,
+    } = integration
     const blingApi = new Bling(access_token)
     const event = container.resolve(EventProvider)
 
@@ -33,6 +38,8 @@ class ImportBlingProductsService {
       newUpdates: 0,
       errors: [],
     }
+
+    const parsedSettings = JSON.parse(settings)
 
     await blingApi.getAllProducts(
       async (response) => {
@@ -49,11 +56,17 @@ class ImportBlingProductsService {
             return image
           })
 
+          let price = Math.trunc(item.preco * 100) ?? 0
+
+          if (item.produtoLoja?.preco?.preco) {
+            price = Math.trunc(item.produtoLoja?.preco.preco * 100) ?? 0
+          }
+
           Object.assign(mappedProduct, {
             integration_product_code: item.id,
             name: item.descricao,
             sku: item.codigo,
-            price: Math.trunc(item.preco * 100) ?? 0,
+            price,
             stock: item.estoqueAtual ?? 0,
             ean: item.gtin,
             account_id,
@@ -69,7 +82,8 @@ class ImportBlingProductsService {
         statistics.newUpdates += newProducts
       },
       1,
-      400
+      400,
+      parsedSettings.store_code
     )
 
     event.emit('blingProductsImportationEnded', {

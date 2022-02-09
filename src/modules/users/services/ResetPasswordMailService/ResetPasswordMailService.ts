@@ -8,7 +8,7 @@ import { IDateProvider } from '@shared/providers/DateProvider/IDateProvider'
 import { IMailProvider } from '@shared/providers/MailProvider/IMailProvider'
 
 @injectable()
-class ResetPasswordService {
+class ResetPasswordMailService {
   constructor(
     @inject('MailProvider') private mailProvider: IMailProvider,
     @inject('UserTokensRepository')
@@ -46,11 +46,11 @@ class ResetPasswordService {
           user: user,
           recoveryLink: redirectUrl
             ? redirectUrl
-            : `${process.env.CLIENT_HOST}/user/password-recovery?token=${token}&id=${user.id}`,
+            : `${process.env.CLIENT_HOST}/password-recovery?token=${token}&id=${user.id}`,
         },
       }
     )
   }
 }
 
-export { ResetPasswordService }
+export { ResetPasswordMailService }

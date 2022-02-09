@@ -11,8 +11,10 @@ import { Paginate } from '../middlewares/PaginateMiddleware'
 import createUserValidation from '@modules/users/validations/createUserValidation'
 import getUserValidation from '@modules/users/validations/getUserValidation'
 import updateUserValidation from '@modules/users/validations/updateUserValidation'
+import resetPasswordValidation from '@modules/users/validations/resetPasswordValidation'
 import { UpdateUserController } from '@modules/users/services/UpdateUserService/UpdateUserController'
 import { DeleteUserController } from '@modules/users/services/DeleteUserService/DeleteUserController'
+import { SendResetPasswordController } from '@modules/users/services/SentResetPassword/SendResetPasswordController'
 
 const usersRoutes = Router()
 
@@ -24,6 +26,7 @@ const getSelfInformationController = new GetSelfInformationController()
 const getSelfPermissionsController = new GetSelfPermissionsController()
 const getUserController = new GetUserController()
 const deleteUserController = new DeleteUserController()
+const sendResetPasswordController = new SendResetPasswordController()
 
 usersRoutes.get(
   '/',
@@ -47,6 +50,12 @@ usersRoutes.put(
   EnsureAuthenticated,
   updateUserValidation,
   updateUserController.handle
+)
+
+usersRoutes.post(
+  '/reset-password',
+  resetPasswordValidation,
+  sendResetPasswordController.handle
 )
 
 usersRoutes.post(

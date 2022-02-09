@@ -1,21 +1,17 @@
-/* import { Job } from '@shared/libs/Queue'
+import { Job } from '@shared/libs/Queue'
 import { container } from 'tsyringe'
-import { Account } from '../infra/typeorm/entities/Account'
-import { SendActivationMailService } from '../services/SendActivationEmailAccount/SendActivationMailService'
+import { User } from '../infra/typeorm/entities/User'
+import { ResetPasswordMailService } from '../services/ResetPasswordMailService/ResetPasswordMailService'
 
 export interface HandleData {
-  account: Account
+  user: User
   redirectUrl?: string
 }
 
 export default {
-  name: 'SendAccountActivationEmail',
+  name: 'SendResetPasswordEmail',
   async handle({ data }: { data: HandleData }) {
-    const sendAccountActivationEmail = container.resolve(
-      SendActivationMailService
-    )
-
-    await sendAccountActivationEmail.execute(data.account, data.redirectUrl)
+    const resetPasswordMailService = container.resolve(ResetPasswordMailService)
+    await resetPasswordMailService.execute(data.user, data.redirectUrl)
   },
 } as Job
- */

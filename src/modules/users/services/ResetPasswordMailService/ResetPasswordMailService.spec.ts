@@ -4,21 +4,21 @@ import { UserTokensRepository } from '@modules/users/repositories/in-memory/User
 import { FakeDateProvider } from '@shared/providers/DateProvider/fakes/FakeDateProvider'
 import { FakeMailProvider } from '@shared/providers/MailProvider/fakes/FakeMailProvider'
 import { FakeViewProvider } from '@shared/providers/ViewProvider/fakes/FakeViewProvider'
-import { ResetPasswordService } from './ResetPasswordService'
+import { ResetPasswordMailService } from './ResetPasswordMailService'
 
-let resetPasswordService: ResetPasswordService
+let resetPasswordService: ResetPasswordMailService
 let viewProvider: FakeViewProvider
 let mailProvider: FakeMailProvider
 let userTokensRepository: UserTokensRepository
 let dateProvider: FakeDateProvider
 
-describe('ResetPasswordService', () => {
+describe('ResetPasswordMailService', () => {
   beforeAll(() => {
     viewProvider = new FakeViewProvider()
     mailProvider = new FakeMailProvider(viewProvider)
     userTokensRepository = new UserTokensRepository()
     dateProvider = new FakeDateProvider()
-    resetPasswordService = new ResetPasswordService(
+    resetPasswordService = new ResetPasswordMailService(
       mailProvider,
       userTokensRepository,
       dateProvider

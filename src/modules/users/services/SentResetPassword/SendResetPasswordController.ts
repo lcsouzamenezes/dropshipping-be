@@ -1,15 +1,15 @@
-import { IUsersRepository } from '@modules/users/repositories/IUsersRepository'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
-import { GetUserService } from '../GetUser/GetUserService'
+import { SendResetPasswordService } from './SendResetPasswordService'
 
 class SendResetPasswordController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { email } = request.body
+    const { email, redirectUrl } = await request.body
 
-    //TODO: Send activation Email
+    const sendResetPasswordService = container.resolve(SendResetPasswordService)
+    await sendResetPasswordService.execute(email, redirectUrl)
 
-    return response.json()
+    return response.send()
   }
 }
 

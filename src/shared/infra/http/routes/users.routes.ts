@@ -15,6 +15,7 @@ import resetPasswordValidation from '@modules/users/validations/resetPasswordVal
 import { UpdateUserController } from '@modules/users/services/UpdateUserService/UpdateUserController'
 import { DeleteUserController } from '@modules/users/services/DeleteUserService/DeleteUserController'
 import { SendResetPasswordController } from '@modules/users/services/SentResetPassword/SendResetPasswordController'
+import { UpdateRecoveryPasswordController } from '@modules/users/services/UpdateRecoveryPassword/UpdateRecoveryPasswordController'
 
 const usersRoutes = Router()
 
@@ -27,6 +28,7 @@ const getSelfPermissionsController = new GetSelfPermissionsController()
 const getUserController = new GetUserController()
 const deleteUserController = new DeleteUserController()
 const sendResetPasswordController = new SendResetPasswordController()
+const updateRecoveryPasswordController = new UpdateRecoveryPasswordController()
 
 usersRoutes.get(
   '/',
@@ -56,6 +58,11 @@ usersRoutes.post(
   '/reset-password',
   resetPasswordValidation,
   sendResetPasswordController.handle
+)
+
+usersRoutes.post(
+  '/reset-password/update',
+  updateRecoveryPasswordController.handle
 )
 
 usersRoutes.post(

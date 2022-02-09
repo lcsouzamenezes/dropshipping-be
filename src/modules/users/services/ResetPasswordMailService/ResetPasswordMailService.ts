@@ -46,7 +46,7 @@ class ResetPasswordMailService {
           user: user,
           recoveryLink: redirectUrl
             ? redirectUrl
-            : `${process.env.CLIENT_HOST}/password-recovery?token=${token}&id=${user.id}`,
+            : `${process.env.CLIENT_HOST}/password/reset?token=${token}&id=${user.id}`,
         },
       }
     )

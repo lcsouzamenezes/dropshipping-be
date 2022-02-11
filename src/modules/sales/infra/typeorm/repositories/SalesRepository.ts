@@ -30,12 +30,6 @@ export class SalesRepository implements ISalesRepository {
   }
 
   async getByAccountId(account_id: string): Promise<Sell[]> {
-    // const sales = await this.repository.find({
-    //   where: {
-    //     account_id,
-    //   },
-    // })
-
     const query = this.repository.createQueryBuilder('sales')
 
     query.leftJoinAndSelect('sales.account', 'accounts')
@@ -45,6 +39,8 @@ export class SalesRepository implements ISalesRepository {
     query.leftJoinAndSelect('product.account', 'account')
 
     query.orderBy('sales.created_at', 'DESC')
+
+    query.where('account_id = :account_id', { account_id })
 
     const sales = await query.paginate()
 

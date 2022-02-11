@@ -106,6 +106,7 @@ class ProductsRepository implements IProductsRepository {
 
     query
       .where('account_id = :account_id', { account_id })
+      .andWhere('active = true')
       .orderBy('created_at', 'DESC')
       .orderBy('name', 'ASC')
       .orderBy('CASE WHEN stock > 0 THEN 1 ELSE 2 END', 'ASC')

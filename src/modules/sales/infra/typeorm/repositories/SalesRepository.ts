@@ -40,7 +40,11 @@ export class SalesRepository implements ISalesRepository {
 
     query.orderBy('sales.created_at', 'DESC')
 
+<<<<<<< HEAD
     query.where('sales.account_id = :account_id', { account_id })
+=======
+    query.where('account_id = :account_id', { account_id })
+>>>>>>> 150789199a95280526dbae52990374cf84e98add
 
     const sales = await query.paginate()
 

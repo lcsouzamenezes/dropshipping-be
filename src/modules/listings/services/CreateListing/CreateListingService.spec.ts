@@ -50,4 +50,33 @@ describe('CreateListingService', () => {
       })
       .catch((e) => expect(e.message).toBe('Integration not found'))
   })
+
+  it('should not be able to create a new listing with existing code', async () => {
+    const account_id = 'fewKi4BMy9gJPiL8fzPtyjvWZioseKpk'
+
+    const integration = await integrationsRepository.create(
+      {
+        access_token: 'u1A2aEUhw2YSpFS8ZqkMXieWn9z8icd7',
+        description: 'Integration',
+        provider: 'mercadolivre',
+      },
+      account_id
+    )
+
+    await createListingService.execute({
+      code: 'rOrZCv2H9eh8',
+      account_id,
+      integration_id: integration.id,
+      product_id: 'iOpq3Rkojv0w3InQvOMfhv9O0c5z6gKh',
+    })
+
+    await expect(
+      createListingService.execute({
+        code: 'rOrZCv2H9eh8',
+        account_id,
+        integration_id: integration.id,
+        product_id: 'QYMt1HOXoJC3xAEdOZu4lzprEQ3izctK',
+      })
+    ).rejects.toThrowError(/already exists/)
+  })
 })

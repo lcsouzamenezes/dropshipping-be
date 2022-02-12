@@ -35,6 +35,16 @@ class CreateListingService {
       )
     }
 
+    const codeExist = await this.listingsRepository.findByCode(code)
+
+    if (codeExist) {
+      throw new AppError(
+        'Listing already exists',
+        'create_listing:code_exists',
+        409
+      )
+    }
+
     const listings = await this.listingsRepository.create({
       account_id,
       code,

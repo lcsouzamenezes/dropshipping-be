@@ -45,7 +45,7 @@ export class UploadFilesService {
           await this.storageProvider.delete(oldFile, sale.STORAGE_PATH)
         }
       } catch (err) {
-        console.log(err)
+        console.error(err)
         throw new AppError(
           'Failed to save receipt',
           'upload_files:receipt_failed',

@@ -27,6 +27,16 @@ export class CreateSupplierAccountsAuthorization1644759348804
             type: 'boolean',
             default: 'false',
           },
+          {
+            name: 'created_at',
+            type: 'timestamp',
+            default: 'NOW()',
+          },
+          {
+            name: 'updated_at',
+            type: 'timestamp',
+            default: 'NOW()',
+          },
         ],
         foreignKeys: [
           {

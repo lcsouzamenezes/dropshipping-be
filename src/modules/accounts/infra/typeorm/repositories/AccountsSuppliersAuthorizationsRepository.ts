@@ -1,10 +1,10 @@
 import { ICreateSupplierAuthorizationDTO } from '@modules/accounts/dtos/ICreateSupplierAuthorizationDTO'
-import { IAccountsSuppliersAuthorizations } from '@modules/accounts/repositories/IAccountsSuppliersAuthorizations'
+import { IAccountsSuppliersAuthorizationsRepository } from '@modules/accounts/repositories/IAccountsSuppliersAuthorizationsRepository'
 import { getRepository, Repository } from 'typeorm'
 import { AccountSupplierAuthorization } from '../entities/AccountSupplierAuthorization'
 
-class AccountsSuppliersAuthorizations
-  implements IAccountsSuppliersAuthorizations
+class AccountsSuppliersAuthorizationsRepository
+  implements IAccountsSuppliersAuthorizationsRepository
 {
   private repository: Repository<AccountSupplierAuthorization>
 
@@ -40,6 +40,20 @@ class AccountsSuppliersAuthorizations
     })
     return await this.repository.save(accountSupplierAuthorization)
   }
+  async getByAccountIdAndSupplierId({
+    account_id,
+    supplier_id,
+  }: {
+    account_id: string
+    supplier_id: string
+  }): Promise<AccountSupplierAuthorization> {
+    return await this.repository.findOne({
+      where: {
+        account_id,
+        supplier_id,
+      },
+    })
+  }
 }
 
-export { AccountsSuppliersAuthorizations }
+export { AccountsSuppliersAuthorizationsRepository }

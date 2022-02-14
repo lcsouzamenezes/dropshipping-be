@@ -1,16 +1,17 @@
 import { AccountSupplierAuthorization } from '@modules/accounts/infra/typeorm/entities/AccountSupplierAuthorization'
 import { AccountsRepository } from '@modules/accounts/repositories/in-memory/AccountsRepository'
-import { AccountsSuppliersAuthorizations } from '@modules/accounts/repositories/in-memory/AccountsSuppliersAuthorizations'
+import { AccountsSuppliersAuthorizationsRepository } from '@modules/accounts/repositories/in-memory/AccountsSuppliersAuthorizations'
 import { RequestAutorizationService } from './RequestAutorizationService'
 
 let accountsRepository: AccountsRepository
-let accountsSuppliersAuthorizations: AccountsSuppliersAuthorizations
+let accountsSuppliersAuthorizations: AccountsSuppliersAuthorizationsRepository
 let requestAutorizationService: RequestAutorizationService
 
 describe('RequestAutorizationService', () => {
   beforeEach(() => {
     accountsRepository = new AccountsRepository()
-    accountsSuppliersAuthorizations = new AccountsSuppliersAuthorizations()
+    accountsSuppliersAuthorizations =
+      new AccountsSuppliersAuthorizationsRepository()
     requestAutorizationService = new RequestAutorizationService(
       accountsRepository,
       accountsSuppliersAuthorizations

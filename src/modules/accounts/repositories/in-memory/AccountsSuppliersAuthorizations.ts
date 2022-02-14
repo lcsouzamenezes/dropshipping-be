@@ -1,9 +1,9 @@
 import { ICreateSupplierAuthorizationDTO } from '@modules/accounts/dtos/ICreateSupplierAuthorizationDTO'
 import { AccountSupplierAuthorization } from '@modules/accounts/infra/typeorm/entities/AccountSupplierAuthorization'
-import { IAccountsSuppliersAuthorizations } from '../IAccountsSuppliersAuthorizations'
+import { IAccountsSuppliersAuthorizationsRepository } from '../IAccountsSuppliersAuthorizationsRepository'
 
-class AccountsSuppliersAuthorizations
-  implements IAccountsSuppliersAuthorizations
+class AccountsSuppliersAuthorizationsRepository
+  implements IAccountsSuppliersAuthorizationsRepository
 {
   private authorizations: AccountSupplierAuthorization[]
 
@@ -16,12 +16,12 @@ class AccountsSuppliersAuthorizations
   }
   async getByAccountId(id: string): Promise<AccountSupplierAuthorization[]> {
     return this.authorizations.filter(
-      (authorization) => authorization.account_id !== id
+      (authorization) => authorization.account_id === id
     )
   }
   async getBySupplierId(id: string): Promise<AccountSupplierAuthorization[]> {
     return this.authorizations.filter(
-      (authorization) => authorization.supplier_id !== id
+      (authorization) => authorization.supplier_id === id
     )
   }
 
@@ -38,6 +38,17 @@ class AccountsSuppliersAuthorizations
     this.authorizations.push(supplierAuthorization)
     return supplierAuthorization
   }
+
+  async getByAccountIdAndSupplierId(data: {
+    account_id: string
+    supplier_id: string
+  }): Promise<AccountSupplierAuthorization> {
+    return this.authorizations.find(
+      (authorization) =>
+        authorization.supplier_id === data.supplier_id &&
+        authorization.account_id === data.account_id
+    )
+  }
 }
 
-export { AccountsSuppliersAuthorizations }
+export { AccountsSuppliersAuthorizationsRepository }

@@ -5,7 +5,7 @@ import { RequestAutorizationService } from './RequestAutorizationService'
 class RequestAutorizationController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { account_id } = request.user
-    const { supplier_id } = request.body
+    const { id: supplier_id } = request.params
 
     const requestAutorizationService = container.resolve(
       RequestAutorizationService

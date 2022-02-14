@@ -1,6 +1,6 @@
 import { AccountSupplierAuthorization } from '@modules/accounts/infra/typeorm/entities/AccountSupplierAuthorization'
 import { IAccountsRepository } from '@modules/accounts/repositories/IAccountsRepository'
-import { IAccountsSuppliersAuthorizations } from '@modules/accounts/repositories/IAccountsSuppliersAuthorizations'
+import { IAccountsSuppliersAuthorizationsRepository } from '@modules/accounts/repositories/IAccountsSuppliersAuthorizationsRepository'
 import { AppError } from '@shared/errors/AppError'
 import { EventProvider } from '@shared/providers/EventProvider/EventProvider'
 import { container, inject, injectable } from 'tsyringe'
@@ -10,8 +10,8 @@ class RequestAutorizationService {
   constructor(
     @inject('AccountsRepository')
     private accountsRepository: IAccountsRepository,
-    @inject('AccountsSuppliersAuthorizations')
-    private accountsSuppliersAuthorizations: IAccountsSuppliersAuthorizations
+    @inject('AccountsSuppliersAuthorizationsRepository')
+    private accountsSuppliersAuthorizationsRepository: IAccountsSuppliersAuthorizationsRepository
   ) {}
 
   async execute(
@@ -54,11 +54,28 @@ class RequestAutorizationService {
       )
     }
 
-    const authorization = await this.accountsSuppliersAuthorizations.create({
-      account_id: account.id,
-      supplier_id: supplier.id,
-      authorized: false,
-    })
+    const authorizationExists =
+      await this.accountsSuppliersAuthorizationsRepository.getByAccountIdAndSupplierId(
+        {
+          account_id,
+          supplier_id,
+        }
+      )
+
+    if (authorizationExists) {
+      throw new AppError(
+        'Authorization already requested',
+        'request_authorization:authorization_already_requested',
+        400
+      )
+    }
+
+    const authorization =
+      await this.accountsSuppliersAuthorizationsRepository.create({
+        account_id: account.id,
+        supplier_id: supplier.id,
+        authorized: false,
+      })
 
     events.emit('supplier-authorization-requested', { authorization })
 

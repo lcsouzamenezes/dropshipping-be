@@ -58,6 +58,15 @@ class UsersRepository implements IUsersRepository {
   async delete(user_id: string): Promise<void> {
     await this.repository.delete(user_id)
   }
+
+  async getOldest(account_id: string): Promise<User> {
+    return await this.repository.findOne(
+      { account_id },
+      {
+        order: { created_at: 'ASC' },
+      }
+    )
+  }
 }
 
 export { UsersRepository }

@@ -4,3 +4,4 @@ export { default as UpdateMercadoLivreListingsStock } from '@modules/products/jo
 export { default as ProcessMercadolivreNotification } from '@modules/integrations/jobs/ProcessMercadolivreNotificationJob'
 export { default as CreateBlingSale } from '@modules/sales/jobs/CreateBlingSaleJob'
 export { default as SendResetPasswordEmail } from '@modules/users/job/SendResetPasswordMailJob'
+export { default as SendNewAuthorizationRequestEmail } from '@modules/accounts/jobs/SendNewAuthorizationRequestEmailJob'

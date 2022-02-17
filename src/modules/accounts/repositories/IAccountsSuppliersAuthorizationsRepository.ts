@@ -12,6 +12,10 @@ interface IAccountsSuppliersAuthorizationsRepository {
     account_id: string
     supplier_id: string
   }): Promise<AccountSupplierAuthorization>
+  updateAuthorized(
+    authorization_id: string,
+    authorized: boolean
+  ): Promise<AccountSupplierAuthorization>
 }
 
 export { IAccountsSuppliersAuthorizationsRepository }

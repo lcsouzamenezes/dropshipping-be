@@ -14,6 +14,7 @@ interface IUsersRepository {
   getAll(account_id: string, options?: { relations: string[] }): Promise<User[]>
   update(user: User): Promise<User>
   delete(user_id: string): Promise<void>
+  getOldest(account_id: string): Promise<User>
 }
 
 export { IUsersRepository }

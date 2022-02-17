@@ -54,6 +54,17 @@ class AccountsSuppliersAuthorizationsRepository
       },
     })
   }
+  async updateAuthorized(
+    authorization_id: string,
+    authorized: boolean
+  ): Promise<AccountSupplierAuthorization> {
+    const authorization = await this.repository.findOne({
+      id: authorization_id,
+    })
+    authorization.authorized = authorized
+    await this.repository.save(authorization)
+    return authorization
+  }
 }
 
 export { AccountsSuppliersAuthorizationsRepository }

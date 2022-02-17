@@ -77,7 +77,11 @@ class RequestAutorizationService {
         authorized: false,
       })
 
-    events.emit('supplier-authorization-requested', { authorization })
+    events.emit('supplier-authorization-requested', {
+      authorization,
+      requester: account,
+      supplier,
+    })
 
     return authorization
   }

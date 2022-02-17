@@ -58,5 +58,9 @@ class UsersRepository implements IUsersRepository {
   async delete(user_id: string): Promise<void> {
     this.users = this.users.filter((user) => user.id !== user_id)
   }
+
+  async getOldest(account_id: string): Promise<User> {
+    return this.users.find((user) => user.account_id === account_id)
+  }
 }
 export { UsersRepository }

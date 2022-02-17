@@ -49,6 +49,16 @@ class AccountsSuppliersAuthorizationsRepository
         authorization.account_id === data.account_id
     )
   }
+  async updateAuthorized(
+    authorization_id: string,
+    authorized: boolean
+  ): Promise<AccountSupplierAuthorization> {
+    const authorizationIndex = this.authorizations.findIndex(
+      (authorization) => authorization.id === authorization_id
+    )
+    this.authorizations[authorizationIndex].authorized = authorized
+    return this.authorizations[authorizationIndex]
+  }
 }
 
 export { AccountsSuppliersAuthorizationsRepository }

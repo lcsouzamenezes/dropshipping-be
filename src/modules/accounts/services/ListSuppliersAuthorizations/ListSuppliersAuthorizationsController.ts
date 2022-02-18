@@ -1,3 +1,4 @@
+import { AuthorizationRequestMapper } from '@modules/accounts/mappers/AuthorizationRequestMapper'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 import { ListSuppliersAuthorizationsService } from './ListSuppliersAuthorizationsService'
@@ -6,7 +7,6 @@ class ListSuppliersAuthorizationsController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { account_id } = request.user
 
-    console.log(account_id)
     const listSuppliersAuthorizationsService = container.resolve(
       ListSuppliersAuthorizationsService
     )
@@ -15,7 +15,11 @@ class ListSuppliersAuthorizationsController {
       account_id
     )
 
-    return response.json(requests)
+    const requestsDTO = requests.map((request) =>
+      AuthorizationRequestMapper.toDTO(request)
+    )
+
+    return response.json(requestsDTO)
   }
 }
 

@@ -17,10 +17,21 @@ class AccountsSuppliersAuthorizationsRepository
     return accountSupplierAuthorization
   }
   async getByAccountId(id: string): Promise<AccountSupplierAuthorization[]> {
-    const accountSupplierAuthorization = await this.repository.find({
-      account_id: id,
-    })
-    return accountSupplierAuthorization
+    const queryBuilder = this.repository.createQueryBuilder(
+      'account_suppliers_authorization'
+    )
+
+    queryBuilder.leftJoinAndSelect(
+      'account_suppliers_authorization.supplier',
+      'supplier'
+    )
+    queryBuilder.leftJoinAndSelect(
+      'account_suppliers_authorization.account',
+      'account'
+    )
+    queryBuilder.where('account_id = :id', { id })
+
+    return await queryBuilder.getMany()
   }
   async getBySupplierId(id: string): Promise<AccountSupplierAuthorization[]> {
     const accountSupplierAuthorization = await this.repository.find({

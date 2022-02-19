@@ -1,5 +1,7 @@
 import { ICreateSupplierAuthorizationDTO } from '@modules/accounts/dtos/ICreateSupplierAuthorizationDTO'
 import { IAccountsSuppliersAuthorizationsRepository } from '@modules/accounts/repositories/IAccountsSuppliersAuthorizationsRepository'
+import { User } from '@modules/users/infra/typeorm/entities/User'
+import { query } from 'express-validator'
 import { getRepository, Repository } from 'typeorm'
 import { AccountSupplierAuthorization } from '../entities/AccountSupplierAuthorization'
 
@@ -17,36 +19,31 @@ class AccountsSuppliersAuthorizationsRepository
     return accountSupplierAuthorization
   }
   async getByAccountId(id: string): Promise<AccountSupplierAuthorization[]> {
-    const queryBuilder = this.repository.createQueryBuilder(
-      'account_suppliers_authorization'
-    )
+    const queryBuilder = this.repository.createQueryBuilder('authorization')
 
-    queryBuilder.leftJoinAndSelect(
-      'account_suppliers_authorization.supplier',
-      'supplier'
-    )
-    queryBuilder.leftJoinAndSelect(
-      'account_suppliers_authorization.account',
-      'account'
-    )
-    queryBuilder.where('account_id = :id', { id })
+    queryBuilder.leftJoinAndSelect('authorization.supplier', 'supplier')
+    queryBuilder.leftJoinAndSelect('authorization.account', 'account')
+
+    queryBuilder.leftJoinAndSelect('account.user', 'user')
+
+    queryBuilder.where('authorization.account_id = :id', { id })
+
+    queryBuilder.orderBy('user.created_at', 'ASC')
 
     return await queryBuilder.getMany()
   }
   async getBySupplierId(id: string): Promise<AccountSupplierAuthorization[]> {
-    const queryBuilder = this.repository.createQueryBuilder(
-      'account_suppliers_authorization'
-    )
+    const queryBuilder = this.repository.createQueryBuilder('authorization')
 
-    queryBuilder.leftJoinAndSelect(
-      'account_suppliers_authorization.supplier',
-      'supplier'
-    )
-    queryBuilder.leftJoinAndSelect(
-      'account_suppliers_authorization.account',
-      'account'
-    )
+    queryBuilder.leftJoinAndSelect('authorization.supplier', 'supplier')
+
+    queryBuilder.leftJoinAndSelect('authorization.account', 'account')
+
+    queryBuilder.leftJoinAndSelect('account.user', 'user')
+
     queryBuilder.where('supplier_id = :id', { id })
+
+    queryBuilder.orderBy('user.created_at', 'ASC')
 
     return await queryBuilder.getMany()
   }

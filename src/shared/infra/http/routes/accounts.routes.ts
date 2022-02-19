@@ -3,6 +3,7 @@ import { ListAccountsController } from '@modules/accounts/services/ListAccounts/
 import { Router } from 'express'
 import { createAccountValidation } from '@modules/accounts/validations/createAccountValidation'
 import { UpdateAuthorizationRequestController } from '@modules/accounts/services/UpdateAuthorizationRequest/UpdateAuthorizationRequestController'
+import { EnsureAuthenticated } from '../middlewares/EnsureAuthenticated'
 
 const accountsRoutes = Router()
 
@@ -17,6 +18,13 @@ accountsRoutes.post(
   createAccountValidation,
   createAccountController.handle
 )
+
+accountsRoutes.patch(
+  '/:id/request/update-authorization',
+  EnsureAuthenticated,
+  updateAuthorizationRequestController.handle
+)
+
 accountsRoutes.patch('/authorize', updateAuthorizationRequestController.handle)
 
 export { accountsRoutes }

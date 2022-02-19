@@ -1,6 +1,14 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
+import { Address } from '@modules/addresses/infra/typeorm/entities/Address'
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+} from 'typeorm'
 
 @Entity('profiles')
 export class Profile extends BaseEntity {
@@ -39,6 +47,9 @@ export class Profile extends BaseEntity {
 
   @Column()
   account_id: string
+
+  @OneToMany(() => Address, (address) => address.profile)
+  address: Address
 
   @OneToOne(() => Account, (account) => account.profile)
   @JoinColumn({ name: 'account_id' })

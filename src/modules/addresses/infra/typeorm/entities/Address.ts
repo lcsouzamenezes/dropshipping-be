@@ -50,6 +50,10 @@ export class Address extends BaseEntity {
   @JoinColumn({ name: 'account_id' })
   account?: Account
 
+  @ManyToOne(() => Profile, (profile) => profile.address)
+  @JoinColumn({ name: 'addressable_id' })
+  profile: Profile
+
   @Column()
   addressable_id: string
 

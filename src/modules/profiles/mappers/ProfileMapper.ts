@@ -1,7 +1,11 @@
+import { Address } from '@modules/addresses/infra/typeorm/entities/Address'
+import { AddressMapper } from '@modules/addresses/mappers/AddressMapper'
 import { Profile } from '../infra/typeorm/entities/Profile'
 
 export interface ProfileDTO
-  extends Omit<Profile, 'account_id' | 'is_main' | 'account'> {}
+  extends Omit<Profile, 'account_id' | 'is_main' | 'account' | 'address'> {
+  address?: Address
+}
 
 class ProfileMapper {
   static toDTO(profile: Profile): ProfileDTO {
@@ -15,6 +19,7 @@ class ProfileMapper {
       is_company,
       created_at,
       updated_at,
+      address,
     } = profile
     const profileDTO: ProfileDTO = {
       id,
@@ -26,6 +31,10 @@ class ProfileMapper {
       is_company,
       created_at,
       updated_at,
+    }
+
+    if (address) {
+      Object.assign(profileDTO, { address: AddressMapper.toDTO(address) })
     }
 
     return profileDTO

@@ -23,7 +23,13 @@ class AccountsSuppliersAuthorizationsRepository
 
     queryBuilder.leftJoinAndSelect('authorization.supplier', 'supplier')
     queryBuilder.leftJoinAndSelect('authorization.account', 'account')
-
+    queryBuilder.leftJoinAndSelect('account.profile', 'profile')
+    queryBuilder.leftJoinAndMapOne(
+      'profile.address',
+      'profile.address',
+      'address',
+      'address.is_main = TRUE'
+    )
     queryBuilder.leftJoinAndSelect('account.user', 'user')
 
     queryBuilder.where('authorization.account_id = :id', { id })
@@ -36,9 +42,14 @@ class AccountsSuppliersAuthorizationsRepository
     const queryBuilder = this.repository.createQueryBuilder('authorization')
 
     queryBuilder.leftJoinAndSelect('authorization.supplier', 'supplier')
-
     queryBuilder.leftJoinAndSelect('authorization.account', 'account')
-
+    queryBuilder.leftJoinAndSelect('account.profile', 'profile')
+    queryBuilder.leftJoinAndMapOne(
+      'profile.address',
+      'profile.address',
+      'address',
+      'address.is_main = TRUE'
+    )
     queryBuilder.leftJoinAndSelect('account.user', 'user')
 
     queryBuilder.where('supplier_id = :id', { id })

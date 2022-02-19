@@ -49,8 +49,8 @@ class Account extends BaseEntity {
   @OneToMany(() => Sell, (sell) => sell.account)
   sales: Sell[]
 
-  @OneToMany(() => Profile, (profile) => profile.account)
-  profiles: Profile[]
+  @OneToOne(() => Profile, (profile) => profile.account)
+  profile: Profile
 
   @OneToMany(() => Address, (address) => address.account)
   addresses?: Address[]

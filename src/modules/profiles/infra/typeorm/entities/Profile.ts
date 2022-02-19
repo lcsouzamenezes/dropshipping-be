@@ -1,6 +1,6 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from 'typeorm'
 
 @Entity('profiles')
 export class Profile extends BaseEntity {
@@ -40,7 +40,7 @@ export class Profile extends BaseEntity {
   @Column()
   account_id: string
 
-  @ManyToOne(() => Account, (account) => account.profiles)
+  @OneToOne(() => Account, (account) => account.profile)
   @JoinColumn({ name: 'account_id' })
   account: Account
 }

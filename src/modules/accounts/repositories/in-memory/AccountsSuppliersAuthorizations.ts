@@ -24,6 +24,14 @@ class AccountsSuppliersAuthorizationsRepository
       (authorization) => authorization.supplier_id === id
     )
   }
+  async getAuthorizedByAccountId(
+    id: string
+  ): Promise<AccountSupplierAuthorization[]> {
+    return this.authorizations.filter(
+      (authorization) =>
+        authorization.supplier_id === id && authorization.authorized
+    )
+  }
 
   async create(
     data: ICreateSupplierAuthorizationDTO

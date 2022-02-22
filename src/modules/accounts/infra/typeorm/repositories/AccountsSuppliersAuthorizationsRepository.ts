@@ -18,6 +18,29 @@ class AccountsSuppliersAuthorizationsRepository
     const accountSupplierAuthorization = await this.repository.findOne(id)
     return accountSupplierAuthorization
   }
+  async getAuthorizedByAccountId(
+    id: string
+  ): Promise<AccountSupplierAuthorization[]> {
+    const queryBuilder = this.repository.createQueryBuilder('authorization')
+
+    queryBuilder.leftJoinAndSelect('authorization.supplier', 'supplier')
+    queryBuilder.leftJoinAndSelect('authorization.account', 'account')
+    queryBuilder.leftJoinAndSelect('account.profile', 'profile')
+    queryBuilder.leftJoinAndMapOne(
+      'profile.address',
+      'profile.address',
+      'address',
+      'address.is_main = TRUE'
+    )
+    queryBuilder.leftJoinAndSelect('account.user', 'user')
+
+    queryBuilder.where('authorization.account_id = :id', { id })
+    queryBuilder.where('authorization.authorized = TRUE')
+
+    queryBuilder.orderBy('user.created_at', 'ASC')
+
+    return await queryBuilder.getMany()
+  }
   async getByAccountId(id: string): Promise<AccountSupplierAuthorization[]> {
     const queryBuilder = this.repository.createQueryBuilder('authorization')
 

@@ -1,16 +1,21 @@
 import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
+import { AccountsSuppliersAuthorizationsRepository } from '@modules/accounts/repositories/in-memory/AccountsSuppliersAuthorizations'
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
 import { ProductsRepository } from '@modules/products/repositories/in-memory/ProductsRepository'
 import { ListSuppliersProductsService } from './ListSuppliersProductsService'
 
+let accountsSuppliersAuthorizationsRepository: AccountsSuppliersAuthorizationsRepository
 let productsRepository: ProductsRepository
 let listSuppliersProductsService: ListSuppliersProductsService
 
 describe('ListSuppliersProductsService', () => {
   beforeEach(() => {
+    accountsSuppliersAuthorizationsRepository =
+      new AccountsSuppliersAuthorizationsRepository()
     productsRepository = new ProductsRepository()
     listSuppliersProductsService = new ListSuppliersProductsService(
-      productsRepository
+      productsRepository,
+      accountsSuppliersAuthorizationsRepository
     )
   })
 
@@ -21,6 +26,13 @@ describe('ListSuppliersProductsService', () => {
       type: 'supplier',
       active: true,
     })
+
+    await accountsSuppliersAuthorizationsRepository.create({
+      account_id: account.id,
+      authorized: true,
+      supplier_id: account.id,
+    })
+
     const product = new Product()
     Object.assign(product, {
       name: 'Teste product',

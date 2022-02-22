@@ -42,6 +42,7 @@ interface IProductsRepository {
     search?: string
     supplier?: string
     images?: boolean
+    authorizedSuppliers?: Array<string>
   }): Promise<Product[]>
 }
 

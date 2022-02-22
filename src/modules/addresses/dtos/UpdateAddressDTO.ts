@@ -1,3 +1,4 @@
+import { Profile } from '@modules/profiles/infra/typeorm/entities/Profile'
 import { Addressable } from '../infra/typeorm/entities/Address'
 
 export interface UpdateAddressDTO {
@@ -26,4 +27,6 @@ export interface UpdateAddressDTO {
   addressable_id: string
 
   addressable_type: Addressable['addressable_type']
+
+  profile: Profile
 }

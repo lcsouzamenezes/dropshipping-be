@@ -75,7 +75,7 @@ class ProductsRepository implements IProductsRepository {
             }
           }
           try {
-            if (update) {
+            if (update && productExist) {
               Object.assign(product, {
                 id: productExist.id,
               })

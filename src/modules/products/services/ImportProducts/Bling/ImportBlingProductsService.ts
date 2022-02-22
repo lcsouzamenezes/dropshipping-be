@@ -83,7 +83,7 @@ class ImportBlingProductsService {
       },
       1,
       400,
-      parsedSettings.store_code
+      parsedSettings?.store_code
     )
 
     event.emit('blingProductsImportationEnded', {

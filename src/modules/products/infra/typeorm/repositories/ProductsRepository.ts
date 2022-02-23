@@ -75,7 +75,7 @@ class ProductsRepository implements IProductsRepository {
             }
           }
           try {
-            if (update) {
+            if (update && productExist) {
               Object.assign(product, {
                 id: productExist.id,
               })
@@ -146,6 +146,7 @@ class ProductsRepository implements IProductsRepository {
   async getAllFromSuppliers({
     search,
     supplier,
+    authorizedSuppliers,
     images = true,
   }): Promise<Product[]> {
     const query = this.repository.createQueryBuilder('products')
@@ -172,6 +173,12 @@ class ProductsRepository implements IProductsRepository {
 
     if (supplier) {
       query.andWhere('accounts.id = :supplier', { supplier })
+    }
+
+    if (authorizedSuppliers) {
+      query.andWhere('products.account_id IN (:...authorizedSuppliers)', {
+        authorizedSuppliers,
+      })
     }
 
     query.orderBy('products.created_at', 'DESC')

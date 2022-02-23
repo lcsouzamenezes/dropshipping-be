@@ -3,6 +3,7 @@ import { AccountSupplierAuthorization } from '../infra/typeorm/entities/AccountS
 
 interface IAccountsSuppliersAuthorizationsRepository {
   getById(id: string): Promise<AccountSupplierAuthorization>
+  getAuthorizedByAccountId(id: string): Promise<AccountSupplierAuthorization[]>
   getByAccountId(id: string): Promise<AccountSupplierAuthorization[]>
   getBySupplierId(id: string): Promise<AccountSupplierAuthorization[]>
   create(

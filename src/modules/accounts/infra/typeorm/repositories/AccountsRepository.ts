@@ -35,13 +35,25 @@ class AccountsRepository implements IAccountsRepository {
   async listAvailableSuppliersByAccountId(
     account_id: string
   ): Promise<Account[]> {
-    const accounts = await this.repostiory.find({
-      where: {
-        id: Not(account_id),
-        type: 'supplier',
-        active: true,
-      },
+    const query = this.repostiory.createQueryBuilder('accounts')
+
+    query.leftJoinAndMapOne(
+      'accounts.address',
+      'accounts.addresses',
+      'address',
+      'address.is_main = TRUE'
+    )
+
+    query.where({
+      id: Not(account_id),
+      type: 'supplier',
+      active: true,
     })
+
+    console.log(query.getSql())
+
+    const accounts = await query.getMany()
+
     return accounts
   }
 }

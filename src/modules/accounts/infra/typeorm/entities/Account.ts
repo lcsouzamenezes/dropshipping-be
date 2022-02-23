@@ -3,6 +3,7 @@ import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
 import {
   Column,
   Entity,
+  JoinColumn,
   JoinTable,
   ManyToMany,
   OneToMany,
@@ -59,7 +60,6 @@ class Account extends BaseEntity {
     () => AccountSupplierAuthorization,
     (accountSupplierAuthorization) => accountSupplierAuthorization.account
   )
-  @JoinTable()
   authorized_suppliers: AccountSupplierAuthorization[]
 
   @ManyToMany(

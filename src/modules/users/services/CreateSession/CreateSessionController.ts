@@ -1,7 +1,5 @@
-import { IUsersRepository } from '@modules/users/repositories/IUsersRepository'
-import { AppError } from '@shared/errors/AppError'
 import { Request, Response } from 'express'
-import { container, inject, injectable } from 'tsyringe'
+import { container } from 'tsyringe'
 import { CreateSessionService } from './CreateSessionService'
 
 interface IRequest {

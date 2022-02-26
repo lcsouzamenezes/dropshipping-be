@@ -56,6 +56,10 @@ class ImportBlingProductsService {
             return image
           })
 
+          if (images) {
+            images.reverse()
+          }
+
           let price = Math.trunc(item.preco * 100) ?? 0
 
           if (item.produtoLoja?.preco?.preco) {

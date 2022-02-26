@@ -31,6 +31,7 @@ describe('UpdateProfileService', () => {
       state: 'CA',
       number: '213',
       zip: 1233221,
+      mobile_number: 12333321,
     })
 
     expect(data).toHaveProperty('profile')

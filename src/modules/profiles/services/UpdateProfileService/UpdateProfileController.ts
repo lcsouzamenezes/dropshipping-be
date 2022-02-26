@@ -22,6 +22,7 @@ export class UpdateProfileController {
       address_2,
       city_subscription_number,
       nickname,
+      mobile_number,
     } = request.body
 
     const updateProfileService = container.resolve(UpdateProfileService)
@@ -41,6 +42,7 @@ export class UpdateProfileController {
       address,
       number,
       address_2,
+      mobile_number,
       identifier: 'Profile',
     })
 

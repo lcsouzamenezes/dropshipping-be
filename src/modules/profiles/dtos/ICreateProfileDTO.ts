@@ -14,4 +14,6 @@ export interface ICreateProfileDTO {
   is_main?: boolean
 
   account_id: string
+
+  mobile_number: number
 }

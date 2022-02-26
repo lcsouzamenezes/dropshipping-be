@@ -20,6 +20,8 @@ class ProfileMapper {
       created_at,
       updated_at,
       address,
+      mobile_number,
+      image,
     } = profile
     const profileDTO: ProfileDTO = {
       id,
@@ -29,6 +31,8 @@ class ProfileMapper {
       city_subscription_number,
       state_subscription_number,
       is_company,
+      mobile_number,
+      image,
       created_at,
       updated_at,
     }

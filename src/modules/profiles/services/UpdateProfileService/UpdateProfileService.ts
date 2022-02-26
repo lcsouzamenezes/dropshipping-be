@@ -5,6 +5,7 @@ import { ICreateProfileDTO } from '@modules/profiles/dtos/ICreateProfileDTO'
 import { Profile } from '@modules/profiles/infra/typeorm/entities/Profile'
 import { IProfilesRepository } from '@modules/profiles/repositories/IProfilesRepository'
 import { inject, injectable } from 'tsyringe'
+import StringJs from 'string'
 
 interface UpdateServiceProfileData
   extends ICreateProfileDTO,
@@ -40,6 +41,7 @@ export class UpdateProfileService {
     state,
     zip,
     nickname,
+    mobile_number,
   }: UpdateServiceProfileData): Promise<{
     profile: Profile
     address: Address
@@ -57,7 +59,7 @@ export class UpdateProfileService {
         document_number,
         is_company,
         is_main: true,
-        name,
+        name: StringJs(name).capitalize().s,
         city_subscription_number:
           is_company && city_subscription_number
             ? city_subscription_number
@@ -67,6 +69,7 @@ export class UpdateProfileService {
             ? state_subscription_number
             : null,
         nickname,
+        mobile_number,
       } as Profile)
       profile = await this.profilesRepository.update(findProfile)
     } else {
@@ -74,7 +77,7 @@ export class UpdateProfileService {
         document_number,
         is_company,
         is_main: true,
-        name,
+        name: StringJs(name).capitalize().s,
         city_subscription_number:
           is_company && city_subscription_number
             ? city_subscription_number
@@ -85,6 +88,7 @@ export class UpdateProfileService {
             : null,
         nickname,
         account_id,
+        mobile_number,
       })
     }
 

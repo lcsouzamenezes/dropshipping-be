@@ -54,4 +54,10 @@ export class Profile extends BaseEntity {
   @OneToOne(() => Account, (account) => account.profile)
   @JoinColumn({ name: 'account_id' })
   account: Account
+
+  @Column()
+  mobile_number: number
+
+  @Column()
+  image: string
 }

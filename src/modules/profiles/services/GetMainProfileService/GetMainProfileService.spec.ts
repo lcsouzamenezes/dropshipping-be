@@ -27,6 +27,7 @@ describe('GetMainProfileService', () => {
       city_subscription_number: 12321321,
       state_subscription_number: 213213213,
       is_main: true,
+      mobile_number: 415512221122,
     })
 
     profilesRepository.save({
@@ -36,6 +37,7 @@ describe('GetMainProfileService', () => {
       is_company: true,
       city_subscription_number: 12321321,
       state_subscription_number: 213213213,
+      mobile_number: 415512221122,
     })
 
     const data = await getMainProfileService.execute(account_id)

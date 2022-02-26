@@ -8,9 +8,7 @@ export const updateProfileValidation = [
     .not()
     .isEmpty()
     .withMessage('Name is required')
-    .not()
-    .isUppercase()
-    .withMessage('Name can not be in Uppercase'),
+    .not(),
   body('nickname')
     .trim()
     .escape()
@@ -84,6 +82,12 @@ export const updateProfileValidation = [
     .not()
     .isEmpty()
     .withMessage('Number is required'),
+  body('mobile_number')
+    .trim()
+    .escape()
+    .not()
+    .isEmpty()
+    .withMessage('Mobile number is required'),
 
   (request: Request, response: Response, next: NextFunction) => {
     const errors = validationResult(request)

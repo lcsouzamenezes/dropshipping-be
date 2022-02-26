@@ -107,9 +107,9 @@ class ProductsRepository implements IProductsRepository {
     query
       .where('account_id = :account_id', { account_id })
       .andWhere('active = true')
-      .orderBy('created_at', 'DESC')
       .orderBy('name', 'ASC')
-      .orderBy('CASE WHEN stock > 0 THEN 1 ELSE 2 END', 'ASC')
+      .addOrderBy('stock', 'DESC')
+    // .addOrderBy('CASE WHEN stock > 0 THEN 1 ELSE 2 END', 'ASC')
 
     const products = await query.paginate()
     return products
@@ -150,6 +150,8 @@ class ProductsRepository implements IProductsRepository {
     images = true,
   }): Promise<Product[]> {
     const query = this.repository.createQueryBuilder('products')
+
+    query.where('products.active = TRUE')
 
     query.innerJoinAndSelect(
       'products.account',

@@ -35,7 +35,7 @@ class AccountsSuppliersAuthorizationsRepository
     queryBuilder.leftJoinAndSelect('account.user', 'user')
 
     queryBuilder.where('authorization.account_id = :id', { id })
-    queryBuilder.where('authorization.authorized = TRUE')
+    queryBuilder.andWhere('authorization.authorized = TRUE')
 
     queryBuilder.orderBy('user.created_at', 'ASC')
 

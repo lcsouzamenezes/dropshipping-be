@@ -181,8 +181,8 @@ class ProductsRepository implements IProductsRepository {
       })
     }
 
-    query.orderBy('products.created_at', 'DESC')
-    query.orderBy('products.name', 'ASC')
+    query.orderBy('products.stock', 'DESC')
+    query.addOrderBy('products.name', 'ASC')
 
     const products = await query.paginate()
     return products

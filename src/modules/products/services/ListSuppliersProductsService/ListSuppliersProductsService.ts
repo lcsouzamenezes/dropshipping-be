@@ -29,6 +29,8 @@ class ListSuppliersProductsService {
       )
     ).map((supplier) => supplier.supplier_id)
 
+    console.log(authorizedSuppliers)
+
     if (!authorizedSuppliers.length) {
       return []
     }

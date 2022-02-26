@@ -50,8 +50,6 @@ class AccountsRepository implements IAccountsRepository {
       active: true,
     })
 
-    console.log(query.getSql())
-
     const accounts = await query.getMany()
 
     return accounts

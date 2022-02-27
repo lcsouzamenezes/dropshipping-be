@@ -190,7 +190,7 @@ class ProductsRepository implements IProductsRepository {
 
     query.orderBy('products.stock', 'DESC')
     query.addOrderBy('products.name', 'ASC')
-    query.addOrderBy('products.order', 'ASC')
+    query.addOrderBy('images.order', 'ASC')
 
     const products = await query.paginate()
     return products

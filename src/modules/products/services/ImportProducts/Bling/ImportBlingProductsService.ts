@@ -60,7 +60,7 @@ class ImportBlingProductsService {
           let price = Math.trunc(item.preco * 100) ?? 0
 
           if (item.produtoLoja?.preco?.preco) {
-            price = Math.trunc(item.produtoLoja?.preco.preco * 100) ?? 0
+            price = Math.trunc(item.produtoLoja.preco.preco * 100) ?? 0
           }
 
           Object.assign(mappedProduct, {
@@ -83,8 +83,8 @@ class ImportBlingProductsService {
         statistics.newUpdates += newProducts
       },
       1,
-      400,
-      parsedSettings?.store_id
+      parsedSettings?.store_id,
+      400
     )
 
     event.emit('blingProductsImportationEnded', {

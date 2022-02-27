@@ -80,8 +80,8 @@ class Bling {
   async getAllProducts(
     cb: (response: GetProductsResponse) => any,
     page = 1,
-    sleep = 500,
-    loja?: string
+    loja?: string,
+    sleep = 500
   ) {
     const response = await this.getProducts(page, 'S', loja)
     if (response.erros?.[0].erro.cod == 14) {
@@ -92,7 +92,7 @@ class Bling {
       return await new Promise(async (resolve) => {
         // console.log(`Fetching page ${page}...`)
         setTimeout(async () => {
-          resolve(await this.getAllProducts(cb, page))
+          resolve(await this.getAllProducts(cb, page, loja))
         }, sleep)
       })
     }

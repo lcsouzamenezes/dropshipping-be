@@ -104,11 +104,11 @@ class ProductsRepository implements IProductsRepository {
   ): Promise<Product[]> {
     const query = this.repository.createQueryBuilder('products')
 
-    query
-      .where('account_id = :account_id', { account_id })
-      .andWhere('active = true')
-      .orderBy('name', 'ASC')
-      .addOrderBy('stock', 'DESC')
+    query.where('account_id = :account_id', { account_id })
+    query.andWhere('active = true')
+    query.addOrderBy('name', 'ASC')
+    query.addOrderBy('stock', 'DESC')
+
     // .addOrderBy('CASE WHEN stock > 0 THEN 1 ELSE 2 END', 'ASC')
 
     const products = await query.paginate()
@@ -132,7 +132,6 @@ class ProductsRepository implements IProductsRepository {
     query.addOrderBy('stock', 'DESC')
 
     // .addOrderBy('CASE WHEN stock > 0 THEN 1 ELSE 2 END', 'ASC')
-    console.log(query.getSql())
     const products = await query.paginate()
     return products
   }

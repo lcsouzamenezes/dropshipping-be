@@ -118,18 +118,21 @@ class ProductsRepository implements IProductsRepository {
     { search, account_id }: { search: string; account_id: string },
     options?: { relations?: [] }
   ): Promise<Product[]> {
-    const query = this.repository
-      .createQueryBuilder('products')
-      .where('account_id = :account_id', { account_id })
-      .where((qb) => {
-        qb.where('name LIKE :search', { search: `%${search}%` })
+    const searchQuery = search.split(' ').join('%')
+    const query = this.repository.createQueryBuilder('products')
+    query.where('account_id = :account_id', { account_id })
+    query.andWhere(
+      new Brackets((qb) => {
+        qb.where('name LIKE :search', { search: `%${searchQuery}%` })
         qb.orWhere('sku LIKE :search', { search: `%${search}%` })
         qb.orWhere('ean LIKE :search', { search: `%${search}%` })
       })
-      .orderBy('created_at', 'DESC')
-      .orderBy('name', 'ASC')
-      .orderBy('CASE WHEN stock > 0 THEN 1 ELSE 2 END', 'ASC')
+    )
+    query.addOrderBy('name', 'ASC')
+    query.addOrderBy('stock', 'DESC')
 
+    // .addOrderBy('CASE WHEN stock > 0 THEN 1 ELSE 2 END', 'ASC')
+    console.log(query.getSql())
     const products = await query.paginate()
     return products
   }
@@ -166,11 +169,13 @@ class ProductsRepository implements IProductsRepository {
 
     if (search) {
       const searchQuery = search.split(' ').join('%')
-      query.andWhere((qb) => {
-        qb.where('products.name LIKE :search', { search: `%${searchQuery}%` })
-        qb.orWhere('products.sku = :sku', { sku: search })
-        qb.orWhere('products.ean = :ean', { ean: search })
-      })
+      query.andWhere(
+        new Brackets((qb) => {
+          qb.where('products.name LIKE :search', { search: `%${searchQuery}%` })
+          qb.orWhere('products.sku = :sku', { sku: search })
+          qb.orWhere('products.ean = :ean', { ean: search })
+        })
+      )
     }
 
     if (supplier) {

@@ -47,18 +47,15 @@ class ImportBlingProductsService {
         const mappedProducts = products.map(({ produto: item }) => {
           const mappedProduct = new Product()
 
-          const images = item.imagem?.map((imagem) => {
+          const images = item.imagem?.map((imagem, index) => {
             const image = new ProductImage()
             Object.assign(image, {
               url: imagem.link,
               is_external: true,
+              order: index + 1,
             } as ProductImage)
             return image
           })
-
-          if (images) {
-            images.reverse()
-          }
 
           let price = Math.trunc(item.preco * 100) ?? 0
 
@@ -87,7 +84,7 @@ class ImportBlingProductsService {
       },
       1,
       400,
-      parsedSettings?.store_code
+      parsedSettings?.store_id
     )
 
     event.emit('blingProductsImportationEnded', {

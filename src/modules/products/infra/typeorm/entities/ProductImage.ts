@@ -21,6 +21,9 @@ class ProductImage extends BaseEntity {
   })
   @JoinColumn({ name: 'product_id' })
   product: Product
+
+  @Column()
+  order: number
 }
 
 export { ProductImage }

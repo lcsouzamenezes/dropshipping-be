@@ -12,6 +12,7 @@
     "seed:generate": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli migration:create -c seed -n",
     "seed:revert": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli migration:revert -c seed",
     "seed:run": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli migration:run -c seed",
+    "migration:run": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli migration:run",
     "dev": "npm-run-all -p dev:*",
     "dev:server": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --respawn ./src/shared/infra/http/server.ts",
     "dev:queue": "NODE_ENV=dev ts-node-dev -r tsconfig-paths/register --transpile-only --respawn ./src/shared/infra/http/queue.ts",

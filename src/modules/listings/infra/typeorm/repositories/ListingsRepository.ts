@@ -1,12 +1,15 @@
 import { IListingsRepository } from '@modules/listings/repositories/IListingsRepository'
+import { ProductsRepository } from '@modules/products/infra/typeorm/repositories/ProductsRepository'
 import { getRepository, Repository } from 'typeorm'
 import { Listing } from '../entities/Listing'
 
 class ListingsRepository implements IListingsRepository {
   private repository: Repository<Listing>
+  private productsRepository: ProductsRepository
 
   constructor() {
     this.repository = getRepository(Listing)
+    this.productsRepository = new ProductsRepository()
   }
 
   async getAll(account_id: string): Promise<Listing[]> {
@@ -16,7 +19,7 @@ class ListingsRepository implements IListingsRepository {
 
     query.innerJoinAndSelect('listings.account', 'accounts')
 
-    query.innerJoinAndSelect('listings.product', 'products')
+    query.innerJoinAndSelect('listings.products', 'products')
 
     query.leftJoinAndSelect('products.images', 'images')
 
@@ -32,13 +35,19 @@ class ListingsRepository implements IListingsRepository {
     integration_id: string
     active: boolean
     account_id: string
-    product_id: string
+    products_id: string[]
     parent_code?: string
   }): Promise<Listing> {
-    const listing = this.repository.create()
+    let listing = this.repository.create()
 
     Object.assign(listing, { ...data })
 
+    listing = await this.repository.save(listing)
+    const products = await this.productsRepository.findByIds({
+      ids: data.products_id,
+    })
+
+    listing.products = products
     await this.repository.save(listing)
 
     return listing

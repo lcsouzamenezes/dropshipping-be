@@ -49,7 +49,7 @@ class CreateListingService {
       account_id,
       code,
       integration_id,
-      product_id,
+      products_id: [product_id],
       active,
       parent_code,
     })

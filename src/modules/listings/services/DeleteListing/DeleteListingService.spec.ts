@@ -18,7 +18,7 @@ describe('DeleteListingService', () => {
       active: true,
       code: 'ojtXl2IQnN58',
       integration_id: '1GEVow1i6azY4eEQNQeUXVTHeBWAEoQS',
-      product_id: 'CcSrK8buwISwFDZpS0MciSPzZ2WJYloW',
+      products_id: ['CcSrK8buwISwFDZpS0MciSPzZ2WJYloW'],
     })
 
     await deleteListingService.execute(listing.id, account_id)

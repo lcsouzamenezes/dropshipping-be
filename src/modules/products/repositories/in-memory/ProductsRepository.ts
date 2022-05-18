@@ -7,6 +7,7 @@ import {
   IProductsRepository,
   SaveManyResponse,
 } from '../IProductsRepository'
+import { findByIdsData } from './../IProductsRepository'
 
 class ProductsRepository implements IProductsRepository {
   private products: Product[] = []
@@ -73,6 +74,13 @@ class ProductsRepository implements IProductsRepository {
 
   async findById(data: findByIdData): Promise<Product> {
     const product = this.products.find((product) => product.id == data.id)
+    return product
+  }
+
+  async findByIds(data: findByIdsData): Promise<Product[]> {
+    const product = this.products.filter((product) =>
+      data.ids.includes(product.id)
+    )
     return product
   }
 

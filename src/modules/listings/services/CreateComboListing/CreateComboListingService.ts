@@ -24,12 +24,18 @@ class CreateComboListingService {
     active = true,
     parent_code = null,
   }: ICreateComboLisgingDTO) {
-    console.log({ code, integration_id, products_id })
-
     const integration = await this.integrationsRepository.findById(
       integration_id,
       account_id
     )
+
+    if (!integration) {
+      throw new AppError(
+        'Integration not found',
+        'get_integration.not_found',
+        404
+      )
+    }
 
     const codeExist = await this.listingsRepository.findByCode(code)
 

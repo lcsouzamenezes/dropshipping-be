@@ -1,9 +1,9 @@
-import { ISalesRepository } from '../ISalesRepository'
-import { ICreateSellDTO } from '@modules/sales/dtos/ICreateSellDTO'
-import { Sell } from '@modules/sales/infra/typeorm/entities/Sell'
 import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { Product } from '@modules/products/infra/typeorm/entities/Product'
+import { ICreateSellDTO } from '@modules/sales/dtos/ICreateSellDTO'
 import { IUpdateSellDTO } from '@modules/sales/dtos/IUpdateSellDTO'
+import { Sell } from '@modules/sales/infra/typeorm/entities/Sell'
+import { ISalesRepository } from '../ISalesRepository'
 
 export class SalesRepository implements ISalesRepository {
   private sales: Sell[] = []
@@ -26,7 +26,10 @@ export class SalesRepository implements ISalesRepository {
 
   async getBySupplierId(account_id: string): Promise<Sell[]> {
     const sales = this.sales.filter(
-      (sell) => sell.listing?.product?.account_id === account_id
+      (sell) =>
+        !!sell.listing?.products?.filter(
+          (product) => product.account_id === account_id
+        ).length
     )
     return sales
   }
@@ -41,12 +44,12 @@ export class SalesRepository implements ISalesRepository {
 
   async getSupplierIntegration(id: string): Promise<Integration> {
     const sell = this.sales.find((sell) => sell.id === id)
-    const integration = sell.listing.product.integration
+    const integration = sell.listing.products[0].integration
     return integration
   }
   async getSellProduct(id: string): Promise<Product> {
     const sell = this.sales.find((sell) => sell.id === id)
-    const product = sell.listing.product
+    const product = sell.listing.products[0]
     return product
   }
 

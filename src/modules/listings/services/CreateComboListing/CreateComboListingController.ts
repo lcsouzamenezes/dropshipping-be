@@ -10,12 +10,18 @@ interface IRequestBody {
 
 class CreateComboListingController {
   async handle(request: Request, response: Response): Promise<Response> {
+    const { account_id } = request.user
     const { code, integration_id, products } = request.body as IRequestBody
     const createComboListingService = container.resolve(
       CreateComboListingService
     )
-    await createComboListingService.execute({ code, integration_id, products })
-    return response.json({ ok: true })
+    const listing = await createComboListingService.execute({
+      code,
+      integration_id,
+      products_id: products,
+      account_id,
+    })
+    return response.json(listing)
   }
 }
 

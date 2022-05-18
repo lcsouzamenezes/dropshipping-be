@@ -6,8 +6,9 @@ import {
   IProductsRepository,
   SaveManyResponse,
 } from '@modules/products/repositories/IProductsRepository'
-import { Brackets, getRepository, QueryResult, Repository } from 'typeorm'
+import { Brackets, getRepository, In, Repository } from 'typeorm'
 import { Product } from '../entities/Product'
+import { findByIdsData } from './../../../repositories/IProductsRepository'
 
 class ProductsRepository implements IProductsRepository {
   private repository: Repository<Product>
@@ -143,6 +144,17 @@ class ProductsRepository implements IProductsRepository {
     })
 
     return product
+  }
+
+  async findByIds({ ids, options }: findByIdsData): Promise<Product[]> {
+    const products = await this.repository.find({
+      where: {
+        id: In(ids),
+      },
+      ...options,
+    })
+
+    return products
   }
 
   async getAllFromSuppliers({

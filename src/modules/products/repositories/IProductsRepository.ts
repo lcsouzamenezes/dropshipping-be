@@ -24,6 +24,10 @@ export interface findByIdData {
   id: string
   options?: any
 }
+export interface findByIdsData {
+  ids: string[]
+  options?: any
+}
 
 interface IProductsRepository {
   save(data: ICreateProductDTO): Promise<Product>
@@ -38,6 +42,7 @@ interface IProductsRepository {
     data: findByIntegrationProductCodeData
   ): Promise<Product>
   findById(data: findByIdData): Promise<Product>
+  findByIds(data: findByIdsData): Promise<Product[]>
   getAllFromSuppliers(data: {
     search?: string
     supplier?: string

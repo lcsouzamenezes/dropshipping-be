@@ -1,5 +1,4 @@
 import { AccountDTO } from '@modules/accounts/dtos/AccountDTO'
-import { IntegrationDTO } from '@modules/integrations/dtos/IntegrationDTO'
 import { productDTO } from '@modules/products/dtos/ProductDTO'
 
 interface ListingDTO {
@@ -14,7 +13,7 @@ interface ListingDTO {
     provider: string
   }
   account: AccountDTO
-  product: productDTO
+  products: productDTO[]
 
   created_at: Date
   updated_at: Date

@@ -2,7 +2,15 @@ import { Account } from '@modules/accounts/infra/typeorm/entities/Account'
 import { Integration } from '@modules/integrations/infra/typeorm/entities/Integration'
 import { Listing } from '@modules/listings/infra/typeorm/entities/Listing'
 import { BaseEntity } from '@shared/infra/typeorm/entities/BaseEntity'
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm'
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm'
 import { ProductImage } from './ProductImage'
 
 @Entity('products')
@@ -54,7 +62,12 @@ class Product extends BaseEntity {
   @JoinColumn({ name: 'account_id' })
   account?: Account
 
-  @OneToMany(() => Listing, (listing) => listing.product)
+  @ManyToMany((type) => Listing)
+  @JoinTable({
+    name: 'listings_products',
+    joinColumn: { name: 'product_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'listing_id', referencedColumnName: 'id' },
+  })
   listings?: Listing[]
 
   @Column({

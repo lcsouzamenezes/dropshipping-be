@@ -1,12 +1,11 @@
 import { AccountsMapper } from '@modules/accounts/mappers/AccountsMapper'
-import { IntegrationMapper } from '@modules/integrations/mappers/IntegrationMapper'
 import { ProductsMapper } from '@modules/products/mappers/ProductsMapper'
 import { ListingDTO } from '../dtos/ListingDTO'
 import { Listing } from '../infra/typeorm/entities/Listing'
 
 class ListingsMapper {
   static toDTO({
-    product,
+    products,
     account,
     integration,
     ...rest
@@ -20,8 +19,10 @@ class ListingsMapper {
       updated_at: rest.updated_at,
     } as ListingDTO
 
-    if (product) {
-      listing.product = ProductsMapper.toDTO(product)
+    if (products) {
+      listing.products = products.map((product) =>
+        ProductsMapper.toDTO(product)
+      )
     }
 
     if (account) {

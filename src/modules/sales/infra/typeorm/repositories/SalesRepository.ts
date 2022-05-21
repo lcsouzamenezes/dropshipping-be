@@ -36,7 +36,7 @@ export class SalesRepository implements ISalesRepository {
     query.leftJoinAndSelect('sales.listing', 'listings')
     query.leftJoinAndSelect('listings.integration', 'integration')
     query.leftJoinAndSelect('listings.product', 'product')
-    query.leftJoinAndSelect('product.account', 'account')
+    query.leftJoinAndSelect('products.account', 'account')
 
     query.orderBy('sales.created_at', 'DESC')
 
@@ -53,12 +53,12 @@ export class SalesRepository implements ISalesRepository {
     query.leftJoinAndSelect('sales.account', 'accounts')
     query.leftJoinAndSelect('sales.listing', 'listings')
     query.leftJoinAndSelect('listings.integration', 'integration')
-    query.leftJoinAndSelect('listings.product', 'product')
-    query.leftJoinAndSelect('product.account', 'account')
+    query.leftJoinAndSelect('listings.products', 'products')
+    query.leftJoinAndSelect('products.account', 'account')
 
     query.orderBy('sales.created_at', 'DESC')
 
-    query.where('product.account_id = :account_id', { account_id })
+    query.where('products.account_id = :account_id', { account_id })
 
     const sales = await query.paginate()
 
@@ -83,22 +83,22 @@ export class SalesRepository implements ISalesRepository {
     const query = this.repository.createQueryBuilder('sales')
 
     query.leftJoinAndSelect('sales.listing', 'listing')
-    query.leftJoinAndSelect('listing.product', 'product')
-    query.leftJoinAndSelect('product.integration', 'integration')
+    query.leftJoinAndSelect('listing.products', 'products')
+    query.leftJoinAndSelect('products.integration', 'integration')
 
     const sell = await query.getOne()
 
-    return sell.listing.product.integration
+    return sell.listing.products[0].integration
   }
 
   async getSellProduct(id: string): Promise<Product> {
     const query = this.repository.createQueryBuilder('sales')
 
     query.leftJoinAndSelect('sales.listing', 'listing')
-    query.leftJoinAndSelect('listing.product', 'product')
+    query.leftJoinAndSelect('listing.products', 'products')
 
     const sell = await query.getOne()
-    return sell.listing.product
+    return sell.listing.products[0]
   }
 
   async update(data: IUpdateSellDTO): Promise<Sell> {

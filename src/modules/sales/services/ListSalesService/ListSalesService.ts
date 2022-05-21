@@ -1,9 +1,9 @@
+import { IAccountsRepository } from '@modules/accounts/repositories/IAccountsRepository'
+import { Sell } from '@modules/sales/infra/typeorm/entities/Sell'
 import { SalesMapper } from '@modules/sales/mappers/SalesMapper'
 import { ISalesRepository } from '@modules/sales/repositories/ISalesRepository'
-import { IAccountsRepository } from '@modules/accounts/repositories/IAccountsRepository'
-import { inject, injectable } from 'tsyringe'
 import { AppError } from '@shared/errors/AppError'
-import { Sell } from '@modules/sales/infra/typeorm/entities/Sell'
+import { inject, injectable } from 'tsyringe'
 
 @injectable()
 export class ListSalesService {

@@ -11,11 +11,11 @@ class IntegrationsRepository implements IIntegrationsRepository {
     return mercadoLivreAccount
   }
 
-  async findByUserId(user_id: string): Promise<Integration> {
-    const integration = this.integrations.find(
+  async findByUserId(user_id: string): Promise<Integration[]> {
+    const integrations = this.integrations.filter(
       (integration) => integration.user_id === user_id
     )
-    return integration
+    return integrations
   }
 
   async findByUserIdAndAccountId(

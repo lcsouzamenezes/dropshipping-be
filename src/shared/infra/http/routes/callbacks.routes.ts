@@ -1,6 +1,6 @@
 import { UpdateStockController } from '@modules/products/services/UpdateStockService/UpdateStockController'
 import Queue from '@shared/libs/Queue'
-import { Router, Request, Response } from 'express'
+import { Request, Response, Router } from 'express'
 
 const updateStockController = new UpdateStockController()
 

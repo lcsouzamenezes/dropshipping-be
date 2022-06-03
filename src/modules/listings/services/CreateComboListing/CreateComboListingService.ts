@@ -1,27 +1,29 @@
 import { IIntegrationsRepository } from '@modules/integrations/repositories/IIntegrationsRepository'
-import { ICreateLisgingDTO } from '@modules/listings/dtos/ICreateListingDTO'
-import { Listing } from '@modules/listings/infra/typeorm/entities/Listing'
+import { ICreateComboLisgingDTO } from '@modules/listings/dtos/ICreateComboListingDTO'
 import { IListingsRepository } from '@modules/listings/repositories/IListingsRepository'
+import { IProductsRepository } from '@modules/products/repositories/IProductsRepository'
 import { AppError } from '@shared/errors/AppError'
 import { inject, injectable } from 'tsyringe'
 
 @injectable()
-class CreateListingService {
+class CreateComboListingService {
   constructor(
     @inject('IntegrationsRepository')
     private integrationsRepository: IIntegrationsRepository,
     @inject('ListingsRepository')
-    private listingsRepository: IListingsRepository
+    private listingsRepository: IListingsRepository,
+    @inject('ProductsRepository')
+    private productsRepository: IProductsRepository
   ) {}
 
   async execute({
-    integration_id,
     account_id,
     code,
-    product_id,
+    integration_id,
+    products_id,
     active = true,
     parent_code = null,
-  }: ICreateLisgingDTO): Promise<Listing> {
+  }: ICreateComboLisgingDTO) {
     const integration = await this.integrationsRepository.findById(
       integration_id,
       account_id
@@ -49,7 +51,7 @@ class CreateListingService {
       account_id,
       code,
       integration_id,
-      products_id: [product_id],
+      products_id,
       active,
       parent_code,
     })
@@ -58,4 +60,4 @@ class CreateListingService {
   }
 }
 
-export { CreateListingService }
+export { CreateComboListingService }

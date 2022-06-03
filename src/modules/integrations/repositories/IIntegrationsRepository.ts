@@ -20,7 +20,7 @@ export interface IUpdate {
 
 interface IIntegrationsRepository {
   create(data: ICreate, account_id: string): Promise<Integration>
-  findByUserId(user_id: string): Promise<Integration>
+  findByUserId(user_id: string): Promise<Integration[]>
   findByUserIdAndAccountId(
     user_id: string,
     account_id: string

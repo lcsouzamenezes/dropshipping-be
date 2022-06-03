@@ -37,10 +37,10 @@ export default {
         const salesRepository =
           container.resolve<ISalesRepository>('SalesRepository')
 
-        const integration = await integrationsRepository.findByUserId(
+        const integrations = await integrationsRepository.findByUserId(
           String(notification.user_id)
         )
-        if (integration) {
+        for (const integration of integrations) {
           const mercadolivreApi = await MercadolivreAPI(integration)
 
           const { data } = await mercadolivreApi.get<OrderResource>(

@@ -7,9 +7,10 @@ import {
   Column,
   Entity,
   JoinColumn,
+  JoinTable,
+  ManyToMany,
   ManyToOne,
   OneToMany,
-  OneToOne,
 } from 'typeorm'
 
 @Entity('listings')
@@ -35,14 +36,15 @@ class Listing extends BaseEntity {
   integration_id: string
 
   @Column()
-  product_id: string
-
-  @Column()
   active: boolean
 
-  @ManyToOne(() => Product, (product) => product.listings)
-  @JoinColumn({ name: 'product_id' })
-  product: Product
+  @ManyToMany((type) => Product)
+  @JoinTable({
+    name: 'listings_products',
+    joinColumn: { name: 'listing_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'product_id', referencedColumnName: 'id' },
+  })
+  products: Product[]
 
   @OneToMany(() => Sell, (sell) => sell.listing)
   sales: Sell[]

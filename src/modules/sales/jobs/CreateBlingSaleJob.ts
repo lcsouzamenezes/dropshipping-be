@@ -1,11 +1,11 @@
 import { IAccountsRepository } from '@modules/accounts/repositories/IAccountsRepository'
 import { Job } from '@shared/libs/Queue'
+import { blingApi } from '@shared/services/BlingApi'
+import qs from 'qs'
 import { container } from 'tsyringe'
+import xmlbuilder from 'xmlbuilder'
 import { Sell } from '../infra/typeorm/entities/Sell'
 import { ISalesRepository } from '../repositories/ISalesRepository'
-import { blingApi } from '@shared/services/BlingApi'
-import xmlbuilder from 'xmlbuilder'
-import qs from 'qs'
 
 export interface HandleData {
   data: {
@@ -59,7 +59,7 @@ export default {
       },
     })
 
-    //delete temporaly
+    //delete temporarily
     // await salesRepository.delete(sell.id)
   },
 } as Job

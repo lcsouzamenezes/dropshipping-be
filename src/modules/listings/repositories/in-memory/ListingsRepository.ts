@@ -16,7 +16,8 @@ class ListingsRepository implements IListingsRepository {
     integration_id: string
     active: boolean
     account_id: string
-    product_id: string
+    products_id: string[]
+    parent_code?: string
   }): Promise<Listing> {
     const listing = new Listing()
     Object.assign(listing, { ...data })
@@ -43,7 +44,11 @@ class ListingsRepository implements IListingsRepository {
   }
 
   async getByProductId(id: string, account_id: string): Promise<Listing[]> {
-    return this.listings.filter((listing) => listing.product_id == id)
+    return this.listings.filter((listing) =>
+      listing.products.find(
+        (product) => product.id === id && product.account_id === account_id
+      )
+    )
   }
 }
 

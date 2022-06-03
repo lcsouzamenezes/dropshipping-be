@@ -1,7 +1,6 @@
 import {
   ICreate,
   IIntegrationsRepository,
-  IUpdate,
 } from '@modules/integrations/repositories/IIntegrationsRepository'
 import { getRepository, Repository } from 'typeorm'
 import { Integration } from '../entities/Integration'
@@ -21,14 +20,14 @@ class IntegrationsRepository implements IIntegrationsRepository {
     return integration
   }
 
-  async findByUserId(user_id: string): Promise<Integration> {
-    const integration = await this.repository.findOne({
+  async findByUserId(user_id: string): Promise<Integration[]> {
+    const integrations = await this.repository.find({
       where: {
         user_id,
       },
     })
 
-    return integration
+    return integrations
   }
 
   async findByUserIdAndAccountId(

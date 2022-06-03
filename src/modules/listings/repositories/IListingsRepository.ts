@@ -8,7 +8,7 @@ interface IListingsRepository {
     integration_id: string
     active: boolean
     account_id: string
-    product_id: string
+    products_id: string[]
     parent_code?: string
   }): Promise<Listing>
 

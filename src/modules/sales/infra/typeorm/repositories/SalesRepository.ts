@@ -3,7 +3,7 @@ import { Product } from '@modules/products/infra/typeorm/entities/Product'
 import { ICreateSellDTO } from '@modules/sales/dtos/ICreateSellDTO'
 import { IUpdateSellDTO } from '@modules/sales/dtos/IUpdateSellDTO'
 import { ISalesRepository } from '@modules/sales/repositories/ISalesRepository'
-import { getRepository, Repository } from 'typeorm'
+import { Between, getRepository, Repository } from 'typeorm'
 import { Sell } from '../entities/Sell'
 
 export class SalesRepository implements ISalesRepository {
@@ -99,6 +99,27 @@ export class SalesRepository implements ISalesRepository {
 
     const sell = await query.getOne()
     return sell.listing.products[0]
+  }
+
+  async getCurrentMonthSales(account_id: string): Promise<Sell[]> {
+    const startDate = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      1
+    )
+    const endDate = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth() + 1,
+      0
+    )
+    const sales = await this.repository.find({
+      where: {
+        account_id,
+        created_at: Between(startDate, endDate),
+      },
+    })
+
+    return sales
   }
 
   async update(data: IUpdateSellDTO): Promise<Sell> {

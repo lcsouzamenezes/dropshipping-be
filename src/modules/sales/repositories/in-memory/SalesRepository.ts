@@ -58,4 +58,14 @@ export class SalesRepository implements ISalesRepository {
     Object.assign(this.sales[index], { ...data })
     return this.sales[index]
   }
+
+  async getCurrentMonthSales(account_id: string): Promise<Sell[]> {
+    const sales = this.sales.filter(
+      (sell) =>
+        sell.account_id === account_id &&
+        new Date(sell.created_at).getMonth() === new Date().getMonth() &&
+        new Date(sell.created_at).getFullYear() === new Date().getFullYear()
+    )
+    return sales
+  }
 }

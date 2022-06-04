@@ -21,5 +21,7 @@ export interface ISalesRepository {
 
   getSellProduct(id: string): Promise<Product>
 
+  getCurrentMonthSales(account_id: string): Promise<Sell[]>
+
   update(data: IUpdateSellDTO): Promise<Sell>
 }

@@ -34,8 +34,8 @@ describe('ListSalesMetricsService', () => {
       listing_id: '12a3',
     })
 
-    const sales = await listSalesMetricsService.execute(account.id)
+    const { salesCount } = await listSalesMetricsService.execute(account.id)
 
-    expect(sales).toHaveLength(2)
+    expect(salesCount).toBe(2)
   })
 })
